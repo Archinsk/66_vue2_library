@@ -15,6 +15,21 @@ const routes = [
     name: "inputView",
     component: () => import("../views/InputView.vue"),
   },
+  {
+    path: "/select",
+    name: "selectView",
+    component: () => import("../views/SelectView.vue"),
+  },
+  {
+    path: "/checkbox",
+    name: "checkboxView",
+    component: () => import("../views/CheckboxView.vue"),
+  },
+  {
+    path: "/textarea",
+    name: "textareaView",
+    component: () => import("../views/TextareaView.vue"),
+  },
 ];
 
 const router = new VueRouter({

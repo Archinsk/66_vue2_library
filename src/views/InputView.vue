@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h2>Классический инпут</h2>
+    <h2>Классический Input</h2>
     <h3>Типы инпутов</h3>
     <input type="button" />
     <input type="checkbox" />

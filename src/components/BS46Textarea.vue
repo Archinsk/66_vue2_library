@@ -1,79 +1,47 @@
 <template>
-  <vb-form-group
+  <FormGroup
     :width-group="widthGroup"
     :responsive="responsive"
     :horizontal="horizontal"
   >
-    <label :for="id" :class="labelClass"
+    <label v-if="!withoutLabel" :for="id" :class="labelClass"
       >{{ label }} <span v-if="required" class="text-danger">*</span></label
     >
-    <template v-if="focusable">
-      <div v-if="horizontal" :class="fieldClass">
-        <input
-          :type="type"
-          class="form-control"
-          :id="idFull"
-          :value="value"
-          :required="required"
-          :readonly="readonly"
-          :disabled="disabled"
-          v-model="inputValue"
-          @input="$emit('input', inputValue)"
-          @focus="$emit('focus')"
-        />
-      </div>
-      <input
-        v-else
-        :type="type"
+    <div v-if="horizontal" :class="fieldClass">
+      <textarea
         class="form-control"
         :id="idFull"
-        :value="value"
         :required="required"
         :readonly="readonly"
         :disabled="disabled"
         v-model="inputValue"
         @input="$emit('input', inputValue)"
-        @focus="$emit('focus')"
+        rows="10"
+        maxlength="75"
       />
-    </template>
-    <template v-else>
-      <div v-if="horizontal" :class="fieldClass">
-        <input
-          :type="type"
-          class="form-control"
-          :id="idFull"
-          :value="value"
-          :required="required"
-          :readonly="readonly"
-          :disabled="disabled"
-          v-model="inputValue"
-          @input="$emit('input', inputValue)"
-        />
-      </div>
-      <input
-        v-else
-        :type="type"
-        class="form-control"
-        :id="idFull"
-        :value="value"
-        :required="required"
-        :readonly="readonly"
-        :disabled="disabled"
-        v-model="inputValue"
-        @input="$emit('input', inputValue)"
-      />
-    </template>
-  </vb-form-group>
+    </div>
+    <textarea
+      v-else
+      class="form-control"
+      :id="idFull"
+      :required="required"
+      :readonly="readonly"
+      :disabled="disabled"
+      v-model="inputValue"
+      @input="$emit('input', inputValue)"
+      rows="10"
+      maxlength="255"
+    />
+  </FormGroup>
 </template>
 
 <script>
-import VbFormGroup from "./BS46FormGroup";
+import FormGroup from "./BS46FormGroup";
 export default {
-  name: "VbInput",
-  components: { VbFormGroup },
+  name: "VbTextarea",
+  components: { FormGroup },
   props: {
     label: String,
-    type: String,
     id: String,
     idPostfix: String,
     value: String,
@@ -82,9 +50,9 @@ export default {
     required: Boolean,
     readonly: Boolean,
     disabled: Boolean,
+    withoutLabel: Boolean,
     horizontal: Boolean,
     horizontalWidth: Object,
-    focusable: Boolean,
   },
   data() {
     return {

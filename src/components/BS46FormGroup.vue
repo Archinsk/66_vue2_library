@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "FormGroup",
+  name: "VbFormGroup",
   props: {
     widthGroup: Number,
     responsive: String,
