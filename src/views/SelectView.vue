@@ -186,8 +186,6 @@ export default {
   },
   methods: {
     setInputValues(formField, formFieldValues) {
-      console.log(formField);
-      console.log(formFieldValues);
       formField.values = formFieldValues;
     },
   },

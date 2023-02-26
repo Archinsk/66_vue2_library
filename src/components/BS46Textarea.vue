@@ -16,8 +16,6 @@
         :disabled="disabled"
         v-model="inputValue"
         @input="$emit('input', inputValue)"
-        rows="10"
-        maxlength="75"
       />
     </div>
     <textarea
@@ -29,8 +27,6 @@
       :disabled="disabled"
       v-model="inputValue"
       @input="$emit('input', inputValue)"
-      rows="10"
-      maxlength="255"
     />
   </FormGroup>
 </template>

@@ -30,6 +30,16 @@ const routes = [
     name: "textareaView",
     component: () => import("../views/TextareaView.vue"),
   },
+  {
+    path: "/daterange",
+    name: "daterangeView",
+    component: () => import("../views/DaterangeView.vue"),
+  },
+  {
+    path: "/form",
+    name: "formView",
+    component: () => import("../views/FormView.vue"),
+  },
 ];
 
 const router = new VueRouter({

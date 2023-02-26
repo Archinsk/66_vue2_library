@@ -13,6 +13,16 @@
     <div>Отключено</div>
     <vb-checkbox label="Ознакомлен с материалами" disabled />
     <h3>Действия компонента</h3>
+    <vb-checkbox
+      label="Ознакомлен с материалами"
+      :id="activeCheckbox.id"
+      :value="activeCheckbox.value"
+      @change="setCheckboxValue(activeCheckbox, $event)"
+    />
+    <div>
+      Текущее значение состояния поля в компоненте App:
+      {{ activeCheckbox.value }}
+    </div>
   </div>
 </template>
 
@@ -21,5 +31,21 @@ import VbCheckbox from "../components/BS46Checkbox";
 export default {
   name: "CheckboxView",
   components: { VbCheckbox },
+  data() {
+    return {
+      activeCheckbox: {
+        id: "activeCheckbox",
+        label: "Показать только архивные",
+        type: "checkbox",
+        width: 12,
+        value: false,
+      },
+    };
+  },
+  methods: {
+    setCheckboxValue(formField, formFieldValue) {
+      formField.value = formFieldValue;
+    },
+  },
 };
 </script>

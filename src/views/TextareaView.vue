@@ -12,7 +12,6 @@
     <vb-textarea value="Ошибка возникла в результате..." />
     <div>C шириной (по сетке Bootstrap)</div>
     <vb-textarea width-group="6" />
-    <h3>Действия компонента</h3>
     <div>Обязательное (использовать с ярлыком)</div>
     <vb-textarea label="Текст сообщения" id="message2" required />
     <div>Только для чтения</div>
@@ -32,6 +31,19 @@
         },
       }"
     />
+    <h3>Действия компонента</h3>
+    <vb-textarea
+      :id="activeTextarea.id"
+      :label="activeTextarea.label"
+      :width-group="activeTextarea.width"
+      :responsive="activeTextarea.responsive"
+      :value="activeTextarea.value"
+      @input="setTextareaValue(activeTextarea, $event)"
+    />
+    <div>
+      Текущее значение состояния поля в компоненте App:
+      {{ activeTextarea.value }}
+    </div>
   </div>
 </template>
 
@@ -40,5 +52,24 @@ import VbTextarea from "../components/BS46Textarea";
 export default {
   name: "TextareaView",
   components: { VbTextarea },
+  data() {
+    return {
+      activeTextarea: {
+        id: "activeTextarea",
+        label: "Сообщение",
+        type: "textarea",
+        width: 12,
+        responsive: "col-sm-8 col-md-6 col-lg-4",
+        required: false,
+        withoutLabel: false,
+        value: "",
+      },
+    };
+  },
+  methods: {
+    setTextareaValue(formField, formFieldValue) {
+      formField.value = formFieldValue;
+    },
+  },
 };
 </script>

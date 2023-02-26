@@ -196,7 +196,7 @@ export default {
             responsive: "",
           },
         },
-        value: "Пет",
+        value: "",
       },
     };
   },
