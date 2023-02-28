@@ -92,7 +92,7 @@
       :responsive="activeSelect.responsive"
       :horizontal="activeSelect.horizontal"
       :horizontal-width="activeSelect.horizontalWidth"
-      @change="setInputValues(activeSelect, $event)"
+      @change="setSelectValues(activeSelect, $event)"
     />
     <div>
       Текущее значение состояния поля в компоненте App:
@@ -185,7 +185,7 @@ export default {
     };
   },
   methods: {
-    setInputValues(formField, formFieldValues) {
+    setSelectValues(formField, formFieldValues) {
       formField.values = formFieldValues;
     },
   },

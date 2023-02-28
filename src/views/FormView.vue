@@ -5,7 +5,24 @@
     <h3>Типовое представление</h3>
     <vb-form :form-data="exampleForm1" />
     <h3>Действия компонента</h3>
-    <vb-form :form-data="activeForm" />
+    <vb-form
+      :form-data="activeForm"
+      @change-form="changeForm(activeForm, $event)"
+    />
+    <div>Значения полей в компоненте App</div>
+    <div>№ заявления: {{ activeForm.fields[0].value }}</div>
+    <div>Дата создания c: {{ activeForm.fields[1].itemsList[0].value }}</div>
+    <div>Дата создания по: {{ activeForm.fields[1].itemsList[1].value }}</div>
+    <div>Сообщение: {{ activeForm.fields[2].value }}</div>
+    <div>№ ЕПГУ: {{ activeForm.fields[3].value }}</div>
+    <div>Статус: {{ activeForm.fields[4].values }}</div>
+    <div>
+      Дата изменения статуса c: {{ activeForm.fields[5].itemsList[0].value }}
+    </div>
+    <div>
+      Дата изменения статуса по: {{ activeForm.fields[5].itemsList[1].value }}
+    </div>
+    <div>Показать только архивные: {{ activeForm.fields[6].value }}</div>
   </div>
 </template>
 
@@ -114,7 +131,7 @@ export default {
         disabled: false,
         fields: [
           {
-            id: "1",
+            id: "field1",
             label: "№ заявления",
             type: "input",
             subtype: "number",
@@ -123,7 +140,7 @@ export default {
             value: null,
           },
           {
-            id: "3",
+            id: "field2",
             label: "Дата создания",
             type: "range",
             subtype: "date",
@@ -135,7 +152,7 @@ export default {
             responsive: "col-sm-8 col-md-6 col-lg-4",
           },
           {
-            id: "training-comment",
+            id: "field3",
             label: "Сообщение",
             type: "textarea",
             width: 12,
@@ -145,7 +162,7 @@ export default {
             value: "",
           },
           {
-            id: "4",
+            id: "field4",
             label: "№ ЕПГУ",
             type: "input",
             subtype: "number",
@@ -154,7 +171,7 @@ export default {
             value: null,
           },
           {
-            id: "5",
+            id: "field5",
             label: "Статус",
             type: "select",
             itemsList: [
@@ -163,12 +180,14 @@ export default {
               { id: 3, value: 3, label: "Обработано" },
               { id: 4, value: 4, label: "Архивная" },
             ],
+            multiple: true,
+            badges: true,
             width: 12,
             responsive: "col-sm-4 col-md-3 col-lg-2",
             values: [],
           },
           {
-            id: "6",
+            id: "field6",
             label: "Дата изменения статуса",
             type: "range",
             subtype: "date",
@@ -180,7 +199,7 @@ export default {
             responsive: "col-sm-8 col-md-6 col-lg-4",
           },
           {
-            id: "7",
+            id: "field7",
             label: "Показать только архивные",
             type: "checkbox",
             width: 12,
@@ -191,14 +210,34 @@ export default {
     };
   },
   methods: {
+    changeForm(form, newFormData) {
+      console.log("Изменяется форма");
+      console.log(form);
+      console.log(newFormData);
+      let formField = form.fields.find(function (item) {
+        if (item.id === newFormData.id) return true;
+      });
+      if (formField.type === "select") {
+        this.setSelectValues(formField, newFormData.values);
+      } else if (formField.type === "range") {
+        this.setDateRangeValue(formField, newFormData);
+        // } else if (formField.type === "input" && formField.subtype === "file") {
+        //   formField.file = newFormData.value;
+      } else {
+        this.setInputValue(formField, newFormData.value);
+      }
+      console.log("Измененное поле");
+      console.log(formField);
+    },
+    // Метод для Input, Checkbox, Textarea
     setInputValue(formField, formFieldValue) {
       formField.value = formFieldValue;
     },
-    setInputValues(formField, formFieldValues) {
+    setSelectValues(formField, formFieldValues) {
       formField.values = formFieldValues;
     },
-    setCheckboxValue(formField, formFieldValue) {
-      formField.value = formFieldValue;
+    setDateRangeValue(formField, formFieldData) {
+      formField.itemsList[formFieldData.index].value = formFieldData.value;
     },
   },
 };

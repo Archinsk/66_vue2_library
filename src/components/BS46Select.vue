@@ -7,8 +7,8 @@
     <label :for="id" :class="labelClass"
       >{{ label }} <span v-if="required" class="text-danger">*</span></label
     >
-    <!--    Обычный селект с единственным значением для выбора-->
 
+    <!--    Обычный селект с единственным значением для выбора-->
     <template v-if="!multiple">
       <!--      Вертикальный вариант-->
       <select
@@ -123,9 +123,7 @@
         :disabled="disabled"
       >
         <span
-          v-if="
-            this.itemsList.length > this.selectedForMultiple.length && !disabled
-          "
+          v-if="itemsList.length > values.length && !disabled"
           class="dropdown"
         >
           <a
@@ -141,7 +139,7 @@
           <div class="dropdown-menu">
             <template v-for="option of itemsList">
               <a
-                v-if="!selectedForMultiple.includes(option.value)"
+                v-if="!values.includes(option.value)"
                 :key="option.id"
                 class="dropdown-item"
                 href="#"
@@ -153,7 +151,7 @@
         </span>
         <template v-for="(option, index) of itemsList">
           <span
-            v-if="selectedForMultiple.includes(option.value)"
+            v-if="values.includes(option.value)"
             :key="index"
             class="badge badge-light mr-1"
             >{{ option.label
@@ -174,10 +172,7 @@
           :disabled="disabled"
         >
           <span
-            v-if="
-              this.itemsList.length > this.selectedForMultiple.length &&
-              !disabled
-            "
+            v-if="itemsList.length > values.length && !disabled"
             class="dropdown"
           >
             <a
@@ -193,7 +188,7 @@
             <div class="dropdown-menu">
               <template v-for="option of itemsList">
                 <a
-                  v-if="!selectedForMultiple.includes(option.value)"
+                  v-if="!values.includes(option.value)"
                   :key="option.id"
                   class="dropdown-item"
                   href="#"
@@ -205,7 +200,7 @@
           </span>
           <template v-for="(option, index) of itemsList">
             <span
-              v-if="selectedForMultiple.includes(option.value)"
+              v-if="values.includes(option.value)"
               :key="index"
               class="badge badge-light mr-1"
               >{{ option.label
