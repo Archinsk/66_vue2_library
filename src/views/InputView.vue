@@ -26,6 +26,56 @@
     <input type="url" />
     <input type="week" />
     <h2>Кастомизированный компонент Vue2Input</h2>
+    <div class="section">
+      <h3>Структура v-input</h3>
+      <div>
+        Компонент Vue2Input (v-input) включает в себя все пропсы компонента
+        BS46Input (vb-input), хотя сам не использует все пропсы, большую часть
+        из них проксирует в BS46Input. Так сделано, чтобы используя проп
+        "framework" можно было менять стилизацию компонента Vue2Input, не меняя
+        функциональности. Данный компонент служит хабом-диспетчером и в
+        зависимости от пропа "framework" отображает компонент input
+        соответствующего фреймворка.
+      </div>
+      <div>
+        Минимально необходимые пропcов нет. Для отображения ярлыка требуется
+        проп "label" (для связи с полем требуется ещё и id). Остальные значения
+        могут быть переданы в качестве стандартных атрибутов html-элемента
+        input. При required добавляется звездочка<br />
+        <pre>
+props: {
+  // для ярлыка
+  label: String,
+  // могут быть переданы в качестве атрибутов html-элемента
+  type: String,
+  id: String,
+  value: String,
+  required: Boolean,
+  readonly: Boolean,
+  disabled: Boolean,
+  // необходим для определения фреймфорка
+  framework: String,
+  // необходимы для фреймфорка bootstrap
+  idPostfix: String,
+  widthGroup: Number,
+  responsive: String,
+  horizontal: Boolean,
+  horizontalWidth: Object,
+  focusable: Boolean,
+},
+        </pre>
+      </div>
+      <div>
+        Примеры записи
+        <v-input />
+        <v-input type="file" />
+        <v-input label="Фамилия" value="Иванов" disabled />
+        <v-input id="firstName" label="Имя" value="Иван" required readonly />
+        <v-input label="Возраст" type="number" value="23" />
+        <pre>Отобразить код не удалось</pre>
+        По событию @input компонент возвращает строчное значение value
+      </div>
+    </div>
     <h3>Варианты использования</h3>
     <div>Без пропсов</div>
     <v-input />
@@ -207,3 +257,19 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.section {
+  background-color: lightyellow;
+  padding: 0.5rem;
+  border: 3px grey solid;
+  border-radius: 0.5rem;
+}
+pre {
+  background-color: lightgrey;
+  color: grey;
+  padding: 0.5rem;
+  border: 3px grey solid;
+  border-radius: 0.5rem;
+}
+</style>
