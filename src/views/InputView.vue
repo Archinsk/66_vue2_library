@@ -257,19 +257,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.section {
-  background-color: lightyellow;
-  padding: 0.5rem;
-  border: 3px grey solid;
-  border-radius: 0.5rem;
-}
-pre {
-  background-color: lightgrey;
-  color: grey;
-  padding: 0.5rem;
-  border: 3px grey solid;
-  border-radius: 0.5rem;
-}
-</style>

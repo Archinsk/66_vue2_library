@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 
 import "./default-bootstrap-4.6.2.scss";
-// import "bootstrap";
+import "bootstrap";
 
 Vue.config.productionTip = false;
 

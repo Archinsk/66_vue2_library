@@ -40,6 +40,21 @@ const routes = [
     name: "formView",
     component: () => import("../views/FormView.vue"),
   },
+  {
+    path: "/alert",
+    name: "alertView",
+    component: () => import("../views/AlertView.vue"),
+  },
+  {
+    path: "/collapse",
+    name: "collapseView",
+    component: () => import("../views/CollapseView.vue"),
+  },
+  {
+    path: "/collapsebutton",
+    name: "collapseButtonView",
+    component: () => import("../views/CollapseButtonView.vue"),
+  },
 ];
 
 const router = new VueRouter({
