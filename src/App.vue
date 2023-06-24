@@ -11,6 +11,7 @@
       <router-link to="/alert">Alert</router-link> |
       <router-link to="/collapse">Collapse</router-link> |
       <router-link to="/collapsebutton">CollapseButton</router-link> |
+      <router-link to="/card">Card</router-link> |
     </nav>
     <router-view />
   </div>

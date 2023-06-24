@@ -55,6 +55,11 @@ const routes = [
     name: "collapseButtonView",
     component: () => import("../views/CollapseButtonView.vue"),
   },
+  {
+    path: "/card",
+    name: "cardView",
+    component: () => import("../views/CardView.vue"),
+  },
 ];
 
 const router = new VueRouter({

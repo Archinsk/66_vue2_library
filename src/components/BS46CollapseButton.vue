@@ -15,6 +15,8 @@
 <script>
 export default {
   name: "VbCollapseButton",
-  props: ["targetId"],
+  props: {
+    targetId: String,
+  },
 };
 </script>

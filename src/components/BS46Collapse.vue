@@ -13,6 +13,9 @@
 <script>
 export default {
   name: "VbCollapse",
-  props: ["id", "parentId"],
+  props: {
+    id: String,
+    parentId: String,
+  },
 };
 </script>

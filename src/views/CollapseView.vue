@@ -12,7 +12,8 @@
         компонента не объединены в один по причине необходимости размещения
         кнопки отдельно от панели. Совокупность пар этах компонентов может быть
         превращена в аккордеон (реализовано в проектах 40 и 62). Требуется
-        подключение скриптов bootstrap.
+        подключение скриптов bootstrap. Во всех проектах пропсы указаны без
+        типизации
       </vb-alert>
       <h3>Описание</h3>
       <div>
@@ -20,11 +21,19 @@
         отображение детальной информации
       </div>
       <div>
-        Принимает только один проп "themeColor", добавляя соответствующий класс
-        элементу. Если цвет введен не верно или проп не передан - принимает
-        серый цвет. Содержимое пробрасывается через slot. По умолчанию
-        bootstrap'ом добавлен нижний отступ 1rem
+        Принимает один обязательный проп "id" для связи панели с кнопкой,
+        которая управляет её открытием. Проп "parent-id" необходим при
+        использовании нескольких пар кнопок и панелей в составе аккордеона.
       </div>
+      <pre>
+props: {
+  // Требуется для связи кнопки и панели
+  id: String,
+  // Нужен для использования в аккордионах
+  parentId: String,
+},
+        </pre
+      >
       <h3>Варианты использования</h3>
       <vb-collapse-button target-id="notificationCollapse">
         Детали
@@ -32,15 +41,8 @@
       <vb-collapse id="notificationCollapse">
         Содержимое с детальной информацией
       </vb-collapse>
-      <h3>Типовое представление</h3>
       <h3>Действия компонента</h3>
-      <pre>
-props: {
-  // подзаголовок
-  поле: тип,
-},
-        </pre
-      >
+      <div>Действия отсутствуют</div>
     </div>
   </div>
 </template>
@@ -48,9 +50,10 @@ props: {
 <script>
 import VbCollapseButton from "../components/BS46CollapseButton";
 import VbCollapse from "../components/BS46Collapse";
+import VbAlert from "../components/BS46Alert";
 export default {
   name: "CollapseView",
-  components: { VbCollapse, VbCollapseButton },
+  components: { VbAlert, VbCollapse, VbCollapseButton },
   data() {
     return {};
   },
