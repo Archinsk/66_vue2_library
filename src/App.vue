@@ -12,6 +12,19 @@
       <router-link to="/collapse">Collapse</router-link> |
       <router-link to="/collapsebutton">CollapseButton</router-link> |
       <router-link to="/card">Card</router-link> |
+      <router-link to="/pagination">Pagination</router-link> |
+      <router-link to="/paginationitemsperpage"
+        >PaginationItemsPerPage</router-link
+      >
+      |
+      <router-link to="/paginationpageselector"
+        >PaginationPageSelector</router-link
+      >
+      |
+      <router-link to="/paginationbutton">PaginationButton</router-link>
+      |
+      <router-link to="/preloader">Preloader</router-link>
+      |
     </nav>
     <router-view />
   </div>

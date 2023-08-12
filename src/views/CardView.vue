@@ -40,25 +40,21 @@ props: {
       >
       <h3>Варианты использования</h3>
       <vb-card header footer>
-        <template v-slot:card-header><CardHeader />Хедер карточки</template>
-        <template v-slot:card-body><CardHeader />Тело карточки</template>
-        <template v-slot:card-footer><CardHeader />Футер карточки</template>
+        <template v-slot:card-header>Хедер карточки</template>
+        <template v-slot:card-body>Тело карточки</template>
+        <template v-slot:card-footer>Футер карточки</template>
       </vb-card>
       <vb-card image-position="top">
-        <template v-slot:card-image
-          ><img src="../assets/images/default.jpg"
-        /></template>
-        <template v-slot:card-body><CardHeader />Тело карточки</template>
+        <template v-slot:card-image><img src="images/default.jpg" /></template>
+        <template v-slot:card-body>Тело карточки</template>
       </vb-card>
       <vb-card image-position="bottom">
-        <template v-slot:card-image
-          ><img src="../assets/images/default.jpg"
-        /></template>
-        <template v-slot:card-body><CardHeader />Тело карточки</template>
+        <template v-slot:card-image><img src="images/default.jpg" /></template>
+        <template v-slot:card-body>Тело карточки</template>
       </vb-card>
       <vb-card no-body image-position="full">
         <template v-slot:card-image
-          ><img src="../assets/images/default.jpg" class="card-img"
+          ><img src="images/default.jpg" class="card-img"
         /></template>
         <div class="card-text">Текст поверх карточки</div>
       </vb-card>

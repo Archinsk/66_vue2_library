@@ -60,6 +60,31 @@ const routes = [
     name: "cardView",
     component: () => import("../views/CardView.vue"),
   },
+  {
+    path: "/pagination",
+    name: "paginationView",
+    component: () => import("../views/PaginationView.vue"),
+  },
+  {
+    path: "/paginationitemsperpage",
+    name: "paginationItemsPerPageView",
+    component: () => import("../views/PaginationItemsPerPageView.vue"),
+  },
+  {
+    path: "/paginationpageselector",
+    name: "paginationPageSelectorView",
+    component: () => import("../views/PaginationPageSelectorView.vue"),
+  },
+  {
+    path: "/paginationbutton",
+    name: "paginationButtonView",
+    component: () => import("../views/PaginationButtonView.vue"),
+  },
+  {
+    path: "/preloader",
+    name: "preloaderView",
+    component: () => import("../views/PreloaderView.vue"),
+  },
 ];
 
 const router = new VueRouter({

@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div v-if="header" class="card-header w-100 d-flex">
+    <div v-if="header" class="card-header">
       <slot name="card-header"></slot>
     </div>
     <div v-if="imagePosition === 'full'" class="card-img-overlay">
@@ -15,7 +15,7 @@
     <template v-if="imagePosition === 'bottom'">
       <slot name="card-image"></slot>
     </template>
-    <div v-if="footer" class="card-footer text-muted">
+    <div v-if="footer" class="card-footer">
       <slot name="card-footer"></slot>
     </div>
   </div>

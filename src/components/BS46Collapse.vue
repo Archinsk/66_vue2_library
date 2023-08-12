@@ -4,9 +4,7 @@
     :id="id"
     :data-parent="parentId ? '#' + parentId : null"
   >
-    <div class="collapse-content">
-      <slot></slot>
-    </div>
+    <slot></slot>
   </div>
 </template>
 

@@ -1,9 +1,9 @@
 <template>
   <div class="about">
-    <h2>Кастомизированный компонент Vue2CollapseButton</h2>
+    <h2>Кастомизированный компонент Vue2Temp</h2>
     <div>Пока отсутствует</div>
 
-    <h2>Кастомизированный Bootstrap компонент BS46CollapseButton</h2>
+    <h2>Кастомизированный Bootstrap компонент BS46Temp</h2>
     <div class="section">
       <vb-alert theme-color="warning"
         >Работает ... Используется в проектах ...</vb-alert
@@ -27,7 +27,7 @@ props: {
 <script>
 import VbAlert from "../components/BS46Alert";
 export default {
-  name: "CollapseButtonView",
+  name: "TempView",
   components: { VbAlert },
   data() {
     return {};
