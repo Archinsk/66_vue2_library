@@ -1,7 +1,10 @@
 <template>
   <vb-form-group
-    :width-group="widthGroup"
-    :responsive="responsive"
+    :additional-classes="
+      additionalClasses && additionalClasses.group
+        ? additionalClasses.group
+        : ''
+    "
     :horizontal="horizontal"
   >
     <label :for="id" :class="labelClass"
@@ -228,14 +231,12 @@ export default {
     itemsList: Array,
     defaultValueLabel: String,
     values: Array,
-    widthGroup: Number,
-    responsive: String,
     required: Boolean,
     disabled: Boolean,
+    additionalClasses: Object,
     multiple: Boolean,
     badges: Boolean,
     horizontal: Boolean,
-    horizontalWidth: Object,
   },
   data() {
     return {
@@ -249,25 +250,17 @@ export default {
       if (!this.horizontal) {
         labelClass += "form-label";
       } else {
-        // labelClass += "col-form-label";
-        if (this.horizontalWidth.label.width) {
-          labelClass += " col-" + this.horizontalWidth.label.width;
-        } else {
-          labelClass += " " + "col";
-        }
-        labelClass += " " + this.horizontalWidth.label.responsive;
+        labelClass += this.additionalClasses.label
+          ? this.additionalClasses.label
+          : "col";
       }
       return labelClass;
     },
     fieldClass: function () {
       let fieldClass = "";
-      if (this.horizontalWidth.field.width) {
-        fieldClass += "col-" + this.horizontalWidth.field.width;
-      } else {
-        fieldClass += "col";
-      }
-      fieldClass += " " + this.horizontalWidth.field.responsive;
-
+      fieldClass += this.additionalClasses.field
+        ? this.additionalClasses.field
+        : "col";
       return fieldClass;
     },
     changedValues: function () {
@@ -278,7 +271,7 @@ export default {
           return [];
         }
       } else {
-        return this.selectedForMultiple;
+        return this.selectedForMultiple.slice();
       }
     },
   },
@@ -288,8 +281,7 @@ export default {
       this.$emit("change", this.changedValues);
     },
     removeItemFromMultipleSelect(itemValue) {
-      let indexOfRemovedItem = this.selectedForMultiple.indexOf(itemValue);
-      this.selectedForMultiple.splice(indexOfRemovedItem, 1);
+      this.selectedForMultiple.filter((item) => item !== itemValue);
       this.$emit("change", this.changedValues);
     },
   },

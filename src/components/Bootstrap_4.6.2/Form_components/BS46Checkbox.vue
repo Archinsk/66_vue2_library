@@ -1,13 +1,16 @@
 <template>
   <vb-form-group
     v-if="!grouped"
-    :width-group="widthGroup"
-    :horizontal="horizontal"
+    :additional-classes="
+      additionalClasses && additionalClasses.group
+        ? additionalClasses.group
+        : ''
+    "
   >
-    <div class="form-check">
+    <div :class="wrapperClass">
       <input
         type="checkbox"
-        class="form-check-input"
+        :class="fieldClass"
         :id="id"
         :checked="value"
         :required="required"
@@ -15,15 +18,15 @@
         v-model="inputValue"
         @change="$emit('change', inputValue)"
       />
-      <label class="form-check-label" :for="id"
+      <label v-if="label" :class="labelClass" :for="id"
         >{{ label }} <span v-if="required" class="text-danger">*</span></label
       >
     </div>
   </vb-form-group>
-  <div v-else class="form-check">
+  <div v-else :class="wrapperClass">
     <input
       type="checkbox"
-      class="form-check-input"
+      :class="fieldClass"
       :id="id"
       :checked="value"
       :required="required"
@@ -31,7 +34,7 @@
       v-model="inputValue"
       @change="$emit('change', inputValue)"
     />
-    <label class="form-check-label" :for="id"
+    <label v-if="label" :class="labelClass" :for="id"
       >{{ label }} <span v-if="required" class="text-danger">*</span></label
     >
   </div>
@@ -46,16 +49,27 @@ export default {
     id: String,
     label: String,
     value: Boolean,
-    widthGroup: Number,
     required: Boolean,
-    readonly: Boolean,
     disabled: Boolean,
+    additionalClasses: Object,
+    switchMode: Boolean,
     grouped: Boolean,
   },
   data() {
     return {
       inputValue: false,
     };
+  },
+  computed: {
+    wrapperClass() {
+      return this.switchMode ? "custom-control custom-switch" : "form-check";
+    },
+    fieldClass() {
+      return this.switchMode ? "custom-control-input" : "form-check-input";
+    },
+    labelClass() {
+      return this.switchMode ? "custom-control-label" : "form-check-label";
+    },
   },
   created() {
     this.inputValue = this.value;

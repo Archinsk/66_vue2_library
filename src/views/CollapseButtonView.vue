@@ -44,8 +44,8 @@ props: {
 </template>
 
 <script>
-import VbCollapseButton from "../components/BS46CollapseButton";
-import VbCollapse from "../components/BS46Collapse";
+import VbCollapseButton from "../components/Bootstrap_4.6.2/BS46CollapseButton";
+import VbCollapse from "../components/Bootstrap_4.6.2/BS46Collapse";
 export default {
   name: "CollapseButtonView",
   components: { VbCollapse, VbCollapseButton },

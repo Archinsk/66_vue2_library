@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import VbInput from "./BS46Input";
+import VbInput from "./Bootstrap_4.6.2/Form_components/BS46Input";
 export default {
   name: "vInput",
   components: { VbInput },

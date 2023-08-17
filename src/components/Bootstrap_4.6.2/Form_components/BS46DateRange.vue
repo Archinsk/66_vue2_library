@@ -10,15 +10,14 @@
         :required="
           dateRangeData.required || dateRangeData.itemsList[0].required
         "
-        :readonly="
-          dateRangeData.readonly || dateRangeData.itemsList[0].readonly
-        "
         :disabled="
           dateRangeData.disabled || dateRangeData.itemsList[0].disabled
         "
-        :width-group="6"
+        :readonly="
+          dateRangeData.readonly || dateRangeData.itemsList[0].readonly
+        "
+        :additional-classes="dateRangeData.additionalClasses"
         :horizontal="dateRangeData.horizontal"
-        :horizontal-width="dateRangeData.horizontalWidth"
         @input="$emit('input', { index: 0, value: $event })"
       />
       <vb-input
@@ -30,15 +29,14 @@
         :required="
           dateRangeData.required || dateRangeData.itemsList[1].required
         "
-        :readonly="
-          dateRangeData.readonly || dateRangeData.itemsList[1].readonly
-        "
         :disabled="
           dateRangeData.disabled || dateRangeData.itemsList[1].disabled
         "
-        :width-group="6"
+        :readonly="
+          dateRangeData.readonly || dateRangeData.itemsList[1].readonly
+        "
+        :additional-classes="dateRangeData.additionalClasses"
         :horizontal="dateRangeData.horizontal"
-        :horizontal-width="dateRangeData.horizontalWidth"
         @input="$emit('input', { index: 1, value: $event })"
       />
     </div>

@@ -193,7 +193,7 @@ props: {
 
 <script>
 import VInput from "../components/Vue2Input";
-import VbInput from "../components/BS46Input";
+import VbInput from "../components/Bootstrap_4.6.2/Form_components/BS46Input";
 export default {
   name: "InputView",
   components: { VbInput, VInput },

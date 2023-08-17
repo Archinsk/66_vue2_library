@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import VbAlert from "../components/BS46Alert";
+import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
 export default {
   name: "PaginationButtonView",
   components: { VbAlert },

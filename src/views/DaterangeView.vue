@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import VbDateRange from "../components/BS46DateRange";
+import VbDateRange from "../components/Bootstrap_4.6.2/Form_components/BS46DateRange";
 export default {
   name: "DaterangeView",
   components: { VbDateRange },

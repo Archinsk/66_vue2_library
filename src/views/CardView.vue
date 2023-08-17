@@ -65,8 +65,8 @@ props: {
 </template>
 
 <script>
-import VbAlert from "../components/BS46Alert";
-import VbCard from "../components/BS46Card";
+import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
+import VbCard from "../components/Bootstrap_4.6.2/BS46Card";
 export default {
   name: "CardView",
   components: { VbCard, VbAlert },

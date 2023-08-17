@@ -223,7 +223,7 @@
 </template>
 
 <script>
-import FormGroup from "./BS46FormGroup";
+import FormGroup from "./Bootstrap_4.6.2/Form_components/BS46FormGroup";
 export default {
   name: "Select",
   components: { FormGroup },

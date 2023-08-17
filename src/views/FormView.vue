@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import VbForm from "../components/BS46Form";
+import VbForm from "../components/Bootstrap_4.6.2/BS46Form";
 export default {
   name: "FormView",
   components: { VbForm },

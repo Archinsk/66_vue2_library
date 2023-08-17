@@ -1,10 +1,13 @@
 <template>
   <vb-form-group
-    :width-group="widthGroup"
-    :responsive="responsive"
+    :additional-classes="
+      additionalClasses && additionalClasses.group
+        ? additionalClasses.group
+        : ''
+    "
     :horizontal="horizontal"
   >
-    <label :for="id" :class="labelClass"
+    <label v-if="label" :for="id" :class="labelClass"
       >{{ label }} <span v-if="required" class="text-danger">*</span></label
     >
     <template v-if="focusable">
@@ -72,19 +75,17 @@ export default {
   name: "VbInput",
   components: { VbFormGroup },
   props: {
+    id: String,
     label: String,
     type: String,
-    id: String,
-    idPostfix: String,
     value: String,
-    widthGroup: Number,
-    responsive: String,
     required: Boolean,
-    readonly: Boolean,
     disabled: Boolean,
+    readonly: Boolean,
+    additionalClasses: Object,
     horizontal: Boolean,
-    horizontalWidth: Object,
     focusable: Boolean,
+    idPostfix: String,
   },
   data() {
     return {
@@ -105,24 +106,21 @@ export default {
         labelClass += "form-label";
       } else {
         // labelClass += "col-form-label";
-        if (this.horizontalWidth.label.width) {
-          labelClass += " col-" + this.horizontalWidth.label.width;
+        if (this.additionalClasses.label) {
+          labelClass += this.additionalClasses.label;
         } else {
-          labelClass += " " + "col";
+          labelClass += " col";
         }
-        labelClass += " " + this.horizontalWidth.label.responsive;
       }
       return labelClass;
     },
     fieldClass: function () {
       let fieldClass = "";
-      if (this.horizontalWidth.field.width) {
-        fieldClass += "col-" + this.horizontalWidth.field.width;
+      if (this.additionalClasses.field) {
+        fieldClass += this.additionalClasses.field;
       } else {
         fieldClass += "col";
       }
-      fieldClass += " " + this.horizontalWidth.field.responsive;
-
       return fieldClass;
     },
   },

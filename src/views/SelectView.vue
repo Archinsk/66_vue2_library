@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import VbSelect from "../components/BS46Select";
+import VbSelect from "../components/Bootstrap_4.6.2/Form_components/BS46Select";
 export default {
   name: "SelectView",
   components: { VbSelect },

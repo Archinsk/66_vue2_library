@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import VbTextarea from "../components/BS46Textarea";
+import VbTextarea from "../components/Bootstrap_4.6.2/Form_components/BS46Textarea";
 export default {
   name: "TextareaView",
   components: { VbTextarea },

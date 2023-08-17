@@ -11,8 +11,7 @@
 export default {
   name: "VbFormGroup",
   props: {
-    widthGroup: Number,
-    responsive: String,
+    additionalClasses: String,
     horizontal: Boolean,
   },
   computed: {
@@ -21,13 +20,10 @@ export default {
       if (!this.horizontal) {
         groupClass += "form-group d-flex flex-column justify-content-end";
       }
-      if (this.widthGroup) {
-        groupClass += " col-" + this.widthGroup;
+      if (this.additionalClasses) {
+        groupClass += ` ${this.additionalClasses}`;
       } else {
         groupClass += " col";
-      }
-      if (this.responsive) {
-        groupClass += " " + this.responsive;
       }
       return groupClass;
     },

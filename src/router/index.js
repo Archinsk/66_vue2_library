@@ -31,6 +31,11 @@ const routes = [
     component: () => import("../views/CheckboxesGroupView.vue"),
   },
   {
+    path: "/radiogroup",
+    name: "radioGroupView",
+    component: () => import("../views/RadioGroupView.vue"),
+  },
+  {
     path: "/textarea",
     name: "textareaView",
     component: () => import("../views/TextareaView.vue"),

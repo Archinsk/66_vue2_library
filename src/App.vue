@@ -6,6 +6,7 @@
       <router-link to="/select">Select</router-link> |
       <router-link to="/checkbox">Checkbox</router-link> |
       <router-link to="/checkboxesgroup">CheckboxesGroup</router-link> |
+      <router-link to="/radiogroup">RadioGroup</router-link> |
       <router-link to="/textarea">Textarea</router-link> |
       <router-link to="/daterange">Daterange</router-link> |
       <router-link to="/form">Form</router-link> |

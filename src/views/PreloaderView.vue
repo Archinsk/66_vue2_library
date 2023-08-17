@@ -135,8 +135,8 @@ props: {
 </template>
 
 <script>
-import VbAlert from "../components/BS46Alert";
-import VbPreloader from "../components/BS46Preoader";
+import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
+import VbPreloader from "../components/Bootstrap_4.6.2/BS46Preoader";
 export default {
   name: "PreloaderView",
   components: { VbPreloader, VbAlert },

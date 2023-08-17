@@ -73,8 +73,8 @@ props: {
 </template>
 
 <script>
-import VbAlert from "../components/BS46Alert";
-import VbPagination from "../components/BS46Pagination";
+import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
+import VbPagination from "../components/Bootstrap_4.6.2/BS46Pagination";
 export default {
   name: "PaginationView",
   components: { VbPagination, VbAlert },
