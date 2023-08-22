@@ -1,9 +1,7 @@
 <template>
   <FormGroup
     :additional-classes="
-      additionalClasses && additionalClasses.group
-        ? additionalClasses.group
-        : ''
+      additionalClasses?.group ? additionalClasses.group : ''
     "
     :horizontal="horizontal"
   >
@@ -13,10 +11,12 @@
     <div v-if="horizontal" :class="fieldClass">
       <textarea
         class="form-control"
-        :id="idFull"
+        :id="id"
         :required="required"
         :readonly="readonly"
         :disabled="disabled"
+        :placeholder="placeholder"
+        :rows="rows"
         v-model="inputValue"
         @input="$emit('input', inputValue)"
       />
@@ -24,10 +24,12 @@
     <textarea
       v-else
       class="form-control"
-      :id="idFull"
+      :id="id"
       :required="required"
       :readonly="readonly"
       :disabled="disabled"
+      :placeholder="placeholder"
+      :rows="rows"
       v-model="inputValue"
       @input="$emit('input', inputValue)"
     />
@@ -48,6 +50,8 @@ export default {
     readonly: Boolean,
     additionalClasses: Object,
     horizontal: Boolean,
+    placeholder: String,
+    rows: Number,
   },
   data() {
     return {
@@ -60,8 +64,8 @@ export default {
       if (!this.horizontal) {
         labelClass += "form-label";
       } else {
-        if (this.additionalClasses.label) {
-          labelClass += ` $this.additionalClasses`;
+        if (this.additionalClasses?.label) {
+          labelClass += ` ${this.additionalClasses.label}`;
         } else {
           labelClass += " col";
         }
@@ -70,8 +74,8 @@ export default {
     },
     fieldClass: function () {
       let fieldClass = "";
-      if (this.additionalClasses.field) {
-        fieldClass += ` ${this.additionalClasses}`;
+      if (this?.additionalClasses?.field) {
+        fieldClass += this.additionalClasses.field;
       } else {
         fieldClass += "col";
       }

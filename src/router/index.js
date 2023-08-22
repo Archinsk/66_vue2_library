@@ -42,8 +42,8 @@ const routes = [
   },
   {
     path: "/daterange",
-    name: "daterangeView",
-    component: () => import("../views/DaterangeView.vue"),
+    name: "dateRangeView",
+    component: () => import("../views/DateRangeView.vue"),
   },
   {
     path: "/form",

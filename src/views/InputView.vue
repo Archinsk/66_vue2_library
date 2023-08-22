@@ -83,58 +83,8 @@ props: {
     <v-input id="myInput1" label="Наименование поля" />
     <div>C предустановленным значением</div>
     <v-input value="Дефолтное значение" />
-    <h2>Кастомизированный Bootstrap компонент BS46Input</h2>
     <h3>Варианты использования</h3>
-    <div>Без пропсов</div>
-    <v-input framework="bootstrap" />
-    <div>C ярлыком (передавать вместе с id поля)</div>
-    <v-input framework="bootstrap" id="myInput3" label="Наименование поля" />
-    <div>C предустановленным значением</div>
-    <v-input framework="bootstrap" value="Дефолтное значение" />
-    <div>C шириной (по сетке Bootstrap)</div>
-    <v-input framework="bootstrap" width-group="6" />
-    <div>C адаптивными классами (по сетке Bootstrap)</div>
-    <v-input
-      framework="bootstrap"
-      responsive="col-12 col-sm-6 col-md-4 col-lg-3"
-    />
-    <div>Обязательное поле (только с ярлыком)</div>
-    <v-input framework="bootstrap" label="Обязательное поле" required />
-    <div>Только для чтения</div>
-    <v-input
-      framework="bootstrap"
-      label="Только чтение"
-      value="Значение"
-      readonly
-    />
-    <div>Отключенное</div>
-    <v-input
-      framework="bootstrap"
-      label="Отключено"
-      value="Значение"
-      disabled
-    />
-    <div>
-      Горизонтальная компоновка ярлыка и поля (только с ярлыком, ярлык слева)
-    </div>
-    <v-input framework="bootstrap" label="Горизонтальный ярлык" horizontal />
-    <div>
-      Горизонтальная компоновка ярлыка и поля с установкой ширины под ярлык и
-      поле, а также адаптивными классами Bootstrap (только с ярлыком, ярлык
-      слева)
-    </div>
-    <v-input
-      framework="bootstrap"
-      label="Горизонтальный ярлык"
-      horizontal
-      :horizontal-width="{
-        label: { width: 4, responsive: 'col-sm-5' },
-        field: {
-          width: 8,
-          responsive: 'col-sm-7',
-        },
-      }"
-    />
+
     <h3>Типовое представление</h3>
     <v-input
       :id="defaultInput.id"
@@ -188,41 +138,130 @@ props: {
     <div>
       Текущее значение состояния поля в компоненте App: {{ activeInput.value }}
     </div>
+
+    <h2>Кастомизированный Bootstrap компонент BS46Temp</h2>
+    <div class="section">
+      <vb-alert theme-color="warning"
+        >Работает исправно. Используется в проектах 40, 61, 62, 64, 71, 72. Во
+        всех проектах используется устаревший компонент.</vb-alert
+      >
+      <h3>Описание</h3>
+      <div>Назначение: Прием значения от пользователя.</div>
+      <div>
+        Принимает идентификатор, ярлык, тип, значение, флаги обязательности,
+        режима "только для чтения", отключенности и горизонтальной компановки,
+        объект дополнительных классов, плейсхолдер, флаг фокусировки.
+      </div>
+      <pre>
+props: {
+  id: String,
+  label: String,
+  type: String,
+  value: String,
+  required: Boolean,
+  disabled: Boolean,
+  readonly: Boolean,
+  additionalClasses: Object,
+  horizontal: Boolean,
+  placeholder: String,
+  focusable: Boolean,
+},</pre
+      >
+      <h3>Варианты использования</h3>
+      <div>Без пропсов</div>
+      <vb-input />
+      <div>C ярлыком (передавать вместе с id поля)</div>
+      <vb-input id="myInput3" label="Наименование поля" />
+      <div>C предустановленным значением</div>
+      <vb-input value="Дефолтное значение" />
+      <div>Обязательное поле (использовать только с ярлыком)</div>
+      <vb-input label="Обязательное поле" required />
+      <div>Только для чтения</div>
+      <vb-input label="Только чтение" value="Значение" readonly />
+      <div>Отключенное</div>
+      <vb-input label="Отключено" value="Значение" disabled />
+      <div>C Объектом дополнительных классов</div>
+      <vb-input label="Доп.классы" :additional-classes="{ group: 'col-4' }" />
+      <div>
+        Горизонтальная компоновка ярлыка и поля (только с ярлыком, ярлык слева)
+      </div>
+      <vb-input label="Горизонтальный ярлык" horizontal />
+      <div>
+        Горизонтальная компоновка ярлыка и поля с установкой ширины под ярлык и
+        поле, а также адаптивными классами Bootstrap (только с ярлыком, ярлык
+        слева)
+      </div>
+      <vb-input
+        label="Горизонтальный ярлык с доп.классами"
+        horizontal
+        :additional-classes="{
+          group: 'col-8',
+          label: 'col-4',
+          field: 'col-8',
+        }"
+      />
+      <div>С событием фокусировке</div>
+      <vb-input focusable @focus="focusEvent" />
+      <h3>Структура данных для компонента</h3>
+      <pre>{{ defaultInput }}</pre>
+      <h3>Действия компонента</h3>
+      <div>
+        При изменении значения вызывает событие @input с текстовым значением,
+        при наличии пропа focusable фокусировка на поле вызывает событие @focus,
+        расфокусировка - @blur
+      </div>
+      <vb-input
+        :id="defaultInput.id"
+        :label="defaultInput.label"
+        :type="defaultInput.type"
+        :value="defaultInput.value"
+        :required="defaultInput.required"
+        :disabled="defaultInput.disabled"
+        :readonly="defaultInput.readonly"
+        :additional-classes="defaultInput.additionalClasses"
+        :horizontal="defaultInput.horizontal"
+        :placeholder="defaultInput.placeholder"
+        :focusable="defaultInput.focusable"
+        @input="defaultInput.value = $event"
+        @focus="focusEvent"
+        @blur="blurEvent"
+      />
+      <div>
+        Возвращаемое значение: {{ defaultInput.value }} (тип -
+        {{ typeof defaultInput.value }})
+      </div>
+      <div>Фокус на элементе: {{ focus ? "да" : "нет" }}</div>
+    </div>
   </div>
 </template>
 
 <script>
 import VInput from "../components/Vue2Input";
 import VbInput from "../components/Bootstrap_4.6.2/Form_components/BS46Input";
+import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
 export default {
   name: "InputView",
-  components: { VbInput, VInput },
+  components: { VbAlert, VbInput, VInput },
   data() {
     return {
       // Типовые состояния компонента v-input
       defaultInput: {
         id: "person-name",
         label: "Имя пользователя",
-        tag: "input",
-        type: "text",
-        framework: "bootstrap",
-        widthGroup: 12,
-        responsive: "col-12 col-md-6",
-        required: true,
+        type: "input",
+        subtype: "checkbox",
+        required: false,
+        disabled: false,
         readonly: false,
-        disabled: true,
-        horizontal: true,
-        horizontalWidth: {
-          label: {
-            width: 6,
-            responsive: "col-md-4",
-          },
-          field: {
-            width: 6,
-            responsive: "col-md-8",
-          },
+        additionalClasses: {
+          group: "col-6",
+          label: "",
+          field: "",
         },
-        value: null,
+        horizontal: false,
+        placeholder: "",
+        focusable: true,
+        value: "",
       },
       activeInput: {
         id: "userLastname",
@@ -248,11 +287,20 @@ export default {
         },
         value: "",
       },
+      focus: false,
     };
   },
   methods: {
     setInputValue(formField, formFieldValue) {
       formField.value = formFieldValue;
+    },
+    focusEvent() {
+      console.log("Поле в фокусе");
+      this.focus = true;
+    },
+    blurEvent() {
+      console.log("Поле в фокусе");
+      this.focus = false;
     },
   },
 };

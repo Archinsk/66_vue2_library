@@ -38,20 +38,25 @@ props: {
         </pre
       >
       <h3>Варианты использования</h3>
+      <div>Без пропов</div>
       <vb-preloader />
+      <div>С темой</div>
       <vb-preloader theme="primary" />
+      <div>С темой и задним фоном</div>
       <vb-preloader theme="danger" backdrop-colored />
+      <div>Тип "grow"</div>
       <vb-preloader type="grow" />
+      <div>С комментарием</div>
       <vb-preloader comment="Загрузка приложения" />
+      <div>С комментарием, цветом темы и цветом комментария</div>
       <vb-preloader
         comment="Загрузка приложения"
         theme="info"
         comment-color="danger"
       />
+      <div>size="sm"</div>
       <vb-preloader size="sm" />
-      <div style="width: 500px; height: 200px; background-color: aquamarine">
-        <vb-preloader comment="Загрузка..." theme="primary" />
-      </div>
+      <div>Поверх содержимого родителя (position: absolute)</div>
       <div
         class="p-3 position-relative"
         style="width: 500px; height: 200px; background-color: aqua"
@@ -67,6 +72,7 @@ props: {
         </p>
         <vb-preloader comment="Загрузка..." theme="primary" absolute />
       </div>
+      <div>Поверх содержимого родителя, с фоном</div>
       <div
         class="p-3 position-relative"
         style="width: 500px; height: 200px; background-color: aquamarine"
@@ -87,6 +93,7 @@ props: {
           backdrop-colored
         />
       </div>
+      <div>Поверх содержимого родителя, с размытием нижележащего контента</div>
       <div
         class="p-3 position-relative"
         style="width: 500px; height: 200px; background-color: aqua"
@@ -106,6 +113,10 @@ props: {
           absolute
           backdrop-blurred
         />
+      </div>
+      <div>
+        Поверх содержимого родителя, тонированный фон с размытием нижележащего
+        контента
       </div>
       <div
         class="p-3 position-relative"
@@ -136,7 +147,7 @@ props: {
 
 <script>
 import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
-import VbPreloader from "../components/Bootstrap_4.6.2/BS46Preoader";
+import VbPreloader from "../components/Bootstrap_4.6.2/BS46Preloader";
 export default {
   name: "PreloaderView",
   components: { VbPreloader, VbAlert },

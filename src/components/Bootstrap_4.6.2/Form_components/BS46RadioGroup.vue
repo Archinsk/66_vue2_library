@@ -1,9 +1,7 @@
 <template>
   <vb-form-group
     :additional-classes="
-      additionalClasses && additionalClasses.group
-        ? additionalClasses.group
-        : ''
+      additionalClasses?.group ? additionalClasses.group : ''
     "
   >
     <div v-if="title" class="checkbox-group-title font-weight-bolder mb-1">
@@ -16,7 +14,7 @@
         :name="id"
         :id="radio.id"
         :value="radio.value"
-        :checked="radio.value == value"
+        :checked="radio.value === value"
         :disabled="disabled || radio.disabled"
         @change="$emit('change', radio.value)"
       />
@@ -39,7 +37,7 @@ export default {
     value: String,
     required: Boolean,
     disabled: Boolean,
-    additionalClasses: String,
+    additionalClasses: Object,
   },
 };
 </script>

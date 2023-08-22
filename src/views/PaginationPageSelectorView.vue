@@ -31,7 +31,7 @@ props: {
 },</pre
       >
       <h3>Варианты использования</h3>
-      <div>См. BS46Pagination</div>
+      <div>См. <router-link to="/pagination">Pagination</router-link></div>
       <h3>Действия компонента</h3>
       <div>
         По нажатию на кнопку запускает событие @change-page с числовым значением

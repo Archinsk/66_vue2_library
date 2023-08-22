@@ -1,7 +1,9 @@
 <template>
   <div>
     <template v-if="!framework">
-      <label :for="id">{{ label }} <span v-if="required">*</span></label>
+      <label v-if="label" :for="id"
+        >{{ label }} <span v-if="required">*</span></label
+      >
       <input
         :type="type"
         :id="id"

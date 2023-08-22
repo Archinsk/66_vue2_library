@@ -1,9 +1,7 @@
 <template>
   <vb-form-group
     :additional-classes="
-      additionalClasses && additionalClasses.group
-        ? additionalClasses.group
-        : ''
+      additionalClasses?.group ? additionalClasses.group : ''
     "
     :horizontal="horizontal"
   >
@@ -15,28 +13,32 @@
         <input
           :type="type"
           class="form-control"
-          :id="idFull"
+          :id="id"
           :value="value"
           :required="required"
-          :readonly="readonly"
           :disabled="disabled"
+          :readonly="readonly"
+          :placeholder="placeholder"
           v-model="inputValue"
           @input="$emit('input', inputValue)"
           @focus="$emit('focus')"
+          @blur="$emit('blur')"
         />
       </div>
       <input
         v-else
         :type="type"
         class="form-control"
-        :id="idFull"
+        :id="id"
         :value="value"
         :required="required"
-        :readonly="readonly"
         :disabled="disabled"
+        :readonly="readonly"
+        :placeholder="placeholder"
         v-model="inputValue"
         @input="$emit('input', inputValue)"
         @focus="$emit('focus')"
+        @blur="$emit('blur')"
       />
     </template>
     <template v-else>
@@ -44,11 +46,12 @@
         <input
           :type="type"
           class="form-control"
-          :id="idFull"
+          :id="id"
           :value="value"
           :required="required"
-          :readonly="readonly"
           :disabled="disabled"
+          :readonly="readonly"
+          :placeholder="placeholder"
           v-model="inputValue"
           @input="$emit('input', inputValue)"
         />
@@ -57,11 +60,12 @@
         v-else
         :type="type"
         class="form-control"
-        :id="idFull"
+        :id="id"
         :value="value"
         :required="required"
-        :readonly="readonly"
         :disabled="disabled"
+        :readonly="readonly"
+        :placeholder="placeholder"
         v-model="inputValue"
         @input="$emit('input', inputValue)"
       />
@@ -84,8 +88,8 @@ export default {
     readonly: Boolean,
     additionalClasses: Object,
     horizontal: Boolean,
+    placeholder: String,
     focusable: Boolean,
-    idPostfix: String,
   },
   data() {
     return {
@@ -93,20 +97,12 @@ export default {
     };
   },
   computed: {
-    idFull: function () {
-      let idFull = this.id;
-      if (this.idPostfix) {
-        idFull += "-" + this.idPostfix;
-      }
-      return idFull;
-    },
     labelClass: function () {
       let labelClass = "";
       if (!this.horizontal) {
         labelClass += "form-label";
       } else {
-        // labelClass += "col-form-label";
-        if (this.additionalClasses.label) {
+        if (this.additionalClasses?.label) {
           labelClass += this.additionalClasses.label;
         } else {
           labelClass += " col";
@@ -116,17 +112,12 @@ export default {
     },
     fieldClass: function () {
       let fieldClass = "";
-      if (this.additionalClasses.field) {
+      if (this.additionalClasses?.field) {
         fieldClass += this.additionalClasses.field;
       } else {
         fieldClass += "col";
       }
       return fieldClass;
-    },
-  },
-  methods: {
-    testFocus() {
-      console.log("Фокус на поле сообщения");
     },
   },
   created() {

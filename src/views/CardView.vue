@@ -1,18 +1,19 @@
 <template>
   <div class="about">
-    <h2>Кастомизированный компонент Vue2CollapseButton</h2>
+    <h2>Кастомизированный компонент Vue2Card</h2>
     <div>Пока отсутствует</div>
 
-    <h2>Кастомизированный Bootstrap компонент BS46CollapseButton</h2>
+    <h2>Кастомизированный Bootstrap компонент BS46Card</h2>
     <div class="section">
-      <vb-alert theme-color="warning"
+      <vb-alert theme-color="danger"
         >Работает исправно. Используется в проектах 40,61,62,71,72. В проекте 61
-        используется старая верися без нескольких пропсов. Во всех проектах есть
+        используется старая версия без нескольких пропсов. Во всех проектах есть
         лишний проп "card-data". В проекте 62 на базе этого компонента сделано
-        несколько разных версий других компонентов. Два слота для изображения
-        превращены в один. Во всех проектах карточка с двумя слотами для
-        изображения. Требуется доработка для карточки с картинкой на весь фон
-        карточки</vb-alert
+        несколько разных версий других компонентов, в проекте 64 есть одна
+        версия компонента. Два слота для изображения превращены в один. Во всех
+        проектах карточка с двумя слотами для изображения. Требуется доработка
+        для карточки с картинкой на весь фон карточки. Требуется привязка
+        действий</vb-alert
       >
       <h3>Описание</h3>
       <div>
@@ -39,19 +40,27 @@ props: {
         </pre
       >
       <h3>Варианты использования</h3>
+      <div>С хедером и футером</div>
       <vb-card header footer>
         <template v-slot:card-header>Хедер карточки</template>
         <template v-slot:card-body>Тело карточки</template>
         <template v-slot:card-footer>Футер карточки</template>
       </vb-card>
+      <div>Без хедера и футера, изображение сверху</div>
       <vb-card image-position="top">
-        <template v-slot:card-image><img src="images/default.jpg" /></template>
+        <template v-slot:card-image
+          ><img src="images/default.jpg" style="height: calc(100% - 4rem)"
+        /></template>
         <template v-slot:card-body>Тело карточки</template>
       </vb-card>
+      <div>Без хедера и футера, изображение снизу</div>
       <vb-card image-position="bottom">
-        <template v-slot:card-image><img src="images/default.jpg" /></template>
+        <template v-slot:card-image
+          ><img src="images/default.jpg" style="height: calc(100% - 4rem)"
+        /></template>
         <template v-slot:card-body>Тело карточки</template>
       </vb-card>
+      <div>Без хедера и футера, изображение на всю карточку</div>
       <vb-card no-body image-position="full">
         <template v-slot:card-image
           ><img src="images/default.jpg" class="card-img"
@@ -76,3 +85,14 @@ export default {
   methods: {},
 };
 </script>
+
+<style lang="scss" scoped>
+.card {
+  width: 20rem;
+  height: 13rem;
+}
+
+img {
+  height: 100%;
+}
+</style>

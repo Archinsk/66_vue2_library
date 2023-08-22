@@ -35,7 +35,7 @@ props: {
         </pre
       >
       <h3>Варианты использования</h3>
-      <vb-collapse-button target-id="notificationCollapse">
+      <vb-collapse-button target-id="notificationCollapse" class="btn-primary">
         Детали
       </vb-collapse-button>
       <vb-collapse id="notificationCollapse">

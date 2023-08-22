@@ -93,7 +93,6 @@ export default {
         label: "Согласие на обработку",
         type: "input",
         subtype: "checkbox",
-        value: false,
         required: false,
         disabled: false,
         additionalClasses: {
@@ -103,6 +102,7 @@ export default {
         },
         switchMode: false,
         grouped: false,
+        value: false,
       },
     };
   },

@@ -1,43 +1,29 @@
 <template>
-  <div :class="filterClass">
+  <div :class="rangeClass">
     <div class="row">
       <vb-input
-        :id="dateRangeData.id"
-        id-postfix="start"
-        :label="dateRangeData.label + dateRangeData.itemsList[0].label"
-        :type="dateRangeData.subtype"
-        :value="dateRangeData.itemsList[0].value"
-        :required="
-          dateRangeData.required || dateRangeData.itemsList[0].required
-        "
-        :disabled="
-          dateRangeData.disabled || dateRangeData.itemsList[0].disabled
-        "
-        :readonly="
-          dateRangeData.readonly || dateRangeData.itemsList[0].readonly
-        "
-        :additional-classes="dateRangeData.additionalClasses"
-        :horizontal="dateRangeData.horizontal"
-        @input="$emit('input', { index: 0, value: $event })"
+        :id="id + '-start'"
+        :label="labelFrom"
+        :type="type"
+        :value="range.from.value"
+        :required="required"
+        :disabled="disabled"
+        :readonly="readonly"
+        :additional-classes="additionalClasses"
+        :horizontal="horizontal"
+        @input="$emit('input', { key: 'from', value: $event })"
       />
       <vb-input
-        :id="dateRangeData.id"
-        id-postfix="finish"
-        :label="dateRangeData.label + dateRangeData.itemsList[1].label"
-        :type="dateRangeData.subtype"
-        :value="dateRangeData.itemsList[1].value"
-        :required="
-          dateRangeData.required || dateRangeData.itemsList[1].required
-        "
-        :disabled="
-          dateRangeData.disabled || dateRangeData.itemsList[1].disabled
-        "
-        :readonly="
-          dateRangeData.readonly || dateRangeData.itemsList[1].readonly
-        "
-        :additional-classes="dateRangeData.additionalClasses"
-        :horizontal="dateRangeData.horizontal"
-        @input="$emit('input', { index: 1, value: $event })"
+        :id="id + 'finish'"
+        :label="labelTo"
+        :type="type"
+        :value="range.to.value"
+        :required="required"
+        :disabled="disabled"
+        :readonly="readonly"
+        :additional-classes="additionalClasses"
+        :horizontal="horizontal"
+        @input="$emit('input', { key: 'to', value: $event })"
       />
     </div>
   </div>
@@ -49,19 +35,45 @@ export default {
   name: "VbDateRange",
   components: { VbInput },
   props: {
-    dateRangeData: Object,
+    id: String,
+    label: String,
+    type: String,
+    required: Boolean,
+    disabled: Boolean,
+    readonly: Boolean,
+    additionalClasses: Object,
+    horizontal: Boolean,
+    range: Object,
   },
   computed: {
-    filterClass: function () {
-      let filterClass =
+    // Работает неправильно, переделать!
+    rangeClass: function () {
+      let rangeClass =
         "form-group d-flex flex-column justify-content-end mb-0 col";
-      if (this.dateRangeData.width) {
-        filterClass += "-" + this.dateRangeData.width;
+      if (this.additionalClasses?.group) {
+        rangeClass += "-" + this.additionalClasses.group * 2;
       }
-      if (this.dateRangeData.responsive) {
-        filterClass += " " + this.dateRangeData.responsive;
+      return rangeClass;
+    },
+    labelFrom: function () {
+      let labelFrom = "";
+      if (this.label) {
+        labelFrom += this.label;
       }
-      return filterClass;
+      if (this.range.from.label) {
+        labelFrom += this.range.from.label;
+      }
+      return labelFrom;
+    },
+    labelTo: function () {
+      let labelTo = "";
+      if (this.label) {
+        labelTo += this.label;
+      }
+      if (this.range.to.label) {
+        labelTo += this.range.to.label;
+      }
+      return labelTo;
     },
   },
 };

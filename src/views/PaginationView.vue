@@ -5,10 +5,11 @@
 
     <h2>Кастомизированный Bootstrap компонент BS46Pagination</h2>
     <div class="section">
-      <vb-alert theme-color="warning"
+      <vb-alert theme-color="danger"
         >Работает исправно. Используется в проектах 40,61,62,64,72. В проекте 40
         используется старая версия. Исключена запись " По вашему запросу ничего
-        не найдено"</vb-alert
+        не найдено". Требуется унификация методов change-page и
+        change-page-size</vb-alert
       >
       <h3>Описание</h3>
       <div>
@@ -41,6 +42,7 @@ props: {
 },</pre
       >
       <h3>Варианты использования</h3>
+      <div>Объединенные кнопки</div>
       <vb-pagination
         :items-total="defaultPagination.itemsTotal"
         :page="defaultPagination.page"
@@ -49,6 +51,7 @@ props: {
         @change-page-size="changePageSize($event)"
         @change-page="changePage($event)"
       />
+      <div>Раздельные кнопки</div>
       <vb-pagination
         :items-total="defaultPagination.itemsTotal"
         :page="defaultPagination.page"
@@ -61,12 +64,30 @@ props: {
       <ul>
         <li v-for="item of defaultList" :key="item">Запись {{ item }}</li>
       </ul>
+      <h3>Структура данных для компонента</h3>
+      <pre>{{ defaultPagination }}</pre>
       <h3>Действия компонента</h3>
       <div>
         По нажатию на кнопки количества записей на странице вызывается событие
         @change-page-size с объектом, содержащим числовые поля нового размера
         списка и новой страницы. По нажатию на кнопки страниц вызывается событие
         @change-page с числовым значением новой страницы
+      </div>
+      <vb-pagination
+        :items-total="defaultPagination.itemsTotal"
+        :page="defaultPagination.page"
+        :page-size="defaultPagination.pageSize"
+        :items-per-page="defaultPagination.itemsPerPage"
+        island-buttons
+        @change-page-size="changePageSize($event)"
+        @change-page="changePage($event)"
+      />
+      <div>
+        Возвращаемое значение количества: {{ pageInfo }} (тип -
+        {{ typeof pageInfo }})
+      </div>
+      <div>
+        Возвращаемое значение страницы: {{ page }} (тип - {{ typeof page }})
       </div>
     </div>
   </div>
@@ -82,16 +103,20 @@ export default {
     return {
       defaultList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       defaultPagination: {
-        itemsTotal: 100,
+        itemsTotal: 10,
         page: 1,
         pageSize: 10,
-        itemsPerPage: [10, 25, 50],
+        itemsPerPage: [3, 5, 10],
       },
+      // Введено для демонстрации возвращаемых значений
+      pageInfo: null,
+      page: null,
     };
   },
   methods: {
     // Пагинация
     changePageSize({ page, pageSize }) {
+      this.pageInfo = { page, pageSize };
       const startItem = pageSize * (page - 1) + 1;
       let newItems = [];
       for (let i = startItem; i <= pageSize * page; i++) {
@@ -102,6 +127,7 @@ export default {
       this.defaultPagination.pageSize = pageSize;
     },
     changePage(page) {
+      this.page = page;
       const startItem = this.defaultPagination.pageSize * (page - 1) + 1;
       let newItems = [];
       for (

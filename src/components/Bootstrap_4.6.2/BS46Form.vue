@@ -17,6 +17,7 @@
             :required="formItem.required"
             :disabled="formItem.disabled"
             :readonly="formItem.readonly"
+            :placeholder="formItem.placeholder"
             :additional-classes="formItem.additionalClasses"
             :horizontal="formItem.horizontal"
             :focusable="formItem.focusable"

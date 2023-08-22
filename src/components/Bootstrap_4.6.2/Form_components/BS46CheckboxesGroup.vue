@@ -1,9 +1,7 @@
 <template>
   <vb-form-group
     :additional-classes="
-      additionalClasses && additionalClasses.group
-        ? additionalClasses.group
-        : ''
+      additionalClasses?.group ? additionalClasses.group : ''
     "
   >
     <div v-if="title" class="checkbox-group-title font-weight-bolder mb-1">
