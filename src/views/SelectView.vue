@@ -1,185 +1,188 @@
 <template>
   <div>
     <h2>Классический Select</h2>
-    <h2>Кастомизированный компонент Vue2Input</h2>
-    <h2>Кастомизированный Bootstrap компонент BS46Input</h2>
-    <h3>Варианты использования</h3>
-    <div>Без пропсов не работает</div>
-    <vb-select />
-    <div>Со списком значений</div>
-    <vb-select :items-list="exampleSelect.itemsList" />
-    <div>С выбранным значением из списка значений</div>
-    <vb-select :items-list="exampleSelect.itemsList" :values="[2]" />
-    <div>С ярлыком</div>
-    <vb-select :items-list="exampleSelect.itemsList" label="Документ" />
-    <div>С измененным дефолтным пунктом</div>
-    <vb-select
-      :items-list="exampleSelect.itemsList"
-      label="Документ"
-      default-value-label="Выберите ДУЛ"
-    />
-    <div>С заданной шириной (в колонках Bootstrap)</div>
-    <vb-select :items-list="exampleSelect.itemsList" width-group="6" />
-    <div>Обязательное (использовать с ярлыком)</div>
-    <vb-select
-      :items-list="exampleSelect.itemsList"
-      label="Документ"
-      required
-    />
-    <div>Выключенное</div>
-    <vb-select :items-list="exampleSelect.itemsList" disabled />
-    <div>С множественным выбором</div>
-    <vb-select
-      :items-list="exampleSelect.itemsList"
-      :values="[2, 3]"
-      multiple
-    />
-    <div>С множественным выбором и выбранными бейджами значений</div>
-    <vb-select
-      :items-list="exampleSelect.itemsList"
-      :values="[2, 3]"
-      multiple
-      badges
-    />
-    <div>
-      Горизонтальное расположение (ярлык слева, требуется указывать ширины
-      ярлыка и поля в колонках Bootstrap)
-    </div>
-    <vb-select
-      :items-list="exampleSelect.itemsList"
-      label="Документ"
-      horizontal
-      :horizontal-width="exampleSelect.horizontalWidth"
-    />
-    <h3>Типовое представление</h3>
-    <vb-select
-      :id="defaultSelect.id"
-      :label="defaultSelect.label"
-      :items-list="defaultSelect.itemsList"
-      :default-value-label="defaultSelect.defaultValueLabel"
-      :values="defaultSelect.values"
-      :required="defaultSelect.required"
-      :disabled="defaultSelect.disabled"
-      :multiple="defaultSelect.multiple"
-      :badges="defaultSelect.badges"
-      :width-group="defaultSelect.width"
-      :responsive="defaultSelect.responsive"
-      :horizontal="defaultSelect.horizontal"
-      :horizontal-width="defaultSelect.horizontalWidth"
-    />
-    <div>defaultValueLabel: {{ defaultSelect.defaultValueLabel }}</div>
-    <div>
-      Надпись первой option:
-      {{ defaultSelect.itemsList[0].label }}
-    </div>
-    <div>
-      Значение первой option:
-      {{ defaultSelect.itemsList[0].value }}
-    </div>
-    <h3>Действия компонента</h3>
-    <div>Компонент vb-input (без пропа framework="bootstrap"):</div>
-    <vb-select
-      :id="activeSelect.id"
-      :label="activeSelect.label"
-      :items-list="activeSelect.itemsList"
-      :default-value-label="activeSelect.defaultValueLabel"
-      :values="activeSelect.values"
-      :required="activeSelect.required"
-      :disabled="activeSelect.disabled"
-      :multiple="activeSelect.multiple"
-      :badges="activeSelect.badges"
-      :width-group="activeSelect.width"
-      :responsive="activeSelect.responsive"
-      :horizontal="activeSelect.horizontal"
-      :horizontal-width="activeSelect.horizontalWidth"
-      @change="setSelectValues(activeSelect, $event)"
-    />
-    <div>
-      Текущее значение состояния поля в компоненте App:
-      {{ activeSelect.values }}
+    <h2>Кастомизированный компонент Vue2Select</h2>
+    <div>Пока отсутствует</div>
+
+    <h2>Кастомизированный Bootstrap компонент BS46Select</h2>
+    <div class="section">
+      <vb-alert theme-color="danger"
+        >Работает исправно. Используется в проектах 40, 61, 62, 64, 71, 72.
+        Сложный компонент, должен быть упрощен за счет выноса некоторых
+        разновидностей в отдельные компоненты. Селект с множественными бейджами
+        требует доработки</vb-alert
+      >
+      <h3>Описание</h3>
+      <div>
+        Назначение: выбор одиночного или множественных значений из выпадающего
+        списка значений
+      </div>
+      <div>
+        Принимает идентификатор, ярлык, массив элементов списка, массив
+        выбранных значений, флаги обязательности, отключенности и
+        горизонтального режима, объект дополнительных классов, дефолтный ярлык,
+        флаги множественного выбора и отображения бейджей.
+      </div>
+      <pre>
+props: {
+  // подзаголовок
+  id: String,
+  label: String,
+  itemsList: Array,
+  values: Array,
+  required: Boolean,
+  disabled: Boolean,
+  additionalClasses: Object,
+  horizontal: Boolean,
+  defaultValueLabel: String,
+  multiple: Boolean,
+  badges: Boolean,
+
+},</pre
+      >
+      <h3>Варианты использования</h3>
+      <div>Без пропов</div>
+      <vb-select />
+      <div>С ярлыком (для кликабельности использовать совместно с id)</div>
+      <vb-select label="Документ" id="select-01" />
+      <div>Со списком значений</div>
+      <vb-select
+        :items-list="[
+          { id: 1, value: 1, label: 'Пункт 1' },
+          { id: 2, value: 2, label: 'Пункт 2' },
+          { id: 3, value: 3, label: 'Пункт 3' },
+        ]"
+      />
+      <div>С выбранным значением из списка значений</div>
+      <vb-select
+        :items-list="[
+          { id: 1, value: 1, label: 'Пункт 1' },
+          { id: 2, value: 2, label: 'Пункт 2' },
+          { id: 3, value: 3, label: 'Пункт 3' },
+        ]"
+        :values="[2]"
+      />
+      <div>С измененным дефолтным пунктом</div>
+      <vb-select
+        :items-list="[
+          { id: 1, value: 1, label: 'Документ 1' },
+          { id: 2, value: 2, label: 'Документ 2' },
+          { id: 3, value: 3, label: 'Документ 3' },
+        ]"
+        label="Документ"
+        default-value-label="Выберите документ, удостоверяющий личность"
+      />
+      <div>Обязательное (использовать с ярлыком)</div>
+      <vb-select
+        :items-list="[
+          { id: 1, value: 1, label: 'Документ 1' },
+          { id: 2, value: 2, label: 'Документ 2' },
+          { id: 3, value: 3, label: 'Документ 3' },
+        ]"
+        label="Документ"
+        required
+      />
+      <div>Выключенное</div>
+      <vb-select
+        :items-list="[
+          { id: 1, value: 1, label: 'Документ 1' },
+          { id: 2, value: 2, label: 'Документ 2' },
+          { id: 3, value: 3, label: 'Документ 3' },
+        ]"
+        disabled
+      />
+      <div>С объектом дополнительных классов</div>
+      <vb-select
+        :items-list="[
+          { id: 1, value: 1, label: 'Пункт 1' },
+          { id: 2, value: 2, label: 'Пункт 2' },
+          { id: 3, value: 3, label: 'Пункт 3' },
+        ]"
+        :additional-classes="{ group: 'col-6' }"
+      />
+      <div>Горизонтальное расположение</div>
+      <vb-select label="Документ" horizontal />
+      <div>Горизонтальное расположение с объектом дополнительных классов</div>
+      <vb-select
+        label="Документ"
+        horizontal
+        :additional-classes="{ group: 'col-6', label: 'col-3', field: 'col-9' }"
+      />
+      <div>С множественным выбором</div>
+      <vb-select
+        :items-list="[
+          { id: 1, value: 1, label: 'Пункт 1' },
+          { id: 2, value: 2, label: 'Пункт 2' },
+          { id: 3, value: 3, label: 'Пункт 3' },
+        ]"
+        :values="[2, 3]"
+        multiple
+      />
+      <div>С множественным выбором и бейджами выбранных значений</div>
+      <vb-select
+        :items-list="defaultSelect.itemsList"
+        :values="defaultSelect.values"
+        multiple
+        badges
+        @change="defaultSelect.values = $event"
+      />
+      <h3>Структура данных для компонента</h3>
+      <pre>{{ defaultSelect }}</pre>
+      <h3>Действия компонента</h3>
+      <div>
+        При изменении значения вызывает событие @change с массивом выбранных
+        значений
+      </div>
+      <vb-select
+        :id="defaultSelect.id"
+        :label="defaultSelect.label"
+        :items-list="defaultSelect.itemsList"
+        :values="defaultSelect.values"
+        :required="defaultSelect.required"
+        :disabled="defaultSelect.disabled"
+        :additional-classes="defaultSelect.additionalClasses"
+        :horizontal="defaultSelect.horizontal"
+        :default-value-label="defaultSelect.defaultValueLabel"
+        :multiple="defaultSelect.multiple"
+        :badges="defaultSelect.badges"
+        @change="defaultSelect.values = $event"
+      />
+      <div>
+        Возвращаемое значение: {{ defaultSelect.values }} (тип -
+        {{ typeof defaultSelect.values }})
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import VbSelect from "../components/Bootstrap_4.6.2/Form_components/BS46Select";
+import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
 export default {
   name: "SelectView",
-  components: { VbSelect },
+  components: { VbAlert, VbSelect },
   data() {
     return {
-      exampleSelect: {
-        id: "userDocType3",
-        label: "Тип документа",
-        type: "select",
-        itemsList: [
-          { id: 1, value: 1, label: "Паспорт гражданина РФ" },
-          { id: 2, value: 2, label: "Водительское удостоверение" },
-          { id: 3, value: 3, label: "Свидетельство о рождении" },
-        ],
-        width: 12,
-        responsive: "",
-        defaultValueLabel: "Выберите тип документа",
-        horizontal: true,
-        horizontalWidth: {
-          label: {
-            width: 4,
-            responsive: "col-sm-5",
-          },
-          field: {
-            width: 8,
-            responsive: "col-sm-7",
-          },
-        },
-        values: [],
-      },
-      // Типовые состояния компонента vb-select
       defaultSelect: {
         id: "userDocType",
         label: "Тип документа",
         type: "select",
         itemsList: [
-          { id: 1, value: 1, label: "Свидетельство о браке" },
-          { id: 2, value: 2, label: "Водительское удостоверение" },
+          { id: 1, value: 1, label: "Паспорт РФ" },
+          { id: 2, value: 2, label: "Свидетельство о рождении" },
+          { id: 3, value: 3, label: "Водительское удостоверение" },
         ],
-        width: 12,
-        responsive: "",
-        defaultValueLabel: "Выберите тип документа",
-        horizontal: true,
-        horizontalWidth: {
-          label: {
-            width: 4,
-            responsive: "col-sm-5",
-          },
-          field: {
-            width: 8,
-            responsive: "col-sm-7",
-          },
+        required: false,
+        disabled: false,
+        additionalClasses: {
+          group: "col-5",
+          label: "",
+          field: "",
         },
-        values: [],
-      },
-      activeSelect: {
-        id: "userDocType2",
-        label: "Тип документа",
-        type: "select",
-        itemsList: [
-          { id: 1, value: 1, label: "Свидетельство о браке" },
-          { id: 2, value: 2, label: "Водительское удостоверение" },
-        ],
-        width: 12,
-        responsive: "",
-        defaultValueLabel: "Выберите тип документа",
         horizontal: false,
-        horizontalWidth: {
-          label: {
-            width: 4,
-            responsive: "col-sm-5",
-          },
-          field: {
-            width: 8,
-            responsive: "col-sm-7",
-          },
-        },
+        defaultValueLabel: "Выберите тип документа",
+        multiple: false,
+        badges: false,
         values: [],
       },
     };

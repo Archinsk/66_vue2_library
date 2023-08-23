@@ -1,13 +1,11 @@
 <template>
   <vb-form-group
     :additional-classes="
-      additionalClasses && additionalClasses.group
-        ? additionalClasses.group
-        : ''
+      additionalClasses?.group ? additionalClasses.group : ''
     "
     :horizontal="horizontal"
   >
-    <label :for="id" :class="labelClass"
+    <label v-if="label" :for="id" :class="labelClass"
       >{{ label }} <span v-if="required" class="text-danger">*</span></label
     >
 
@@ -26,7 +24,7 @@
         <option disabled value="">
           {{ defaultValueLabel ? defaultValueLabel : "Выберите..." }}
         </option>
-        <template v-if="itemsList.length > 0">
+        <template v-if="itemsList?.length">
           <option
             v-for="option of itemsList"
             :value="option.value"
@@ -49,7 +47,7 @@
           <option disabled value="">
             {{ defaultValueLabel ? defaultValueLabel : "Выберите..." }}
           </option>
-          <template v-if="itemsList.length > 0">
+          <template v-if="itemsList?.length">
             <option
               v-for="option of itemsList"
               :value="option.value"
@@ -78,7 +76,7 @@
         <option disabled value="">
           {{ defaultValueLabel ? defaultValueLabel : "Выберите..." }}
         </option>
-        <template v-if="itemsList.length > 0">
+        <template v-if="itemsList?.length">
           <option
             v-for="option of itemsList"
             :value="option.value"
@@ -102,7 +100,7 @@
           <option disabled value="">
             {{ defaultValueLabel ? defaultValueLabel : "Выберите..." }}
           </option>
-          <template v-if="itemsList.length > 0">
+          <template v-if="itemsList?.length">
             <option
               v-for="option of itemsList"
               :value="option.value"
@@ -226,17 +224,17 @@ export default {
   name: "VbSelect",
   components: { VbFormGroup },
   props: {
-    label: String,
     id: String,
+    label: String,
     itemsList: Array,
-    defaultValueLabel: String,
     values: Array,
     required: Boolean,
     disabled: Boolean,
     additionalClasses: Object,
+    horizontal: Boolean,
+    defaultValueLabel: String,
     multiple: Boolean,
     badges: Boolean,
-    horizontal: Boolean,
   },
   data() {
     return {
@@ -250,7 +248,7 @@ export default {
       if (!this.horizontal) {
         labelClass += "form-label";
       } else {
-        labelClass += this.additionalClasses.label
+        labelClass += this.additionalClasses?.label
           ? this.additionalClasses.label
           : "col";
       }
@@ -258,7 +256,7 @@ export default {
     },
     fieldClass: function () {
       let fieldClass = "";
-      fieldClass += this.additionalClasses.field
+      fieldClass += this.additionalClasses?.field
         ? this.additionalClasses.field
         : "col";
       return fieldClass;
@@ -288,28 +286,28 @@ export default {
 
   created() {
     if (!this.multiple) {
-      if (this.values.length === 1) {
+      if (this.values?.length === 1) {
         this.selectedValue = this.values[0];
-      } else if (this.values.length === 0) {
+      } else if (this.values?.length === 0) {
         this.selectedValue = "";
       }
     }
     if (this.multiple) {
-      this.selectedForMultiple = this.values;
+      this.selectedForMultiple = this.values || [];
     }
   },
 
   watch: {
     values: function () {
       if (!this.multiple) {
-        if (this.values.length === 1) {
+        if (this.values?.length === 1) {
           this.selectedValue = this.values[0];
-        } else if (this.values.length === 0) {
+        } else if (this.values?.length === 0) {
           this.selectedValue = "";
         }
       }
       if (this.multiple) {
-        this.selectedForMultiple = this.values;
+        this.selectedForMultiple = this.values || [];
       }
     },
   },

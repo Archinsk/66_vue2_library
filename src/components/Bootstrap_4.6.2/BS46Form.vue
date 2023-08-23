@@ -1,8 +1,9 @@
 <template>
-  <form class="">
-    <fieldset :disabled="formData.disabled ? true : false">
-      <div class="row">
-        <template v-for="formItem of formData.fields">
+  <form :id="id">
+    <fieldset>
+      <legend v-if="legend">{{ legend }}</legend>
+      <div :class="tightGutters ? 'form-row' : 'row'">
+        <template v-for="formItem of formItemsList">
           <vb-input
             v-if="
               formItem.type === 'input' &&
@@ -14,12 +15,12 @@
             :label="formItem.label"
             :type="formItem.subtype"
             :value="formItem.value"
-            :required="formItem.required"
-            :disabled="formItem.disabled"
+            :required="required || formItem.required"
+            :disabled="disabled || formItem.disabled"
             :readonly="formItem.readonly"
-            :placeholder="formItem.placeholder"
             :additional-classes="formItem.additionalClasses"
-            :horizontal="formItem.horizontal"
+            :horizontal="horizontal || formItem.horizontal"
+            :placeholder="formItem.placeholder"
             :focusable="formItem.focusable"
             @input="$emit('change-form', { id: formItem.id, value: $event })"
             @focus="$emit('focus', formItem.id)"
@@ -30,11 +31,13 @@
             :id="formItem.id"
             :label="formItem.label"
             :value="formItem.value"
-            :required="formItem.required"
-            :disabled="formItem.disabled"
+            :required="required || formItem.required"
+            :disabled="disabled || formItem.disabled"
             :readonly="formItem.readonly"
             :additional-classes="formItem.additionalClasses"
-            :horizontal="formItem.horizontal"
+            :horizontal="horizontal || formItem.horizontal"
+            :placeholder="formItem.placeholder"
+            :rows="formItem.rows"
             @input="$emit('change-form', { id: formItem.id, value: $event })"
           />
           <vb-select
@@ -43,14 +46,14 @@
             :id="formItem.id"
             :label="formItem.label"
             :items-list="formItem.itemsList"
-            :default-value-label="formItem.defaultValueLabel"
             :values="formItem.values"
-            :required="formItem.required"
-            :disabled="formItem.disabled"
+            :required="required || formItem.required"
+            :disabled="disabled || formItem.disabled"
             :additional-classes="formItem.additionalClasses"
+            :horizontal="horizontal || formItem.horizontal"
+            :default-value-label="formItem.defaultValueLabel"
             :multiple="formItem.multiple"
             :badges="formItem.badges"
-            :horizontal="formItem.horizontal"
             @change="$emit('change-form', { id: formItem.id, values: $event })"
           />
           <vb-checkbox
@@ -59,8 +62,8 @@
             :id="formItem.id"
             :label="formItem.label"
             :value="formItem.value"
-            :required="formItem.required"
-            :disabled="formItem.disabled"
+            :required="required || formItem.required"
+            :disabled="disabled || formItem.disabled"
             :additional-classes="formItem.additionalClasses"
             :switch-mode="formItem.switchMode"
             @change="$emit('change-form', { id: formItem.id, value: $event })"
@@ -68,37 +71,44 @@
           <vb-date-range
             v-if="formItem.type === 'range'"
             :key="formItem.id"
-            :date-range-data="formItem"
+            :id="formItem.id"
+            :label="formItem.label"
+            :required="required || formItem.required"
+            :disabled="disabled || formItem.disabled"
+            :readonly="formItem.readonly"
+            :additional-classes="formItem.additionalClasses"
+            :horizontal="horizontal || formItem.horizontal"
+            :range="formItem.range"
             @input="
               $emit('change-form', {
                 id: formItem.id,
-                index: $event.index,
+                key: $event.key,
                 value: $event.value,
               })
             "
           />
           <vb-checkboxes-group
-            v-if="formItem.type === 'checkboxes-group'"
+            v-if="formItem.type === 'checkboxesGroup'"
             :key="formItem.id"
             :id="formItem.id"
             :title="formItem.title"
             :items-list="formItem.itemsList"
             :values="formItem.values"
-            :required="formItem.required"
-            :disabled="formItem.disabled"
+            :required="required || formItem.required"
+            :disabled="disabled || formItem.disabled"
             :additional-classes="formItem.additionalClasses"
             :switch-mode="formItem.switchMode"
             @change="$emit('change-form', { id: formItem.id, values: $event })"
           />
           <vb-radio-group
-            v-if="formItem.type === 'radio-group'"
+            v-if="formItem.type === 'radioGroup'"
             :key="formItem.id"
             :id="formItem.id"
             :title="formItem.title"
             :items-list="formItem.itemsList"
             :value="formItem.value"
-            :required="formItem.required"
-            :disabled="formItem.disabled"
+            :required="required || formItem.required"
+            :disabled="disabled || formItem.disabled"
             :additional-classes="formItem.additionalClasses"
             @change="$emit('change-form', { id: formItem.id, value: $event })"
           />
@@ -128,7 +138,14 @@ export default {
     VbCheckbox,
   },
   props: {
-    formData: Object,
+    id: String,
+    legend: String,
+    formItemsList: Array,
+    required: Boolean,
+    disabled: Boolean,
+    horizontal: Boolean,
+    validity: Boolean,
+    tightGutters: Boolean,
   },
 };
 </script>
