@@ -3,27 +3,27 @@
     <div class="row">
       <vb-input
         :id="id + '-start'"
-        :label="labelFrom"
+        :label="labels ? labels[0] : ''"
         :type="type"
-        :value="range.from.value"
+        :value="values ? values[0] : ''"
         :required="required"
         :disabled="disabled"
         :readonly="readonly"
         :additional-classes="additionalClasses"
         :horizontal="horizontal"
-        @input="$emit('input', { key: 'from', value: $event })"
+        @input="$emit('input', [$event, values[1] ? values[1] : ''])"
       />
       <vb-input
         :id="id + 'finish'"
-        :label="labelTo"
+        :label="labels ? labels[1] : ''"
         :type="type"
-        :value="range.to.value"
+        :value="values ? values[1] : ''"
         :required="required"
         :disabled="disabled"
         :readonly="readonly"
         :additional-classes="additionalClasses"
         :horizontal="horizontal"
-        @input="$emit('input', { key: 'to', value: $event })"
+        @input="$emit('input', [values[0] ? values[0] : '', $event])"
       />
     </div>
   </div>
@@ -36,14 +36,14 @@ export default {
   components: { VbInput },
   props: {
     id: String,
-    label: String,
+    labels: Array,
     type: String,
     required: Boolean,
     disabled: Boolean,
     readonly: Boolean,
     additionalClasses: Object,
     horizontal: Boolean,
-    range: Object,
+    values: Array,
   },
   computed: {
     // Работает неправильно, переделать!
@@ -54,26 +54,6 @@ export default {
         rangeClass += "-" + this.additionalClasses.group * 2;
       }
       return rangeClass;
-    },
-    labelFrom: function () {
-      let labelFrom = "";
-      if (this.label) {
-        labelFrom += this.label;
-      }
-      if (this.range.from.label) {
-        labelFrom += this.range.from.label;
-      }
-      return labelFrom;
-    },
-    labelTo: function () {
-      let labelTo = "";
-      if (this.label) {
-        labelTo += this.label;
-      }
-      if (this.range.to.label) {
-        labelTo += this.range.to.label;
-      }
-      return labelTo;
     },
   },
 };

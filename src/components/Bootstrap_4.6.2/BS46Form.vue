@@ -22,7 +22,12 @@
             :horizontal="horizontal || formItem.horizontal"
             :placeholder="formItem.placeholder"
             :focusable="formItem.focusable"
-            @input="$emit('change-form', { id: formItem.id, value: $event })"
+            @input="
+              $emit('change-form', {
+                formItem,
+                newValue: $event,
+              })
+            "
             @focus="$emit('focus', formItem.id)"
           />
           <vb-textarea
@@ -38,7 +43,7 @@
             :horizontal="horizontal || formItem.horizontal"
             :placeholder="formItem.placeholder"
             :rows="formItem.rows"
-            @input="$emit('change-form', { id: formItem.id, value: $event })"
+            @input="$emit('change-form', { formItem, newValue: $event })"
           />
           <vb-select
             v-if="formItem.type === 'select'"
@@ -54,7 +59,7 @@
             :default-value-label="formItem.defaultValueLabel"
             :multiple="formItem.multiple"
             :badges="formItem.badges"
-            @change="$emit('change-form', { id: formItem.id, values: $event })"
+            @change="$emit('change-form', { formItem, newValue: $event })"
           />
           <vb-checkbox
             v-if="formItem.type === 'input' && formItem.subtype === 'checkbox'"
@@ -66,24 +71,24 @@
             :disabled="disabled || formItem.disabled"
             :additional-classes="formItem.additionalClasses"
             :switch-mode="formItem.switchMode"
-            @change="$emit('change-form', { id: formItem.id, value: $event })"
+            @change="$emit('change-form', { formItem, newValue: $event })"
           />
           <vb-date-range
             v-if="formItem.type === 'range'"
             :key="formItem.id"
             :id="formItem.id"
-            :label="formItem.label"
+            :labels="formItem.labels"
+            :type="formItem.subtype"
             :required="required || formItem.required"
             :disabled="disabled || formItem.disabled"
             :readonly="formItem.readonly"
             :additional-classes="formItem.additionalClasses"
             :horizontal="horizontal || formItem.horizontal"
-            :range="formItem.range"
+            :values="formItem.values"
             @input="
               $emit('change-form', {
-                id: formItem.id,
-                key: $event.key,
-                value: $event.value,
+                formItem,
+                newValue: $event,
               })
             "
           />
@@ -98,7 +103,7 @@
             :disabled="disabled || formItem.disabled"
             :additional-classes="formItem.additionalClasses"
             :switch-mode="formItem.switchMode"
-            @change="$emit('change-form', { id: formItem.id, values: $event })"
+            @change="$emit('change-form', { formItem, newValue: $event })"
           />
           <vb-radio-group
             v-if="formItem.type === 'radioGroup'"
@@ -110,7 +115,7 @@
             :required="required || formItem.required"
             :disabled="disabled || formItem.disabled"
             :additional-classes="formItem.additionalClasses"
-            @change="$emit('change-form', { id: formItem.id, value: $event })"
+            @change="$emit('change-form', { formItem, newValue: $event })"
           />
         </template>
       </div>

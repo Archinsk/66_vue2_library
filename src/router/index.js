@@ -51,6 +51,16 @@ const routes = [
     component: () => import("../views/FormView.vue"),
   },
   {
+    path: "/filter",
+    name: "filterView",
+    component: () => import("../views/FilterView.vue"),
+  },
+  {
+    path: "/itemslist",
+    name: "itemsListView",
+    component: () => import("../views/ItemsListView.vue"),
+  },
+  {
     path: "/alert",
     name: "alertView",
     component: () => import("../views/AlertView.vue"),

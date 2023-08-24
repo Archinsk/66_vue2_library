@@ -17,90 +17,59 @@
         Пробрасывает все пропы дочерним объектам (например, disabled отключает
         оба поля). К идентификатору первого поля добавляется "-start", второго -
         "-finish". Ярлык Каждого из полей составной (ярлык диапазона + ярлык
-        поля). Поэтому в пропе range должно передаваться 2 поля (from, to),
-        содержащих ярлых поля и значение поля
+        поля). Дополнительно передаются 2 поля (from, to), содержащих ярлых поля
+        и значение поля
       </div>
       <pre>
 props: {
   // общие данные для обоих полей
   id: String,
-  label: String,
+  labels: Array,
   type: String,
   required: Boolean,
   disabled: Boolean,
   readonly: Boolean,
   additionalClasses: Object,
   horizontal: Boolean,
-  // данные отдельных полей
-  range: Object,
+  values: Array,
 },
         </pre
       >
       <h3>Варианты использования</h3>
       <div>
-        Минимальный набор пропов - id, type и объект range (без пропов не
-        работает)
+        Минимальный набор пропов - id, type, ярлыки (без пропов не работает)
       </div>
       <vb-date-range
         id="range-01"
         type="date"
-        :range="{
-          from: { label: 'Дата начала', value: '' },
-          to: { label: ' Дата окончания', value: '' },
-        }"
-      />
-      <div>С ярлыками</div>
-      <vb-date-range
-        id="range-02"
-        label="Прием обращений"
-        type="date"
-        :range="{
-          from: { label: ' с:', value: '' },
-          to: { label: ' по:', value: '' },
-        }"
+        :labels="['Дата начала', 'Дата окончания']"
       />
       <div>Обязательные поля</div>
       <vb-date-range
         id="range-03"
-        label="Прием обращений"
+        :labels="['Прием обращений с:', 'Прием обращений по:']"
         type="date"
-        :range="{
-          from: { label: ' с:', value: '' },
-          to: { label: ' по:', value: '' },
-        }"
         required
       />
       <div>Заблокированные поля</div>
       <vb-date-range
         id="range-04"
-        label="Прием обращений"
+        :labels="['Прием обращений с:', 'Прием обращений по:']"
         type="date"
-        :range="{
-          from: { label: ' с:', value: '' },
-          to: { label: ' по:', value: '' },
-        }"
         disabled
       />
       <div>Горизонтальная компоновка</div>
       <vb-date-range
         id="range-05"
-        label="Прием обращений"
+        :labels="['Прием обращений с:', 'Прием обращений по:']"
         type="date"
-        :range="{
-          from: { label: ' с:', value: '' },
-          to: { label: ' по:', value: '' },
-        }"
         horizontal
       />
       <div>Горизонтальная компоновка с дополнительными классами</div>
       <vb-date-range
         id="range-06"
-        label="Прием обращений"
+        :labels="['Прием обращений с:', 'Прием обращений по:']"
         type="date"
-        :range="{
-          from: { label: ' с:', value: '' },
-          to: { label: ' по:', value: '' },
-        }"
         :additional-classes="{ group: 'col-4', label: 'col-4', field: 'col-8' }"
         horizontal
       />
@@ -111,18 +80,18 @@ props: {
       <h3>Действия компонента</h3>
       <div>
         При изменении значения одного из полей вызывает событие @input с
-        логическим значением true/false
+        массивом строчных значений
       </div>
       <vb-date-range
         :id="defaultDateRange.id"
-        :label="defaultDateRange.label"
+        :labels="defaultDateRange.labels"
         :type="defaultDateRange.subtype"
         :required="defaultDateRange.required"
         :disabled="defaultDateRange.disabled"
         :readonly="defaultDateRange.readonly"
         :additional-classes="defaultDateRange.additionalClasses"
         :horizontal="defaultDateRange.horizontal"
-        :range="defaultDateRange.range"
+        :values="defaultDateRange.values"
         @input="changeDateRange($event)"
       />
       <div>
@@ -131,11 +100,11 @@ props: {
       </div>
       <div>
         Текущее значение состояния первого поля:
-        {{ defaultDateRange.range.from.value }}
+        {{ defaultDateRange.values[0] }}
       </div>
       <div>
         Текущее значение состояния второго поля:
-        {{ defaultDateRange.range.to.value }}
+        {{ defaultDateRange.values[1] }}
       </div>
     </div>
   </div>
@@ -151,7 +120,7 @@ export default {
     return {
       defaultDateRange: {
         id: "defaultDateRange",
-        label: "Дата создания",
+        labels: ["Дата создания c", "Дата создания по"],
         type: "range",
         subtype: "date",
         required: false,
@@ -163,18 +132,15 @@ export default {
           field: "",
         },
         horizontal: false,
-        range: {
-          from: { label: " c", value: null },
-          to: { label: " по", value: null },
-        },
+        values: ["", ""],
       },
       returnedValue: null,
     };
   },
   methods: {
-    changeDateRange({ key, value }) {
-      this.defaultDateRange.range[key].value = value;
-      this.returnedValue = { key, value };
+    changeDateRange(values) {
+      this.defaultDateRange.values = values;
+      this.returnedValue = values;
     },
   },
 };

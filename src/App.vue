@@ -10,7 +10,9 @@
       <router-link to="/radiogroup">RadioGroup</router-link> |
       <router-link to="/textarea">Textarea</router-link> |
       <router-link to="/daterange">DateRange</router-link> |
-      <router-link to="/form" class="incompleted">Form</router-link> |
+      <router-link to="/form">Form</router-link> |
+      <router-link to="/filter" class="incompleted">Filter</router-link> |
+      <router-link to="/itemslist" class="incompleted">ItemsList</router-link> |
       <router-link to="/alert">Alert</router-link> |
       <router-link to="/collapse">Collapse</router-link> |
       <router-link to="/collapsebutton">CollapseButton</router-link>

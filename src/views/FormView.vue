@@ -36,8 +36,41 @@ props: {
       >
       <h3>Варианты использования</h3>
       <div>Со списком полей</div>
-      <vb-form :form-items-list="defaultForm.formItemsList" />
+      <vb-form :form-items-list="defaultForm.formItemsList.slice(0, 5)" />
+      <div>
+        Со списком полей, легендой, обязательными и заблокированными полями
+      </div>
+      <vb-form
+        :form-items-list="defaultForm.formItemsList.slice(0, 5)"
+        legend="Данные пользователя"
+        required
+        disabled
+      />
+      <div>С уменьшенными зазорами между полями</div>
+      <vb-form
+        :form-items-list="defaultForm.formItemsList.slice(0, 5)"
+        tight-gutters
+      />
+      <div>С горизонтальной компоновкой полей</div>
+      <vb-form
+        :form-items-list="defaultForm.formItemsList.slice(0, 5)"
+        horizontal
+      />
+      <h3>Структура данных для компонента</h3>
+      <pre>{{ defaultForm }}</pre>
       <h3>Действия компонента</h3>
+      <vb-form
+        :form-items-list="defaultForm.formItemsList"
+        @change-form="changeForm($event)"
+      />
+      <div>
+        Возвращаемое значение: {{ returnedValue }} (тип -
+        {{ typeof returnedValue }})
+      </div>
+      <div v-for="formItem of defaultForm.formItemsList" :key="formItem.id">
+        Текущее значение состояния поля c id="{{ formItem.id }}":
+        {{ formItem.value ? formItem.value : formItem.values }}
+      </div>
     </div>
   </div>
 </template>
@@ -92,7 +125,7 @@ export default {
             value: "",
           },
           {
-            id: "person--patronymic-name",
+            id: "person-patronymic-name",
             label: "Отчество",
             type: "input",
             subtype: "text",
@@ -129,7 +162,7 @@ export default {
           },
           {
             id: "person-work",
-            label: "Работа",
+            labels: ["Работа c", "Работа по"],
             type: "range",
             subtype: "date",
             required: false,
@@ -141,10 +174,7 @@ export default {
               field: "",
             },
             horizontal: false,
-            range: {
-              from: { label: " c", value: null },
-              to: { label: " по", value: null },
-            },
+            values: ["", ""],
           },
           {
             id: "person-profession",
@@ -220,7 +250,7 @@ export default {
             values: [],
           },
           {
-            id: "serviceType",
+            id: "person-hobby",
             title: "Хобби",
             type: "checkboxesGroup",
             itemsList: [
@@ -253,115 +283,20 @@ export default {
           },
         },
         disabled: false,
-        fields: [
-          {
-            id: "field1",
-            label: "№ заявления",
-            type: "input",
-            subtype: "number",
-            width: 12,
-            responsive: "col-sm-4 col-md-3 col-lg-2",
-            value: null,
-          },
-          {
-            id: "field2",
-            label: "Дата создания",
-            type: "range",
-            subtype: "date",
-            itemsList: [
-              { label: " c", value: null },
-              { label: " по", value: null },
-            ],
-            width: 12,
-            responsive: "col-sm-8 col-md-6 col-lg-4",
-          },
-          {
-            id: "field3",
-            label: "Сообщение",
-            type: "textarea",
-            width: 12,
-            responsive: "col-sm-8 col-md-6 col-lg-4",
-            required: false,
-            withoutLabel: false,
-            value: "",
-          },
-          {
-            id: "field4",
-            label: "№ ЕПГУ",
-            type: "input",
-            subtype: "number",
-            width: 12,
-            responsive: "col-sm-4 col-md-3 col-lg-2",
-            value: null,
-          },
-          {
-            id: "field5",
-            label: "Статус",
-            type: "select",
-            itemsList: [
-              { id: 1, value: 1, label: "Черновик" },
-              { id: 2, value: 2, label: "В работе" },
-              { id: 3, value: 3, label: "Обработано" },
-              { id: 4, value: 4, label: "Архивная" },
-            ],
-            multiple: true,
-            badges: true,
-            width: 12,
-            responsive: "col-sm-4 col-md-3 col-lg-2",
-            values: [],
-          },
-          {
-            id: "field6",
-            label: "Дата изменения статуса",
-            type: "range",
-            subtype: "date",
-            itemsList: [
-              { label: " c", value: null },
-              { label: " по", value: null },
-            ],
-            width: 12,
-            responsive: "col-sm-8 col-md-6 col-lg-4",
-          },
-          {
-            id: "field7",
-            label: "Показать только архивные",
-            type: "checkbox",
-            width: 12,
-            value: false,
-          },
-        ],
       },
+      returnedValue: null,
     };
   },
   methods: {
-    changeForm(form, newFormData) {
-      console.log("Изменяется форма");
-      console.log(form);
-      console.log(newFormData);
-      let formField = form.fields.find(function (item) {
-        if (item.id === newFormData.id) return true;
-      });
-      if (formField.type === "select") {
-        this.setSelectValues(formField, newFormData.values);
-      } else if (formField.type === "range") {
-        this.setDateRangeValue(formField, newFormData);
-        // } else if (formField.type === "input" && formField.subtype === "file") {
-        //   formField.file = newFormData.value;
-      } else {
-        this.setInputValue(formField, newFormData.value);
+    // Изменения формы типовое, без валидации
+    changeForm({ formItem, newValue }) {
+      if ("value" in formItem) {
+        formItem.value = newValue;
       }
-      console.log("Измененное поле");
-      console.log(formField);
-    },
-    // Метод для Input, Checkbox, Textarea
-    setInputValue(formField, formFieldValue) {
-      formField.value = formFieldValue;
-    },
-    setSelectValues(formField, formFieldValues) {
-      formField.values = formFieldValues;
-    },
-    setDateRangeValue(formField, formFieldData) {
-      formField.itemsList[formFieldData.index].value = formFieldData.value;
+      if ("values" in formItem) {
+        formItem.values = newValue.slice();
+      }
+      this.returnedValue = { formItem, newValue };
     },
   },
 };
