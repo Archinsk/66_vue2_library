@@ -150,7 +150,9 @@ props: {
       <div>
         Принимает идентификатор, ярлык, тип, значение, флаги обязательности,
         режима "только для чтения", отключенности и горизонтальной компановки,
-        объект дополнительных классов, плейсхолдер, флаг фокусировки.
+        объект дополнительных классов, плейсхолдер, флаг фокусировки. Для полей
+        с типом "date" и "datetime-local" принимается проп flatpickr (должна
+        быть установлена библиотека flatpickr), в котором передаются опции поля.
       </div>
       <pre>
 props: {
@@ -165,6 +167,7 @@ props: {
   horizontal: Boolean,
   placeholder: String,
   focusable: Boolean,
+  flatpickr: Object,
 },</pre
       >
       <h3>Варианты использования</h3>
@@ -200,10 +203,72 @@ props: {
           field: 'col-8',
         }"
       />
-      <div>С событием фокусировке</div>
+      <div>С событием фокусировки</div>
       <vb-input focusable @focus="focusEvent" />
+      <div>Поле дата без использования flatpickr</div>
+      <vb-input
+        id="date"
+        :label="dateInput.label"
+        :type="dateInput.subtype"
+        :value="dateInput.value"
+        :required="dateInput.required"
+        :disabled="dateInput.disabled"
+        :readonly="dateInput.readonly"
+        :additional-classes="dateInput.additionalClasses"
+        :horizontal="dateInput.horizontal"
+        :placeholder="dateInput.placeholder"
+        :focusable="dateInput.focusable"
+        @input="dateInput.value = $event"
+      />
+      <div>Поле дата-flatpickr</div>
+      <vb-input
+        :id="dateInput.id"
+        :label="dateInput.label"
+        :type="dateInput.subtype"
+        :value="dateInput.value"
+        :required="dateInput.required"
+        :disabled="dateInput.disabled"
+        :readonly="dateInput.readonly"
+        :additional-classes="dateInput.additionalClasses"
+        :horizontal="dateInput.horizontal"
+        :placeholder="dateInput.placeholder"
+        :focusable="dateInput.focusable"
+        :flatpickr="dateInput.flatpickr"
+        @input="dateInput.value = $event"
+      />
+      <div>Поле дата-время без использования flatpickr</div>
+      <vb-input
+        id="date-time"
+        :label="datetimeLocalInput.label"
+        :type="datetimeLocalInput.subtype"
+        :value="datetimeLocalInput.value"
+        :required="datetimeLocalInput.required"
+        :disabled="datetimeLocalInput.disabled"
+        :readonly="datetimeLocalInput.readonly"
+        :additional-classes="datetimeLocalInput.additionalClasses"
+        :horizontal="datetimeLocalInput.horizontal"
+        :placeholder="datetimeLocalInput.placeholder"
+        :focusable="datetimeLocalInput.focusable"
+        @input="datetimeLocalInput.value = $event"
+      />
+      <div>Поле дата-время-flatpickr</div>
+      <vb-input
+        :id="datetimeLocalInput.id"
+        :label="datetimeLocalInput.label"
+        :type="datetimeLocalInput.subtype"
+        :value="datetimeLocalInput.value"
+        :required="datetimeLocalInput.required"
+        :disabled="datetimeLocalInput.disabled"
+        :readonly="datetimeLocalInput.readonly"
+        :additional-classes="datetimeLocalInput.additionalClasses"
+        :horizontal="datetimeLocalInput.horizontal"
+        :placeholder="datetimeLocalInput.placeholder"
+        :focusable="datetimeLocalInput.focusable"
+        :flatpickr="datetimeLocalInput.flatpickr"
+        @input="datetimeLocalInput.value = $event"
+      />
       <h3>Структура данных для компонента</h3>
-      <pre>{{ defaultInput }}</pre>
+      <pre>{{ datetimeLocalInput }}</pre>
       <h3>Действия компонента</h3>
       <div>
         При изменении значения вызывает событие @input с текстовым значением,
@@ -288,6 +353,51 @@ export default {
         value: "",
       },
       focus: false,
+      dateInput: {
+        id: "date-flatpickr",
+        label: "Дата",
+        type: "input",
+        subtype: "date",
+        required: false,
+        disabled: false,
+        readonly: false,
+        additionalClasses: {
+          group: "col-6",
+          label: "",
+          field: "",
+        },
+        horizontal: false,
+        placeholder: "Укажите дату",
+        focusable: true,
+        value: "",
+        flatpickr: {
+          altInput: true,
+          altFormat: "d.m.Y",
+        },
+      },
+      datetimeLocalInput: {
+        id: "datetime-local-flatpickr",
+        label: "Дата",
+        type: "input",
+        subtype: "datetime-local",
+        required: false,
+        disabled: false,
+        readonly: false,
+        additionalClasses: {
+          group: "col-6",
+          label: "",
+          field: "",
+        },
+        horizontal: false,
+        placeholder: "Укажите дату и время",
+        focusable: true,
+        value: "",
+        flatpickr: {
+          altInput: true,
+          altFormat: "d.m.Y H:i",
+          allowInput: true,
+        },
+      },
     };
   },
   methods: {
@@ -302,6 +412,9 @@ export default {
       console.log("Поле в фокусе");
       this.focus = false;
     },
+  },
+  created() {
+    console.log("хук created у инпута");
   },
 };
 </script>

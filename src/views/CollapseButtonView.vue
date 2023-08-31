@@ -49,9 +49,5 @@ import VbCollapse from "../components/Bootstrap_4.6.2/BS46Collapse";
 export default {
   name: "CollapseButtonView",
   components: { VbCollapse, VbCollapseButton },
-  data() {
-    return {};
-  },
-  methods: {},
 };
 </script>

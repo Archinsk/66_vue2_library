@@ -75,6 +75,8 @@
 
 <script>
 import VbFormGroup from "./BS46FormGroup";
+import flatpickr from "flatpickr";
+import { Russian } from "flatpickr/dist/l10n/ru.js";
 export default {
   name: "VbInput",
   components: { VbFormGroup },
@@ -90,6 +92,7 @@ export default {
     horizontal: Boolean,
     placeholder: String,
     focusable: Boolean,
+    flatpickr: Object,
   },
   data() {
     return {
@@ -123,9 +126,27 @@ export default {
   created() {
     this.inputValue = this.value;
   },
+  mounted() {
+    if (
+      (this.type === "date" || this.type === "datetime-local") &&
+      this.flatpickr
+    ) {
+      flatpickr.localize(Russian);
+      let options = this.flatpickr;
+      if (this.type === "datetime-local") {
+        options.enableTime = true;
+        options.dateFormat = "Y-m-dTH:i";
+      }
+      var pickr = flatpickr(`#${this.id}`, options);
+      console.log(pickr);
+    }
+  },
   watch: {
     value: function () {
       this.inputValue = this.value;
+      if (this.pickr && !this.value) {
+        this.pickr.clear();
+      }
     },
   },
 };

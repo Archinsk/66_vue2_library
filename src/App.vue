@@ -11,8 +11,8 @@
       <router-link to="/textarea">Textarea</router-link> |
       <router-link to="/daterange">DateRange</router-link> |
       <router-link to="/form">Form</router-link> |
-      <router-link to="/filter" class="incompleted">Filter</router-link> |
-      <router-link to="/itemslist" class="incompleted">ItemsList</router-link> |
+      <router-link to="/filter">Filter</router-link> |
+      <router-link to="/itemslist">ItemsList</router-link> |
       <router-link to="/alert">Alert</router-link> |
       <router-link to="/collapse">Collapse</router-link> |
       <router-link to="/collapsebutton">CollapseButton</router-link>
@@ -29,6 +29,10 @@
       <router-link to="/paginationbutton">PaginationButton</router-link>
       |
       <router-link to="/preloader">Preloader</router-link>
+      |
+      <router-link to="/modal" class="incompleted">Modal</router-link>
+      |
+      <router-link to="/modalbutton">ModalButton</router-link>
       |
     </nav>
     <router-view />

@@ -105,6 +105,16 @@ const routes = [
     name: "preloaderView",
     component: () => import("../views/PreloaderView.vue"),
   },
+  {
+    path: "/modal",
+    name: "modalView",
+    component: () => import("../views/ModalView.vue"),
+  },
+  {
+    path: "/modalbutton",
+    name: "modalButtonView",
+    component: () => import("../views/ModalButtonView.vue"),
+  },
 ];
 
 const router = new VueRouter({

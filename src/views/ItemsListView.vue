@@ -9,7 +9,7 @@
         >Новый компонент. Ранее в проектах не использовался</vb-alert
       >
       <h3>Описание</h3>
-      <div>Назначение: Вывод однотипных ылементов в виде сетки</div>
+      <div>Назначение: Вывод однотипных элементов в виде сетки</div>
       <div>
         Принимает идентификатор, флаг наименования списка, флаг использования
         скрытых записей, объект пагинации. Использует компоненты
@@ -17,24 +17,50 @@
         заголовка, для статических записей, для скрытых записей. Может скрывать
         часть списка и отображать их по нажатию на кнопку "Показать ещё"
         (опционально), может иметь пагинацию. Страница на которой размещается
-        список со скрытыми записями должен иметь computed-свойства staticItems и
-        hiddenItems для деления списка записей на два массива, эти списки надо
-        передать самостоятельно в соответствующие слоты. Отступы элементам
-        списка задаются самостоятельно (через общий css или классы), список на
-        отступы не влияет.
+        список со скрытыми записями должен иметь computed-свойства (например,
+        staticItems и hiddenItems) для деления списка записей на два массива,
+        эти списки надо передать самостоятельно в соответствующие слоты. Отступы
+        элементам списка задаются самостоятельно (через общий css или классы),
+        список на отступы не влияет.
       </div>
       <pre>
 props: {
-  // подзаголовок
-  поле: тип,
+  id: String,
+  title: Boolean,
+  hiddenItems: Boolean,
+  pagination: Object,
 },
         </pre
       >
       <h3>Варианты использования</h3>
-      <!---->
+      <div>Без заголовка, коллапса и пагинации</div>
+      <vb-items-list id="cards-list-01">
+        <template v-slot:static-items>
+          <vb-card
+            v-for="item of defaultItemsList.itemsList.slice(0, 3)"
+            :key="item"
+          >
+            <template v-slot:card-body>Запись №{{ item }}</template>
+          </vb-card>
+        </template>
+      </vb-items-list>
+      <div>Без заголовка и коллапса, с пагинацией</div>
+      <vb-items-list
+        id="cards-list-02"
+        :pagination="defaultItemsList.pagination"
+        @change-page-size="changePageSize($event)"
+        @change-page="changePage($event)"
+      >
+        <template v-slot:static-items>
+          <vb-card v-for="item of itemsWithPagination" :key="item">
+            <template v-slot:card-body>Запись №{{ item }}</template>
+          </vb-card>
+        </template>
+      </vb-items-list>
+      <div>С заголовком, коллапсом и пагинацией</div>
       <vb-items-list
         title
-        id="cards-list"
+        id="cards-list-03"
         :hidden-items="defaultItemsList.hiddenItems"
         :pagination="defaultItemsList.pagination"
         @change-page-size="changePageSize($event)"
@@ -57,7 +83,13 @@ props: {
           </vb-card>
         </template>
       </vb-items-list>
+      <h3>Структура данных для компонента</h3>
+      <pre>{{ defaultItemsList }}</pre>
       <h3>Действия компонента</h3>
+      <div>
+        При кликах по элементам пагинации вызывает события пагинации
+        @change-page-size и @change-page
+      </div>
     </div>
   </div>
 </template>
@@ -136,4 +168,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.items-list {
+  & > :not(:first-child),
+  .collapse > :not(:first-child),
+  .collapsing > :not(:first-child) {
+    margin-top: 15px;
+  }
+}
+</style>

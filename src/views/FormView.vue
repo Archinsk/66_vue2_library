@@ -59,6 +59,10 @@ props: {
       <h3>Структура данных для компонента</h3>
       <pre>{{ defaultForm }}</pre>
       <h3>Действия компонента</h3>
+      <div>
+        При изменении значения в поле формы вызывается событие @change-form с
+        объектом, содержащим поля измененного поля и новым значением
+      </div>
       <vb-form
         :form-items-list="defaultForm.formItemsList"
         @change-form="changeForm($event)"

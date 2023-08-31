@@ -22,6 +22,7 @@
             :horizontal="horizontal || formItem.horizontal"
             :placeholder="formItem.placeholder"
             :focusable="formItem.focusable"
+            :flatpickr="formItem.flatpickr"
             @input="
               $emit('change-form', {
                 formItem,
