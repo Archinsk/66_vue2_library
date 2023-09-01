@@ -46,12 +46,13 @@ export default {
     header: Boolean,
     noBody: Boolean,
     footer: Boolean,
-    scrollable: Boolean,
-    verticalCenter: Boolean,
     size: String,
+    verticalCenter: Boolean,
+    scrollable: Boolean,
     noTitle: Boolean,
     noCloseButton: Boolean,
     noBackdrop: Boolean,
+    noKeyboard: Boolean,
     staticBackdrop: Boolean,
   },
   computed: {
@@ -70,10 +71,25 @@ export default {
     },
   },
   mounted() {
-    $("#" + this.id).modal({
-      backdrop: true,
-      show: false,
-    });
+    $("#" + this.id)
+      .modal({
+        show: false,
+        backdrop:
+          !this.noBackdrop && this.staticBackdrop ? "static" : !this.noBackdrop,
+        keyboard: !this.staticBackdrop && !this.noKeyboard,
+      })
+      .on("show.bs.modal", () => {
+        this.$emit("show-modal");
+      })
+      .on("shown.bs.modal", () => {
+        this.$emit("shown-modal");
+      })
+      .on("hide.bs.modal", () => {
+        this.$emit("hide-modal");
+      })
+      .on("hidden.bs.modal", () => {
+        this.$emit("hidden-modal");
+      });
   },
 };
 </script>

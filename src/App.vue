@@ -30,9 +30,19 @@
       |
       <router-link to="/preloader">Preloader</router-link>
       |
-      <router-link to="/modal" class="incompleted">Modal</router-link>
+      <router-link to="/modal">Modal</router-link>
       |
       <router-link to="/modalbutton">ModalButton</router-link>
+      |
+      <router-link to="/nav" class="incompleted">Nav</router-link>
+      |
+      <router-link to="/navitem" class="incompleted">NavItem</router-link>
+      |
+      <router-link to="/navlink" class="incompleted">NavLink</router-link>
+      |
+      <router-link to="/modal" class="incompleted">Tab</router-link>
+      |
+      <router-link to="/modal" class="incompleted">TabButton</router-link>
       |
     </nav>
     <router-view />

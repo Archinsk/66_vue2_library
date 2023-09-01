@@ -115,6 +115,21 @@ const routes = [
     name: "modalButtonView",
     component: () => import("../views/ModalButtonView.vue"),
   },
+  {
+    path: "/nav",
+    name: "navView",
+    component: () => import("../views/NavView.vue"),
+  },
+  {
+    path: "/navitem",
+    name: "navItemView",
+    component: () => import("../views/NavItemView.vue"),
+  },
+  {
+    path: "/navlink",
+    name: "navLinkView",
+    component: () => import("../views/NavLinkView.vue"),
+  },
 ];
 
 const router = new VueRouter({

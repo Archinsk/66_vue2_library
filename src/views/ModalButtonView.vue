@@ -18,8 +18,7 @@
       <pre>
 props: {
   targetId: String,
-},
-        </pre
+},</pre
       >
       <h3>Варианты использования</h3>
       <vb-modal-button target-id="exampleModal" class="btn-primary"
