@@ -130,6 +130,11 @@ const routes = [
     name: "navLinkView",
     component: () => import("../views/NavLinkView.vue"),
   },
+  {
+    path: "/dropdownitem",
+    name: "dropdownItemView",
+    component: () => import("../views/DropdownItemView.vue"),
+  },
 ];
 
 const router = new VueRouter({

@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "VbNavLink",
+  name: "VbDropdownItem",
   props: {
     type: String,
     href: String,
@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     navLinkClass() {
-      let navLinkClass = "nav-link";
+      let navLinkClass = "dropdown-item";
       if (this.disabled) {
         navLinkClass += " disabled";
       } else if (this.active) {

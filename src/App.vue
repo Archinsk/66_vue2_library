@@ -36,9 +36,11 @@
       |
       <router-link to="/nav" class="incompleted">Nav</router-link>
       |
-      <router-link to="/navitem" class="incompleted">NavItem</router-link>
+      <router-link to="/navitem">NavItem</router-link>
       |
-      <router-link to="/navlink" class="incompleted">NavLink</router-link>
+      <router-link to="/navlink">NavLink</router-link>
+      |
+      <router-link to="/dropdownitem">DropdownItem</router-link>
       |
       <router-link to="/modal" class="incompleted">Tab</router-link>
       |
