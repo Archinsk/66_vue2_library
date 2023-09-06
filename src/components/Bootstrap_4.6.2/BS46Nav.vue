@@ -2,6 +2,11 @@
   <ul v-if="tag === 'ul'" :class="navClass">
     <slot></slot>
   </ul>
+  <nav v-else-if="type === 'tabs' && type === 'pills'">
+    <div :class="navClass" :id="id" role="tablist">
+      <slot></slot>
+    </div>
+  </nav>
   <nav v-else :class="navClass"><slot></slot></nav>
 </template>
 

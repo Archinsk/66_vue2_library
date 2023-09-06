@@ -1,12 +1,11 @@
 <template>
-  <a
-    v-if="type === 'a'"
-    :href="href"
+  <a v-if="type === 'a'" :href="href" :class="navLinkClass"><slot></slot></a>
+  <!--  @click="$emit('click')"-->
+  <router-link
+    v-else
+    :to="href"
     :class="navLinkClass"
-    @click="$emit('click')"
-    ><slot></slot
-  ></a>
-  <router-link v-else :to="href" :class="navLinkClass" @click="$emit('click')"
+    @click.native.prevent="clickLink"
     ><slot></slot
   ></router-link>
 </template>
@@ -29,6 +28,11 @@ export default {
         navLinkClass += " active";
       }
       return navLinkClass;
+    },
+  },
+  methods: {
+    clickLink() {
+      this.$emit("click");
     },
   },
 };

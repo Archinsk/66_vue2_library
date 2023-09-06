@@ -1,55 +1,431 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Стартовая</router-link> |
-      <router-link to="/input">Input</router-link> |
-      <router-link to="/select">Select</router-link> |
-      <router-link to="/checkbox">Checkbox</router-link> |
-      <router-link to="/checkboxesgroup">CheckboxesGroup</router-link>
-      |
-      <router-link to="/radiogroup">RadioGroup</router-link> |
-      <router-link to="/textarea">Textarea</router-link> |
-      <router-link to="/daterange">DateRange</router-link> |
-      <router-link to="/form">Form</router-link> |
-      <router-link to="/filter">Filter</router-link> |
-      <router-link to="/itemslist">ItemsList</router-link> |
-      <router-link to="/alert">Alert</router-link> |
-      <router-link to="/collapse">Collapse</router-link> |
-      <router-link to="/collapsebutton">CollapseButton</router-link>
-      | <router-link to="/card">Card</router-link> |
-      <router-link to="/pagination">Pagination</router-link> |
-      <router-link to="/paginationitemsperpage"
-        >PaginationItemsPerPage</router-link
-      >
-      |
-      <router-link to="/paginationpageselector"
-        >PaginationPageSelector</router-link
-      >
-      |
-      <router-link to="/paginationbutton">PaginationButton</router-link>
-      |
-      <router-link to="/preloader">Preloader</router-link>
-      |
-      <router-link to="/modal">Modal</router-link>
-      |
-      <router-link to="/modalbutton">ModalButton</router-link>
-      |
-      <router-link to="/nav" class="incompleted">Nav</router-link>
-      |
-      <router-link to="/navitem">NavItem</router-link>
-      |
-      <router-link to="/navlink">NavLink</router-link>
-      |
-      <router-link to="/dropdownitem">DropdownItem</router-link>
-      |
-      <router-link to="/modal" class="incompleted">Tab</router-link>
-      |
-      <router-link to="/modal" class="incompleted">TabButton</router-link>
-      |
-    </nav>
+    <vb-nav tag="ul">
+      <template v-for="navLink of systemNav.itemsList">
+        <vb-nav-item
+          v-if="!navLink.dropdown"
+          :key="navLink.id"
+          :type="navLink.type"
+          :href="navLink.href"
+          :active="navLink.active"
+          :disabled="navLink.disabled"
+          @click="selectActiveNavItem(systemNav.itemsList, navLink)"
+          >{{ navLink.name }}</vb-nav-item
+        >
+        <vb-nav-item
+          v-else
+          :key="navLink.id"
+          :type="navLink.type"
+          :href="navLink.href"
+          :active="navLink.active"
+          :disabled="navLink.disabled"
+          :dropdown="navLink.dropdown"
+          >{{ navLink.name }}
+          <template v-slot:dropdown-menu>
+            <vb-dropdown-item
+              v-for="dropdownItem of navLink.dropdownItemsList"
+              :key="dropdownItem.id"
+              :type="dropdownItem.type"
+              :href="dropdownItem.href"
+              :active="dropdownItem.active"
+              :disabled="dropdownItem.disabled"
+              @click="selectActiveNavItem(systemNav.itemsList, dropdownItem)"
+              >{{ dropdownItem.name }}</vb-dropdown-item
+            >
+          </template>
+        </vb-nav-item>
+      </template>
+    </vb-nav>
     <router-view />
   </div>
 </template>
+
+<script>
+import VbNav from "./components/Bootstrap_4.6.2/BS46Nav";
+import VbNavItem from "./components/Bootstrap_4.6.2/BS46NavItem";
+import VbDropdownItem from "./components/Bootstrap_4.6.2/BS46DropdownItem";
+export default {
+  components: { VbDropdownItem, VbNavItem, VbNav },
+  data() {
+    return {
+      systemNav: {
+        itemsList: [
+          {
+            id: "nav-link-home",
+            name: "Home",
+            type: "router-link",
+            href: "/",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-alert",
+            name: "Alert",
+            type: "router-link",
+            href: "/alert",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-card",
+            name: "Card",
+            type: "router-link",
+            href: "/card",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-collapse",
+            name: "Collapse",
+            type: "router-link",
+            href: "#",
+            active: false,
+            disabled: false,
+            dropdown: true,
+            dropdownItemsList: [
+              {
+                id: "dropdown-link-collapse",
+                name: "Collapse",
+                type: "router-link",
+                href: "/collapse",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-collapse-button",
+                name: "CollapseButton",
+                type: "router-link",
+                href: "/collapsebutton",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-accordion",
+                name: "Accordion",
+                type: "router-link",
+                href: "/accordion",
+                active: false,
+                disabled: false,
+              },
+            ],
+          },
+          {
+            id: "nav-link-filter",
+            name: "Filter",
+            type: "router-link",
+            href: "/filter",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-form",
+            name: "Form",
+            type: "router-link",
+            href: "/form",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-form-components",
+            name: "FormComponents",
+            type: "router-link",
+            href: "#",
+            active: false,
+            disabled: false,
+            dropdown: true,
+            dropdownItemsList: [
+              {
+                id: "dropdown-link-input",
+                name: "Input",
+                type: "router-link",
+                href: "/input",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-textarea",
+                name: "Textarea",
+                type: "router-link",
+                href: "/textarea",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-select",
+                name: "Select",
+                type: "router-link",
+                href: "/select",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-checkbox",
+                name: "Checkbox",
+                type: "router-link",
+                href: "/checkbox",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-checkboxes-group",
+                name: "CheckboxesGroup",
+                type: "router-link",
+                href: "/checkboxesgroup",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-radio-group",
+                name: "RadioGroup",
+                type: "router-link",
+                href: "/radiogroup",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-date-range",
+                name: "DateRange",
+                type: "router-link",
+                href: "/daterange",
+                active: false,
+                disabled: false,
+              },
+            ],
+          },
+          {
+            id: "nav-link-items-list",
+            name: "ItemsList",
+            type: "router-link",
+            href: "/itemslist",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-modal",
+            name: "Modal",
+            type: "router-link",
+            href: "#",
+            active: false,
+            disabled: false,
+            dropdown: true,
+            dropdownItemsList: [
+              {
+                id: "dropdown-link-modal",
+                name: "Modal",
+                type: "router-link",
+                href: "/modal",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-modal-button",
+                name: "ModalButton",
+                type: "router-link",
+                href: "/modalbutton",
+                active: false,
+                disabled: false,
+              },
+            ],
+          },
+          {
+            id: "nav-link-nav",
+            name: "Nav",
+            type: "router-link",
+            href: "#",
+            active: false,
+            disabled: false,
+            dropdown: true,
+            dropdownItemsList: [
+              {
+                id: "dropdown-link-nav",
+                name: "Nav",
+                type: "router-link",
+                href: "/nav",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-nav-item",
+                name: "NavItem",
+                type: "router-link",
+                href: "/navitem",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-nav-link",
+                name: "NavLink",
+                type: "router-link",
+                href: "/navlink",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-nav-dropdown-item",
+                name: "DropdownItem",
+                type: "router-link",
+                href: "/dropdownitem",
+                active: false,
+                disabled: false,
+              },
+            ],
+          },
+          {
+            id: "nav-link-pagination",
+            name: "Pagination",
+            type: "router-link",
+            href: "#",
+            active: false,
+            disabled: false,
+            dropdown: true,
+            dropdownItemsList: [
+              {
+                id: "dropdown-link-pagination",
+                name: "Pagination",
+                type: "router-link",
+                href: "/pagination",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-pagination-items-per-page",
+                name: "PaginationItemsPerPage",
+                type: "router-link",
+                href: "/paginationitemsperpage",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-pagination-page-selector",
+                name: "PaginationPageSelector",
+                type: "router-link",
+                href: "/paginationpageselector",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-pagination-button",
+                name: "PaginationButton",
+                type: "router-link",
+                href: "/paginationbutton",
+                active: false,
+                disabled: false,
+              },
+            ],
+          },
+          {
+            id: "nav-link-preloader",
+            name: "Preloader",
+            type: "router-link",
+            href: "/preloader",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-tabs",
+            name: "Tab",
+            type: "router-link",
+            href: "#",
+            active: false,
+            disabled: false,
+            dropdown: true,
+            dropdownItemsList: [
+              {
+                id: "dropdown-link-nav-tabs",
+                name: "NavTabs",
+                type: "router-link",
+                href: "/navtabs",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-nav-tab-link",
+                name: "NavTabLink",
+                type: "router-link",
+                href: "/navtablink",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-tab-content",
+                name: "TabContent",
+                type: "router-link",
+                href: "/tabcontent",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-tab-pane",
+                name: "TabPane",
+                type: "router-link",
+                href: "/tabpane",
+                active: false,
+                disabled: false,
+              },
+            ],
+          },
+        ],
+      },
+      appLoaded: false,
+    };
+  },
+  methods: {
+    selectActiveNavItem(navItemsList, selectedItem) {
+      navItemsList.forEach((navItem) => {
+        if (navItem.dropdown) {
+          let foundDropdownItem = false;
+          navItem.dropdownItemsList.forEach((dropdownItem) => {
+            if (dropdownItem === selectedItem) {
+              dropdownItem.active = true;
+              foundDropdownItem = true;
+            } else {
+              dropdownItem.active = false;
+              navItem.active = false;
+            }
+          });
+          if (foundDropdownItem) {
+            navItem.active = true;
+          } else {
+            navItem.active = false;
+          }
+        } else {
+          if (navItem === selectedItem) {
+            navItem.active = true;
+          } else {
+            navItem.active = false;
+          }
+        }
+      });
+    },
+    findActiveNavItemByRouterPath(navItemsList, routePath) {
+      for (let i = 0; i < navItemsList.length; i++) {
+        if (navItemsList[i].dropdown) {
+          for (let j = 0; j < navItemsList[i].dropdownItemsList.length; j++) {
+            if (navItemsList[i].dropdownItemsList[j].href === routePath) {
+              return navItemsList[i].dropdownItemsList[j];
+            }
+          }
+        } else {
+          if (navItemsList[i].href === routePath) {
+            return navItemsList[i];
+          }
+        }
+      }
+    },
+  },
+  updated() {
+    // Инициализация пункта системного меню
+    if (!this.appLoaded) {
+      let activeNavItem = this.findActiveNavItemByRouterPath(
+        this.systemNav.itemsList,
+        this.$route.path
+      );
+      this.selectActiveNavItem(this.systemNav.itemsList, activeNavItem);
+      this.appLoaded = true;
+    }
+  },
+};
+</script>
 
 <style lang="scss">
 .section {
@@ -66,6 +442,9 @@ pre {
   border-radius: 0.5rem;
 }
 .incompleted {
+  color: red;
+}
+.nav-link.active {
   color: red;
 }
 </style>

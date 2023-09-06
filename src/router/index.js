@@ -76,6 +76,11 @@ const routes = [
     component: () => import("../views/CollapseButtonView.vue"),
   },
   {
+    path: "/accordion",
+    name: "accordionView",
+    component: () => import("../views/AccordionView.vue"),
+  },
+  {
     path: "/card",
     name: "cardView",
     component: () => import("../views/CardView.vue"),
@@ -134,6 +139,26 @@ const routes = [
     path: "/dropdownitem",
     name: "dropdownItemView",
     component: () => import("../views/DropdownItemView.vue"),
+  },
+  {
+    path: "/navtabs",
+    name: "navTabsView",
+    component: () => import("../views/NavTabsView.vue"),
+  },
+  {
+    path: "/navtablink",
+    name: "navTabLinkView",
+    component: () => import("../views/NavTabLinkView.vue"),
+  },
+  {
+    path: "/tabcontent",
+    name: "tabContentView",
+    component: () => import("../views/TabContentView.vue"),
+  },
+  {
+    path: "/tabpane",
+    name: "tabPaneView",
+    component: () => import("../views/TabPaneView.vue"),
   },
 ];
 
