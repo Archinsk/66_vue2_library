@@ -1,6 +1,11 @@
 <template>
-  <a v-if="type === 'a'" :href="href" :class="navLinkClass"><slot></slot></a>
-  <!--  @click="$emit('click')"-->
+  <a
+    v-if="type === 'a'"
+    :href="href"
+    :class="navLinkClass"
+    @click="$emit('click')"
+    ><slot></slot
+  ></a>
   <router-link
     v-else
     :to="href"

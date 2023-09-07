@@ -27,14 +27,16 @@
         с выпадающими списками требуется tag="ul", в слот пробрасываются в цикле
         компоненты vb-nav-item с проверкой. Если пункт является выпадающим
         списком, то в его слот "dropdown-menu" в цикле пробрасываются компоненты
-        vb-dropdown-item. Компонент должен использованием смены выбранного
-        пункта меню. В структуре данных должно быть поле value с выбранным
-        пунктом??
+        vb-dropdown-item
       </div>
       <pre>
 props: {
-  // подзаголовок
-  поле: тип,
+  tag: String,
+  type: String,
+  position: String,
+  vertical: Boolean,
+  fill: Boolean,
+  justified: Boolean,
 },
         </pre
       >
@@ -171,6 +173,7 @@ props: {
         </template>
       </vb-nav>
       <h3>Действия компонента</h3>
+      <div>Действия отсутствуют</div>
     </div>
   </div>
 </template>

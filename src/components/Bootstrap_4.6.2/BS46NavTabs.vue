@@ -12,8 +12,10 @@
 </template>
 
 <script>
+import VbNav from "./BS46Nav";
 export default {
   name: "VbNavTabs",
+  components: { VbNav },
   props: {
     id: String,
     pills: Boolean,
