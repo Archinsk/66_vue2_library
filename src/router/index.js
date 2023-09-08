@@ -160,6 +160,16 @@ const routes = [
     name: "tabPaneView",
     component: () => import("../views/TabPaneView.vue"),
   },
+  {
+    path: "/transition",
+    name: "transitionView",
+    component: () => import("../views/TransitionView.vue"),
+  },
+  {
+    path: "/transitiongroup",
+    name: "transitionGroupView",
+    component: () => import("../views/TransitionGroupView.vue"),
+  },
 ];
 
 const router = new VueRouter({

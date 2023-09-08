@@ -6,6 +6,9 @@
     @click="$emit('click')"
     ><slot></slot
   ></a>
+  <vb-modal-button v-else-if="type === 'modal-link'" :target-id="href" tag="a">
+    <slot></slot>
+  </vb-modal-button>
   <router-link
     v-else
     :to="href"
@@ -16,8 +19,10 @@
 </template>
 
 <script>
+import VbModalButton from "./BS46ModalButton";
 export default {
   name: "VbNavLink",
+  components: { VbModalButton },
   props: {
     type: String,
     href: String,
