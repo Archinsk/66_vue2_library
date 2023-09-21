@@ -170,6 +170,26 @@ const routes = [
     name: "transitionGroupView",
     component: () => import("../views/TransitionGroupView.vue"),
   },
+  {
+    path: "/navbar",
+    name: "navBarView",
+    component: () => import("../views/NavBarView.vue"),
+  },
+  {
+    path: "/navbarbrand",
+    name: "navBarBrandView",
+    component: () => import("../views/NavBarBrandView.vue"),
+  },
+  {
+    path: "/navbartoggler",
+    name: "navBarTogglerView",
+    component: () => import("../views/NavBarTogglerView.vue"),
+  },
+  {
+    path: "/navBarCollapse",
+    name: "navBarCollapseView",
+    component: () => import("../views/NavBarCollapseView.vue"),
+  },
 ];
 
 const router = new VueRouter({
