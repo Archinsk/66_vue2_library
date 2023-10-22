@@ -4,30 +4,52 @@
     :href="href"
     :class="navLinkClass"
     @click="$emit('click')"
-    ><slot></slot
+  >
+    <vb-icon
+      v-if="icon"
+      :name="typeof icon === 'string' ? icon : icon.name"
+      :format="icon.format"
+      :type="icon.type" /><slot></slot
   ></a>
-  <vb-modal-button v-else-if="type === 'modal-link'" :target-id="href" tag="a">
-    <slot></slot>
+  <vb-modal-button
+    v-else-if="type === 'modal-link'"
+    :target-id="href"
+    :icon="icon"
+    tag="a"
+  >
+    <span>
+      <slot></slot>
+    </span>
   </vb-modal-button>
   <router-link
     v-else
     :to="href"
     :class="navLinkClass"
     @click.native.prevent="clickLink"
-    ><slot></slot
-  ></router-link>
+    ><vb-icon
+      v-if="icon"
+      :name="typeof icon === 'string' ? icon : icon.name"
+      :format="icon.format"
+      :type="icon.type"
+    />
+    <span>
+      <slot></slot>
+    </span>
+  </router-link>
 </template>
 
 <script>
 import VbModalButton from "./BS46ModalButton";
+import VbIcon from "./BS46Icon";
 export default {
   name: "VbNavLink",
-  components: { VbModalButton },
+  components: { VbIcon, VbModalButton },
   props: {
     type: String,
     href: String,
     active: Boolean,
     disabled: Boolean,
+    icon: [Object, String],
   },
   computed: {
     navLinkClass() {
@@ -47,3 +69,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.nav-link {
+  .icon + * {
+    margin-left: 0.375em;
+  }
+}
+</style>

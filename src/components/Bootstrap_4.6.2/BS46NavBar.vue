@@ -1,40 +1,20 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <vb-nav-bar-brand />
-    <vb-nav-bar-toggler />
+  <nav :class="navbarClass">
+    <vb-nav-bar-brand
+      :href="brand.href"
+      :name="brand.name"
+      :image-src="brand.imageSrc"
+      :monochrome="monochromeBrandImage"
+      :light="dark"
+    />
+    <vb-nav-bar-toggler
+      v-if="!withoutToggler"
+      :class="'d-' + expandSize + '-none'"
+    />
     <vb-nav-bar-collapse>
       <slot></slot>
     </vb-nav-bar-collapse>
-    <!--<ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#"
-            >Home <span class="sr-only">(current)</span></a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            role="button"
-            data-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Dropdown
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
-      </ul>-->
+    <slot name="navbar-end"></slot>
   </nav>
 </template>
 
@@ -44,8 +24,45 @@ import VbNavBarToggler from "./BS46NavBarToggler";
 import VbNavBarCollapse from "./BS46NavBarCollapse";
 export default {
   name: "VbNavBar",
-  components: { VbNavBarCollapse, VbNavBarToggler, VbNavBarBrand },
+  components: {
+    VbNavBarCollapse,
+    VbNavBarToggler,
+    VbNavBarBrand,
+  },
+  props: {
+    dark: Boolean,
+    theme: String,
+    scroll: Boolean,
+    monochromeBrandImage: Boolean,
+    expand: Boolean,
+    expandSize: String,
+    brand: Object,
+    withoutToggler: Boolean,
+  },
+  computed: {
+    navbarClass() {
+      let navbarClass = "navbar";
+      if (this.dark) {
+        navbarClass += " navbar-dark";
+      } else {
+        navbarClass += " navbar-light";
+      }
+      if (this.theme) {
+        navbarClass += ` bg-${this.theme}`;
+      }
+      if (this.expand) {
+        if (this.expandSize) {
+          if (["sm", "md", "lg", "xl"].includes(this.expandSize)) {
+            navbarClass += ` navbar-expand-${this.expandSize}`;
+          } else {
+            navbarClass += " navbar-expand-sm";
+          }
+        } else {
+          navbarClass += " navbar-expand";
+        }
+      }
+      return navbarClass;
+    },
+  },
 };
 </script>
-
-<style scoped></style>

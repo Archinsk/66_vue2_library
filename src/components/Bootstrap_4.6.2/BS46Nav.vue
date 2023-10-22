@@ -1,5 +1,9 @@
 <template>
-  <ul v-if="tag === 'ul'" :class="navClass">
+  <ul
+    v-if="tag === 'ul'"
+    :class="navClass"
+    :style="scroll ? 'max-height: 6.25rem;' : ''"
+  >
     <slot></slot>
   </ul>
   <nav v-else-if="type === 'tabs' && type === 'pills'">
@@ -20,6 +24,7 @@ export default {
     vertical: Boolean,
     fill: Boolean,
     justified: Boolean,
+    scroll: Boolean,
   },
   computed: {
     navClass() {
@@ -43,8 +48,19 @@ export default {
       if (this.justified) {
         navClass += " nav-justified";
       }
+      if (this.scroll) {
+        navClass += " navbar-nav-scroll flex-nowrap";
+      }
       return navClass;
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.offcanvas {
+  .navbar-nav {
+    flex-direction: column;
+  }
+}
+</style>

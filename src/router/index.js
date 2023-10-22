@@ -190,6 +190,31 @@ const routes = [
     name: "navBarCollapseView",
     component: () => import("../views/NavBarCollapseView.vue"),
   },
+  {
+    path: "/offcanvas",
+    name: "offcanvasView",
+    component: () => import("../views/OffcanvasView"),
+  },
+  {
+    path: "/offcanvasbutton",
+    name: "offcanvasButtonView",
+    component: () => import("../views/OffcanvasButtonView"),
+  },
+  {
+    path: "/header",
+    name: "headerView",
+    component: () => import("../views/HeaderView"),
+  },
+  {
+    path: "/icon",
+    name: "iconView",
+    component: () => import("../views/IconView"),
+  },
+  {
+    path: "/button",
+    name: "ButtonView",
+    component: () => import("../views/ButtonView"),
+  },
 ];
 
 const router = new VueRouter({

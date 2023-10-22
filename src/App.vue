@@ -1,53 +1,32 @@
 <template>
   <div id="app">
-    <vb-nav tag="ul">
-      <template v-for="navLink of systemNav.itemsList">
-        <vb-nav-item
-          v-if="!navLink.dropdown"
-          :key="navLink.id"
-          :type="navLink.type"
-          :href="navLink.href"
-          :active="navLink.active"
-          :disabled="navLink.disabled"
-          @click="selectActiveNavItem(systemNav.itemsList, navLink)"
-          >{{ navLink.name }}</vb-nav-item
-        >
-        <vb-nav-item
-          v-else
-          :key="navLink.id"
-          :type="navLink.type"
-          :href="navLink.href"
-          :active="navLink.active"
-          :disabled="navLink.disabled"
-          :dropdown="navLink.dropdown"
-          >{{ navLink.name }}
-          <template v-slot:dropdown-menu>
-            <vb-dropdown-item
-              v-for="dropdownItem of navLink.dropdownItemsList"
-              :key="dropdownItem.id"
-              :type="dropdownItem.type"
-              :href="dropdownItem.href"
-              :active="dropdownItem.active"
-              :disabled="dropdownItem.disabled"
-              @click="selectActiveNavItem(systemNav.itemsList, dropdownItem)"
-              >{{ dropdownItem.name }}</vb-dropdown-item
-            >
-          </template>
-        </vb-nav-item>
-      </template>
-    </vb-nav>
+    <vb-header
+      id="header"
+      expand
+      expand-size="xl"
+      offcanvas
+      theme="primary"
+      dark
+      monochrome
+      :brand="brand"
+      :nav="systemNav"
+      @nav-link-click="selectActiveNavItem(systemNav.itemsList, $event)"
+    />
     <router-view />
   </div>
 </template>
 
 <script>
-import VbNav from "./components/Bootstrap_4.6.2/BS46Nav";
-import VbNavItem from "./components/Bootstrap_4.6.2/BS46NavItem";
-import VbDropdownItem from "./components/Bootstrap_4.6.2/BS46DropdownItem";
+import VbHeader from "./components/Bootstrap_4.6.2/BS46Header";
 export default {
-  components: { VbDropdownItem, VbNavItem, VbNav },
+  components: { VbHeader },
   data() {
     return {
+      brand: {
+        href: "/",
+        name: "Информационные системы и сервисы",
+        imageSrc: "images/iss_logo.svg",
+      },
       systemNav: {
         itemsList: [
           {
@@ -433,6 +412,57 @@ export default {
                 disabled: false,
               },
             ],
+          },
+          {
+            id: "nav-link-offcanvas",
+            name: "Offcanvas",
+            type: "router-link",
+            href: "#",
+            active: false,
+            disabled: false,
+            dropdown: true,
+            dropdownItemsList: [
+              {
+                id: "dropdown-link-offcanvas",
+                name: "Offcanvas",
+                type: "router-link",
+                href: "/offcanvas",
+                active: false,
+                disabled: false,
+              },
+              {
+                id: "dropdown-link-offcanvas-button",
+                name: "OffcanvasButton",
+                type: "router-link",
+                href: "/offcanvasbutton",
+                active: false,
+                disabled: false,
+              },
+            ],
+          },
+          {
+            id: "nav-link-header",
+            name: "Header",
+            type: "router-link",
+            href: "/header",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-icon",
+            name: "Icon",
+            type: "router-link",
+            href: "/icon",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-button",
+            name: "Button",
+            type: "router-link",
+            href: "/button",
+            active: false,
+            disabled: false,
           },
         ],
       },

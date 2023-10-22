@@ -1,8 +1,10 @@
 <template>
   <vb-collapse-button
     target-id="navbarCollapseContent"
-    class="navbar-toggler"
     aria-label="Toggle navigation"
+    theme="outline-light"
+    icon="menu"
+    square
     @click="$emit('click')"
   >
     <span class="navbar-toggler-icon"></span>

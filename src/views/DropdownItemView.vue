@@ -13,7 +13,13 @@
       <div>
         Принимает тип ссылки (a, router-link), адрес ссылки, флаги активности и
         отключенности. Активность добавляет класс active, который нужно
-        стилизовать самостоятельно. Содержимое пробрасывается в слот
+        стилизовать самостоятельно. Принимает иконку в виде строки или объекта.
+        Если icon передается в виде строки, то он передается далее в качестве
+        имени иконки. Содержимое пробрасывается в слот. Внутри тела компонента
+        vb-offcanvas пункт меняет свою высоту, подстраиваясь под высоту основных
+        пунтктов, слева имеет увеличенный паддинг. См.<router-link to="/navbar"
+          >NavBar</router-link
+        >
       </div>
       <pre>
 props: {
@@ -21,6 +27,7 @@ props: {
   href: String,
   active: Boolean,
   disabled: Boolean,
+  icon: [Object, String],
 }</pre
       >
       <h3>Варианты использования</h3>
@@ -30,6 +37,8 @@ props: {
       <vb-dropdown-item href="/nav">Страница Nav</vb-dropdown-item>
       <div>Отключенная</div>
       <vb-dropdown-item href="/nav" disabled>Отключенная</vb-dropdown-item>
+      <div>С иконкой</div>
+      <vb-dropdown-item href="/nav" icon="star">Избранное</vb-dropdown-item>
       <h3>Действия компонента</h3>
       <div>При выборе пункта вызывается событие @click без параметров</div>
       <vb-dropdown-item type="a" href="#" @click="returnedEvent = 'click'"

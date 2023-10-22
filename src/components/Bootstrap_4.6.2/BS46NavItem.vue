@@ -41,3 +41,44 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.offcanvas.show {
+  @mixin static-dropdown-menu {
+    .offcanvas-body {
+      .dropdown-menu {
+        position: unset !important;
+        transform: translate3d(0px, 0px, 0px) !important;
+        border: none;
+        border-radius: unset;
+        padding: 0;
+        margin-top: 0;
+      }
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    &.offcanvas-sm {
+      @include static-dropdown-menu;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    &.offcanvas-md {
+      @include static-dropdown-menu;
+    }
+  }
+
+  @media (max-width: 991.98px) {
+    &.offcanvas-lg {
+      @include static-dropdown-menu;
+    }
+  }
+
+  @media (max-width: 1199.98px) {
+    &.offcanvas-xl {
+      @include static-dropdown-menu;
+    }
+  }
+}
+</style>
