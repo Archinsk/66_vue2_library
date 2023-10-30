@@ -11,7 +11,7 @@
     <div :class="modalDialogClass" :style="offcanvasWidth">
       <div :class="modalContentClass">
         <div v-if="header" class="modal-header offcanvas-header">
-          <slot v-if="noTitle" name="modal-header"></slot>
+          <slot v-if="noTitle" name="offcanvas-header"></slot>
           <h5 v-else class="modal-title" :id="id + 'Label'">
             <slot name="modal-header"></slot>
           </h5>
@@ -28,7 +28,7 @@
         <div class="modal-body offcanvas-body">
           <slot></slot>
         </div>
-        <div v-if="footer" class="modal-footer">
+        <div v-if="footer" class="offcanvas-footer">
           <slot name="modal-footer"></slot>
         </div>
       </div>
@@ -237,6 +237,16 @@ export default {
 
           .navbar-nav {
             flex-direction: row;
+          }
+        }
+      }
+
+      &.modal-dialog-scrollable {
+        .modal-content {
+          overflow: unset;
+
+          .offcanvas-body {
+            overflow-y: unset;
           }
         }
       }

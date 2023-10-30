@@ -1,24 +1,34 @@
 <template>
-  <a
+  <vb-button-link
     v-if="tag === 'a'"
     href="#"
     role="button"
-    class="btn btn-modal"
+    class="btn-modal"
+    :theme="theme"
+    :size="size"
+    :block="block"
+    :square="square"
+    :icon="icon"
+    :without-btn-class="withoutBtnClass"
+    :additional-classes="additionalClasses"
     data-toggle="modal"
     :data-target="'#' + targetId"
     @click="$emit('click')"
   >
     <slot></slot>
-  </a>
+  </vb-button-link>
   <vb-button
     v-else
-    class="btn btn-modal"
+    class="btn-modal"
     type="button"
     :theme="theme"
     :size="size"
     :block="block"
     :square="square"
     :icon="icon"
+    :badge="badge"
+    :without-btn-class="withoutBtnClass"
+    :additional-classes="additionalClasses"
     data-toggle="modal"
     :data-target="'#' + targetId"
     @click="$emit('click')"
@@ -29,9 +39,10 @@
 
 <script>
 import VbButton from "./BS46Button";
+import VbButtonLink from "./BS46ButtonLink";
 export default {
   name: "VbModalButton",
-  components: { VbButton },
+  components: { VbButtonLink, VbButton },
   props: {
     targetId: String,
     tag: String,
@@ -40,6 +51,9 @@ export default {
     block: Boolean,
     square: Boolean,
     icon: [Object, String],
+    badge: Object,
+    withoutBtnClass: Boolean,
+    additionalClasses: String,
   },
 };
 </script>

@@ -1,11 +1,5 @@
-<!-- Версия 1.01 от 30.10.2023 -->
-
 <template>
-  <button
-    :type="type ? type : 'button'"
-    :class="btnClass"
-    @click="$emit('click')"
-  >
+  <a :href="href" :class="btnClass" @click="$emit('click')">
     <vb-icon
       v-if="icon"
       :name="typeof icon === 'string' ? icon : icon.name"
@@ -15,36 +9,30 @@
     <span v-if="!(icon && square)">
       <slot></slot>
     </span>
-    <vb-badge
-      v-if="badge"
-      :theme="badge.theme"
-      :pill="badge.pill"
-      :not-null-display="badge.notNullDisplay"
-      :value="badge.value"
-      :max="badge.max"
-    />
-  </button>
+  </a>
 </template>
 
 <script>
 import VbIcon from "./BS46Icon";
-import VbBadge from "./BS46Badge";
 export default {
-  name: "VbButton",
-  components: { VbBadge, VbIcon },
+  name: "VbButtonLink",
+  components: { VbIcon },
   props: {
-    type: String,
+    href: String,
     theme: String,
     size: String,
     block: Boolean,
     square: Boolean,
     icon: [Object, String],
-    badge: Object,
+    withoutBtnClass: Boolean,
     additionalClasses: String,
   },
   computed: {
     btnClass() {
-      let btnClass = "btn";
+      let btnClass = "";
+      if (!this.withoutBtnClass) {
+        btnClass += "btn";
+      }
       if (this.theme) {
         btnClass += ` btn-${this.theme}`;
       }
@@ -59,9 +47,6 @@ export default {
       }
       if (this.icon) {
         btnClass += " btn-icon";
-      }
-      if (this.badge) {
-        btnClass += " btn-badge";
       }
       if (this.additionalClasses) {
         btnClass += ` ${this.additionalClasses}`;
@@ -103,7 +88,7 @@ export default {
 }
 
 @mixin btn-square-on-point {
-  .icon + *:not(.badge) {
+  .icon + * {
     display: none;
   }
 }
@@ -136,7 +121,31 @@ export default {
   }
 }
 
-.btn-badge {
-  position: relative;
-}
+/*.nav-link {
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &.btn-square {
+    .icon + * {
+      display: none;
+    }
+  }
+
+  @mixin btn-square-text-no-effect {
+    &.btn-square {
+      .icon + * {
+        display: inline;
+      }
+    }
+  }
+
+  @media (max-width: 1199.98px) {
+    &.btn-not-square-xl {
+      @include btn-square-text-no-effect;
+    }
+  }
+}*/
 </style>

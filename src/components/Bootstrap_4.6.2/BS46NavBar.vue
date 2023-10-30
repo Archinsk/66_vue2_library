@@ -7,26 +7,31 @@
       :monochrome="monochromeBrandImage"
       :light="dark"
     />
-    <vb-nav-bar-toggler
+    <vb-collapse-button
       v-if="!withoutToggler"
+      aria-label="Toggle navigation"
+      target-id="navbarCollapseContent"
+      theme="outline-light"
+      square
+      icon="menu"
       :class="'d-' + expandSize + '-none'"
     />
-    <vb-nav-bar-collapse>
+    <vb-collapse class="navbar-collapse" id="navbarCollapseContent">
       <slot></slot>
-    </vb-nav-bar-collapse>
+    </vb-collapse>
     <slot name="navbar-end"></slot>
   </nav>
 </template>
 
 <script>
 import VbNavBarBrand from "./BS46NavBarBrand";
-import VbNavBarToggler from "./BS46NavBarToggler";
-import VbNavBarCollapse from "./BS46NavBarCollapse";
+import VbCollapseButton from "./BS46CollapseButton";
+import VbCollapse from "./BS46Collapse";
 export default {
   name: "VbNavBar",
   components: {
-    VbNavBarCollapse,
-    VbNavBarToggler,
+    VbCollapse,
+    VbCollapseButton,
     VbNavBarBrand,
   },
   props: {
@@ -38,6 +43,7 @@ export default {
     expandSize: String,
     brand: Object,
     withoutToggler: Boolean,
+    justifyContent: String,
   },
   computed: {
     navbarClass() {
@@ -60,6 +66,13 @@ export default {
         } else {
           navbarClass += " navbar-expand";
         }
+      }
+      if (
+        ["start", "center", "end", "between", "around"].includes(
+          this.justifyContent
+        )
+      ) {
+        navbarClass += ` justify-content-${this.justifyContent}`;
       }
       return navbarClass;
     },

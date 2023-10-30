@@ -18,9 +18,25 @@
         принимает флаги блочности (ширина 100%), квадратности кнопки (ширина =
         высота, не касается закруглений кнопки). Принимает иконку в виде строки
         или объекта. Если icon передается в виде строки, то он передается далее
-        в качестве имени иконки. Содержимое пробрасывается в слот. Если кнопка
-        иконочная и квадратная, слот отключается. Содержатся стили для иконочных
-        и квадратных кнопок.
+        в качестве имени иконки. Принимает объект пропа badge и строку
+        дополнительных классов. Содержимое пробрасывается в слот. Если кнопка
+        иконочная и квадратная, слот отключается
+      </div>
+      <div>
+        Компонент содержит стили для иконочных и квадратных кнопок, добавляется
+        левый отступ для элемента следующего за иконкой. Если в пропе
+        additionalClasses передан один из следующих классов: .btn-square-sm,
+        .btn-square-md, .btn-square-lg, .btn-square-xl, то на экранах шириной
+        выше соответствующего порога кнопка становится квадратной. Для кнопки с
+        бэйджем позиционирование становится относительным
+      </div>
+      <div>
+        Используется в Компонентах
+        <ul>
+          <li>BS46CollapseButton</li>
+          <li>BS46ModalButton</li>
+          <li>BS46OffcanvasButton</li>
+        </ul>
       </div>
       <pre>
 props: {
@@ -30,6 +46,8 @@ props: {
   block: Boolean,
   square: Boolean,
   icon: [Object, String],
+  badge: Object,
+  additionalClasses: String,
 },</pre
       >
       <h3>Варианты использования</h3>
@@ -61,6 +79,23 @@ props: {
       <vb-button theme="danger" icon="favorite" square size="sm" class="mr-3" />
       <vb-button theme="danger" icon="favorite" square class="mr-3" />
       <vb-button theme="danger" icon="favorite" square size="lg" />
+      <div>С бэйджем</div>
+      <vb-button theme="secondary" size="sm" class="mr-3" :badge="defaultBadge"
+        >Маленькая</vb-button
+      >
+      <vb-button theme="secondary" class="mr-3" :badge="defaultBadge"
+        >Обычная</vb-button
+      >
+      <vb-button theme="secondary" size="lg" :badge="defaultBadge"
+        >Большая</vb-button
+      >
+      <div>
+        Кнопка с текстом и иконкой, на экранах шире 768px становящаяся
+        квадратной кнопкой с иконкой
+      </div>
+      <vb-button theme="primary" icon="home" additional-classes="btn-square-md"
+        >Button</vb-button
+      >
       <h3>Действия компонента</h3>
       <div>Возвращает событие @click</div>
     </div>
@@ -74,8 +109,15 @@ export default {
   name: "ButtonView",
   components: { VbButton, VbAlert },
   data() {
-    return {};
+    return {
+      defaultBadge: {
+        theme: "danger",
+        pill: false,
+        notNullDisplay: true,
+        value: 25,
+        max: 99,
+      },
+    };
   },
-  methods: {},
 };
 </script>

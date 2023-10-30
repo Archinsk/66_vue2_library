@@ -1,18 +1,8 @@
+<!-- Версия 1.01 от 30.10.2023 -->
+
 <template>
-  <a
-    v-if="tag === 'a'"
-    href="#"
-    role="button"
-    class="btn btn-offcanvas"
-    data-toggle="modal"
-    :data-target="'#' + targetId"
-    @click="$emit('click')"
-  >
-    <slot></slot>
-  </a>
   <vb-button
-    v-else
-    class="btn btn-modal"
+    class="btn-offcanvas"
     type="button"
     :theme="theme"
     :size="size"
@@ -34,7 +24,6 @@ export default {
   components: { VbButton },
   props: {
     targetId: String,
-    tag: String,
     theme: String,
     size: String,
     block: Boolean,

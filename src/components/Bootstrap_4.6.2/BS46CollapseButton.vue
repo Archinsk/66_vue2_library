@@ -1,3 +1,5 @@
+<!-- Версия 1.01 от 30.10.2023 -->
+
 <template>
   <vb-button
     class="btn-collapse"

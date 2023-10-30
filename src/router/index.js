@@ -181,16 +181,6 @@ const routes = [
     component: () => import("../views/NavBarBrandView.vue"),
   },
   {
-    path: "/navbartoggler",
-    name: "navBarTogglerView",
-    component: () => import("../views/NavBarTogglerView.vue"),
-  },
-  {
-    path: "/navBarCollapse",
-    name: "navBarCollapseView",
-    component: () => import("../views/NavBarCollapseView.vue"),
-  },
-  {
     path: "/offcanvas",
     name: "offcanvasView",
     component: () => import("../views/OffcanvasView"),
@@ -212,8 +202,13 @@ const routes = [
   },
   {
     path: "/button",
-    name: "ButtonView",
+    name: "buttonView",
     component: () => import("../views/ButtonView"),
+  },
+  {
+    path: "/badge",
+    name: "badgeView",
+    component: () => import("../views/BadgeView"),
   },
 ];
 

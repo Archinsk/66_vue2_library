@@ -27,9 +27,7 @@
       </div>
       <pre>
 props: {
-  // Требуется для связи кнопки и панели
   id: String,
-  // Нужен для использования в аккордионах
   parentId: String,
 },
         </pre
@@ -54,9 +52,5 @@ import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
 export default {
   name: "CollapseView",
   components: { VbAlert, VbCollapse, VbCollapseButton },
-  data() {
-    return {};
-  },
-  methods: {},
 };
 </script>

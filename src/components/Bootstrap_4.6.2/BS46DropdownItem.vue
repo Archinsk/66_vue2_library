@@ -1,5 +1,32 @@
+<!-- Версия 1.01 от 30.10.2023 -->
+
 <template>
-  <a v-if="type === 'a'" :href="href" :class="navLinkClass">
+  <vb-nav-item
+    v-if="dropdown"
+    :type="type"
+    :href="href"
+    :active="active"
+    :disabled="disabled"
+    :dropdown="dropdown"
+    :icon="icon"
+    :badge="badge"
+    :additional-classes="additionalClasses"
+    :window-data="windowData"
+    :dropdown-items-list="dropdownItemsList"
+    :name="name"
+    class="dropdown-toggle"
+    role="button"
+    data-toggle="dropdown"
+    aria-expanded="false"
+    @click="$emit('nav-link-click', dropdown)"
+    ><slot></slot
+  ></vb-nav-item>
+  <a
+    v-else-if="type === 'a'"
+    :href="href"
+    :class="navLinkClass"
+    @click.prevent="$emit('click')"
+  >
     <vb-icon
       v-if="icon"
       :name="typeof icon === 'string' ? icon : icon.name"
@@ -14,7 +41,7 @@
     v-else
     :to="href"
     :class="navLinkClass"
-    @click.native.prevent="clickLink"
+    @click.native.prevent="$emit('click')"
   >
     <vb-icon
       v-if="icon"
@@ -30,15 +57,21 @@
 
 <script>
 import VbIcon from "./BS46Icon";
+import VbNavItem from "./BS46NavItem";
 export default {
   name: "VbDropdownItem",
-  components: { VbIcon },
+  components: { VbNavItem, VbIcon },
   props: {
     type: String,
     href: String,
     active: Boolean,
     disabled: Boolean,
+    dropdown: Boolean,
     icon: [Object, String],
+    badge: Object,
+    additionalClasses: Object,
+    windowData: Object,
+    dropdownItemsList: Array,
   },
   computed: {
     navLinkClass() {
@@ -51,18 +84,13 @@ export default {
       return navLinkClass;
     },
   },
-  methods: {
-    clickLink() {
-      this.$emit("click");
-    },
-  },
 };
 </script>
 
 <style lang="scss" scoped>
 .dropdown-item {
   .icon + * {
-    margin-left: 0.375em;
+    margin-left: 0.5em;
   }
 }
 
@@ -71,7 +99,7 @@ export default {
     .offcanvas-body {
       .dropdown-menu {
         .dropdown-item {
-          padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+          padding: 0.4375rem 0.5rem 0.4375rem 1.5rem;
         }
       }
     }

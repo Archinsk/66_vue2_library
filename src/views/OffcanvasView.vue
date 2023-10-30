@@ -67,9 +67,9 @@ props: {
         С хедером и футером
       </vb-offcanvas-button>
       <vb-offcanvas id="offcanvas-02" header footer>
-        <template v-slot:modal-header>Заголовок</template>
+        <template v-slot:offcanvas-header>Заголовок</template>
         Содержимое Offcanvas
-        <template v-slot:modal-footer>Футер</template>
+        <template v-slot:offcanvas-footer>Футер</template>
       </vb-offcanvas>
       <vb-offcanvas-button
         target-id="offcanvas-03"
@@ -78,7 +78,7 @@ props: {
         С фиксированной шириной
       </vb-offcanvas-button>
       <vb-offcanvas id="offcanvas-03" header opened-width="16.25rem">
-        <template v-slot:modal-header>Заголовок</template>
+        <template v-slot:offcanvas-header>Заголовок</template>
         Содержимое Offcanvas
       </vb-offcanvas>
       <vb-offcanvas-button
@@ -88,7 +88,7 @@ props: {
         Прокручиваемое
       </vb-offcanvas-button>
       <vb-offcanvas id="offcanvas-04" header opened-width="16.25rem" scrollable>
-        <template v-slot:modal-header>Заголовок</template>
+        <template v-slot:offcanvas-header>Заголовок</template>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam,
         beatae ducimus eaque eligendi harum ipsum maiores quasi quod quos
         reprehenderit. Autem blanditiis corporis dicta dignissimos, eius
@@ -123,7 +123,7 @@ props: {
         Без дефолтного заголовка
       </vb-offcanvas-button>
       <vb-offcanvas id="offcanvas-05" header no-title>
-        <template v-slot:modal-header
+        <template v-slot:offcanvas-header
           ><i>Кастомные <b>теги</b> заголовка</i></template
         >
         Содержимое Offcanvas
@@ -135,7 +135,7 @@ props: {
         Без кнопки закрытия
       </vb-offcanvas-button>
       <vb-offcanvas id="offcanvas-06" header no-close-button>
-        <template v-slot:modal-header>Нет кнопки --></template>
+        <template v-slot:offcanvas-header>Нет кнопки --></template>
         Содержимое Offcanvas
       </vb-offcanvas>
       <vb-offcanvas-button
@@ -145,7 +145,7 @@ props: {
         Без фона
       </vb-offcanvas-button>
       <vb-offcanvas id="offcanvas-07" header no-backdrop>
-        <template v-slot:modal-header>Фон отсутствует</template>
+        <template v-slot:offcanvas-header>Фон отсутствует</template>
         Содержимое Offcanvas
       </vb-offcanvas>
       <vb-offcanvas-button
@@ -155,7 +155,7 @@ props: {
         Без клавиатурного закрытия
       </vb-offcanvas-button>
       <vb-offcanvas id="offcanvas-08" header no-keyboard>
-        <template v-slot:modal-header>Без клавиатурного закрытия</template>
+        <template v-slot:offcanvas-header>Без клавиатурного закрытия</template>
         Нажми "Esc"
       </vb-offcanvas>
       <vb-offcanvas-button
@@ -165,7 +165,7 @@ props: {
         Не кликабельный фон
       </vb-offcanvas-button>
       <vb-offcanvas id="offcanvas-09" header static-backdrop>
-        <template v-slot:modal-header>Не кликабельный фон</template>
+        <template v-slot:offcanvas-header>Не кликабельный фон</template>
         Клавиатурное закрытие (Esc) тоже выключено
       </vb-offcanvas>
       <vb-offcanvas-button

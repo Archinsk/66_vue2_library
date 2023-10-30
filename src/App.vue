@@ -5,27 +5,36 @@
       expand
       expand-size="xl"
       offcanvas
-      theme="primary"
+      theme="info"
       dark
       monochrome
       :brand="brand"
       :nav="systemNav"
-      @nav-link-click="selectActiveNavItem(systemNav.itemsList, $event)"
+      justify-content="between"
+      :window-data="windowData"
     />
-    <router-view />
+    <vb-modal id="modal-test">Тестовое модальное окно</vb-modal>
+    <div class="container">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
 import VbHeader from "./components/Bootstrap_4.6.2/BS46Header";
+import VbModal from "./components/Bootstrap_4.6.2/BS46Modal";
 export default {
-  components: { VbHeader },
+  components: { VbModal, VbHeader },
   data() {
     return {
+      windowData: {
+        width: null,
+        widthSize: "",
+      },
       brand: {
         href: "/",
-        name: "Информационные системы и сервисы",
-        imageSrc: "images/iss_logo.svg",
+        name: "Viewer Studio",
+        imageSrc: "images/viewer-logo.svg",
       },
       systemNav: {
         itemsList: [
@@ -67,6 +76,7 @@ export default {
                 name: "Collapse",
                 type: "router-link",
                 href: "/collapse",
+                icon: "done",
                 active: false,
                 disabled: false,
               },
@@ -75,6 +85,7 @@ export default {
                 name: "CollapseButton",
                 type: "router-link",
                 href: "/collapsebutton",
+                icon: "done",
                 active: false,
                 disabled: false,
               },
@@ -169,6 +180,33 @@ export default {
                 active: false,
                 disabled: false,
               },
+              {
+                id: "nav-link-form-components3",
+                name: "TestLevel3",
+                type: "router-link",
+                href: "#",
+                active: false,
+                disabled: false,
+                dropdown: true,
+                dropdownItemsList: [
+                  {
+                    id: "dropdown-link-input3",
+                    name: "Level-3 Link-1",
+                    type: "router-link",
+                    href: "/input",
+                    active: false,
+                    disabled: false,
+                  },
+                  {
+                    id: "dropdown-link-textarea3",
+                    name: "Level-3 Link-2",
+                    type: "router-link",
+                    href: "/textarea",
+                    active: false,
+                    disabled: false,
+                  },
+                ],
+              },
             ],
           },
           {
@@ -244,6 +282,7 @@ export default {
                 name: "DropdownItem",
                 type: "router-link",
                 href: "/dropdownitem",
+                icon: "done",
                 active: false,
                 disabled: false,
               },
@@ -395,22 +434,6 @@ export default {
                 active: false,
                 disabled: false,
               },
-              {
-                id: "dropdown-link-nav-bar-toggler",
-                name: "NavBarToggler",
-                type: "router-link",
-                href: "/navbartoggler",
-                active: false,
-                disabled: false,
-              },
-              {
-                id: "dropdown-link-nav-bar-collapse",
-                name: "NavBarCollapse",
-                type: "router-link",
-                href: "/navbarcollapse",
-                active: false,
-                disabled: false,
-              },
             ],
           },
           {
@@ -435,6 +458,7 @@ export default {
                 name: "OffcanvasButton",
                 type: "router-link",
                 href: "/offcanvasbutton",
+                icon: "done",
                 active: false,
                 disabled: false,
               },
@@ -453,6 +477,7 @@ export default {
             name: "Icon",
             type: "router-link",
             href: "/icon",
+            icon: "done",
             active: false,
             disabled: false,
           },
@@ -461,16 +486,83 @@ export default {
             name: "Button",
             type: "router-link",
             href: "/button",
+            icon: "done",
             active: false,
             disabled: false,
           },
+          {
+            id: "nav-link-badge",
+            name: "Badge",
+            type: "router-link",
+            href: "/badge",
+            icon: "done",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-test-modal",
+            name: "Test Modal",
+            type: "modal-link",
+            href: "modal-test",
+            icon: "star",
+            active: false,
+            disabled: false,
+          },
+          {
+            id: "nav-link-test-icon",
+            name: "Test Icon",
+            type: "modal-link",
+            href: "modal-test",
+            active: false,
+            disabled: false,
+            icon: "favorite",
+            additionalClasses: {
+              navItem: null,
+              navLink: "btn-square-xl btn-outline-light",
+            },
+          },
+          {
+            id: "nav-link-test-badge",
+            name: "Test Badge",
+            type: "modal-link",
+            href: "modal-test",
+            active: false,
+            disabled: false,
+            icon: "mail",
+            additionalClasses: {
+              navItem: null,
+              navLink: "btn-square-xl btn-outline-light",
+            },
+            badge: {
+              theme: "danger",
+              pill: true,
+              notNullDisplay: true,
+              value: 25,
+              max: 99,
+            },
+          },
         ],
       },
-      appLoaded: false,
     };
   },
   methods: {
-    selectActiveNavItem(navItemsList, selectedItem) {
+    // Навигация
+    findActiveNavItemByRouterPath(navItemsList, routePath) {
+      for (let i = 0; i < navItemsList.length; i++) {
+        if (navItemsList[i].dropdown) {
+          for (let j = 0; j < navItemsList[i].dropdownItemsList.length; j++) {
+            if (navItemsList[i].dropdownItemsList[j].href === routePath) {
+              return navItemsList[i].dropdownItemsList[j];
+            }
+          }
+        } else {
+          if (navItemsList[i].href === routePath) {
+            return navItemsList[i];
+          }
+        }
+      }
+    },
+    activateNavItem(navItemsList, selectedItem) {
       navItemsList.forEach((navItem) => {
         if (navItem.dropdown) {
           let foundDropdownItem = false;
@@ -497,32 +589,38 @@ export default {
         }
       });
     },
-    findActiveNavItemByRouterPath(navItemsList, routePath) {
-      for (let i = 0; i < navItemsList.length; i++) {
-        if (navItemsList[i].dropdown) {
-          for (let j = 0; j < navItemsList[i].dropdownItemsList.length; j++) {
-            if (navItemsList[i].dropdownItemsList[j].href === routePath) {
-              return navItemsList[i].dropdownItemsList[j];
-            }
-          }
-        } else {
-          if (navItemsList[i].href === routePath) {
-            return navItemsList[i];
-          }
-        }
+
+    getWindowProperties() {
+      this.windowData.width = window.innerWidth;
+      if (window.innerWidth >= 1200) {
+        this.windowData.widthSize = "xl";
+      } else if (window.innerWidth >= 992) {
+        this.windowData.widthSize = "lg";
+      } else if (window.innerWidth >= 768) {
+        this.windowData.widthSize = "md";
+      } else if (window.innerWidth >= 576) {
+        this.windowData.widthSize = "sm";
+      } else {
+        this.windowData.widthSize = "xs";
       }
     },
   },
-  updated() {
-    // Инициализация пункта системного меню
-    if (!this.appLoaded) {
-      let activeNavItem = this.findActiveNavItemByRouterPath(
-        this.systemNav.itemsList,
-        this.$route.path
-      );
-      this.selectActiveNavItem(this.systemNav.itemsList, activeNavItem);
-      this.appLoaded = true;
-    }
+  created() {
+    window.addEventListener("resize", this.getWindowProperties);
+    this.getWindowProperties();
+  },
+  watch: {
+    "$route.params.path": {
+      handler: function () {
+        let activeNavItem = this.findActiveNavItemByRouterPath(
+          this.systemNav.itemsList,
+          this.$route.path
+        );
+        this.activateNavItem(this.systemNav.itemsList, activeNavItem);
+      },
+      deep: true,
+      immediate: true,
+    },
   },
 };
 </script>

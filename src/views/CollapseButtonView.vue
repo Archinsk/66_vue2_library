@@ -10,25 +10,36 @@
         61 и 64 имеют устаревшую версию без отслеживания события "click"
         Используется в паре с BS46Collapse. Эти два компонента не объединены в
         один по причине необходимости размещения кнопки отдельно от панели.
-        Необходимо переделать компонент на использование стандартного компонента
-        кнопки с пробросом пропсов (пока не реализован). Во всех проектах пропсы
-        используются без типизации</vb-alert
-      >
+      </vb-alert>
       <h3>Описание</h3>
       <div>
         Назначение: активация показа и скрытия дополнительной информации,
         подразделов, отображения детальной информации
       </div>
       <div>
-        Принимает один обязательный проп "target-id" для связи кнопки с панелью.
-        Кнопка не имеет класса с обозначением цветовой темы, добавлен
-        дополнительный класс "btn-collapse"
+        Принимает проп target-id для связи кнопки с панелью. В остальном
+        является оберткой компонента BS46Button и передает ему соответствующие
+        пропы (без badge и additional-classes) Добавлен дополнительный класс
+        "btn-collapse"
+      </div>
+      <div>
+        Используется в Компонентах
+        <ul>
+          <li>BS46Accordeon</li>
+          <li>BS46NavBarToggler</li>
+          <li>BS46Filter</li>
+          <li>BS46ItemsList</li>
+        </ul>
       </div>
       <pre>
 props: {
   targetId: String,
-},
-        </pre
+  theme: String,
+  size: String,
+  block: Boolean,
+  square: Boolean,
+  icon: [Object, String],
+},</pre
       >
       <h3>Варианты использования</h3>
       <vb-collapse-button target-id="notificationCollapse" class="btn-primary">
@@ -46,8 +57,9 @@ props: {
 <script>
 import VbCollapseButton from "../components/Bootstrap_4.6.2/BS46CollapseButton";
 import VbCollapse from "../components/Bootstrap_4.6.2/BS46Collapse";
+import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
 export default {
   name: "CollapseButtonView",
-  components: { VbCollapse, VbCollapseButton },
+  components: { VbAlert, VbCollapse, VbCollapseButton },
 };
 </script>

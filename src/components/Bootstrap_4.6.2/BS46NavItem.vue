@@ -1,48 +1,121 @@
 <template>
-  <li v-if="!dropdown" class="nav-item">
-    <vb-nav-link
-      :type="type"
-      :href="href"
-      :active="active"
-      :disabled="disabled"
-      @click="$emit('click')"
-      ><slot></slot
-    ></vb-nav-link>
-  </li>
-  <li v-else class="nav-item dropdown">
-    <vb-nav-link
-      :type="type"
-      href="#"
-      :active="active"
-      :disabled="disabled"
-      class="dropdown-toggle"
-      data-toggle="dropdown"
-      role="button"
-      aria-expanded="false"
-      ><slot></slot
-    ></vb-nav-link>
-    <div class="dropdown-menu">
-      <slot name="dropdown-menu"></slot>
-    </div>
+  <li :class="navItemClass">
+    <template v-if="!dropdown">
+      <vb-modal-button
+        v-if="type === 'modal-link' && linkIsSquareButton"
+        :icon="icon"
+        :badge="badge"
+        :additional-classes="additionalClasses.navLink"
+        square
+        :data-target="'#' + href"
+        class="mx-2"
+        @click="$emit('click')"
+      ></vb-modal-button>
+      <vb-nav-link
+        v-else
+        :type="type"
+        :href="href"
+        :active="active"
+        :disabled="disabled"
+        :icon="icon"
+        :badge="badge"
+        @click="$emit('click')"
+        ><slot></slot
+      ></vb-nav-link>
+    </template>
+    <template v-else>
+      <vb-nav-link
+        :type="type"
+        :href="href"
+        :active="active"
+        :disabled="disabled"
+        :icon="icon"
+        :badge="badge"
+        class="dropdown-toggle"
+        role="button"
+        data-toggle="dropdown"
+        aria-expanded="false"
+        @click="$emit('click')"
+        ><slot></slot
+      ></vb-nav-link>
+      <div class="dropdown-menu">
+        <vb-dropdown-item
+          v-for="dropdownItem of dropdownItemsList"
+          :key="dropdownItem.id"
+          :type="dropdownItem.type"
+          :href="dropdownItem.href"
+          :active="dropdownItem.active"
+          :disabled="dropdownItem.disabled"
+          :dropdown="dropdownItem.dropdown"
+          :icon="dropdownItem.icon"
+          :badge="dropdownItem.badge"
+          :additional-classes="additionalClasses"
+          :window-data="windowData"
+          :dropdown-items-list="dropdownItem.dropdownItemsList"
+          @click="$emit('nav-link-click', dropdownItem)"
+          >{{ dropdownItem.name }}</vb-dropdown-item
+        >
+      </div>
+    </template>
   </li>
 </template>
 
 <script>
 import VbNavLink from "./BS46NavLink";
+import VbModalButton from "./BS46ModalButton";
+import VbDropdownItem from "./BS46DropdownItem";
 export default {
   name: "VbNavItem",
-  components: { VbNavLink },
+  components: { VbDropdownItem, VbModalButton, VbNavLink },
   props: {
     type: String,
     href: String,
     active: Boolean,
     disabled: Boolean,
     dropdown: Boolean,
+    icon: [Object, String],
+    badge: Object,
+    additionalClasses: Object,
+    windowData: Object,
+    dropdownItemsList: Array,
+  },
+  computed: {
+    navItemClass() {
+      let navItemClass = "nav-item";
+      if (this.dropdown) {
+        navItemClass += " dropdown";
+      }
+      return navItemClass;
+    },
+    linkIsSquareButton() {
+      let additionalClassesArray;
+      if (this.additionalClasses && this.additionalClasses.navLink) {
+        additionalClassesArray = this.additionalClasses.navLink.split(" ");
+      } else {
+        return false;
+      }
+      return (
+        additionalClassesArray.includes("btn-square") ||
+        (additionalClassesArray.includes("btn-square-sm") &&
+          this.windowData.width >= 576) ||
+        (additionalClassesArray.includes("btn-square-md") &&
+          this.windowData.width >= 768) ||
+        (additionalClassesArray.includes("btn-square-lg") &&
+          this.windowData.width >= 992) ||
+        (additionalClassesArray.includes("btn-square-xl") &&
+          this.windowData.width >= 1200)
+      );
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.nav-item {
+  padding-top: 0.0625rem;
+  padding-bottom: 0.0625rem;
+}
+
 .offcanvas.show {
   @mixin static-dropdown-menu {
     .offcanvas-body {

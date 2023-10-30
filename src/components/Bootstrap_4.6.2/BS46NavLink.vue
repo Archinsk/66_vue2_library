@@ -9,17 +9,31 @@
       v-if="icon"
       :name="typeof icon === 'string' ? icon : icon.name"
       :format="icon.format"
-      :type="icon.type" /><slot></slot
-  ></a>
+      :type="icon.type"
+    />
+    <span><slot></slot></span>
+  </a>
   <vb-modal-button
     v-else-if="type === 'modal-link'"
     :target-id="href"
-    :icon="icon"
     tag="a"
+    :icon="icon"
+    :class="navLinkClass"
+    without-btn-class
+    :additional-classes="additionalClasses"
   >
     <span>
       <slot></slot>
     </span>
+    <vb-badge
+      v-if="badge"
+      :theme="badge.theme"
+      :pill="badge.pill"
+      :not-null-display="badge.notNullDisplay"
+      :value="badge.value"
+      :max="badge.max"
+      class="ml-2"
+    />
   </vb-modal-button>
   <router-link
     v-else
@@ -41,15 +55,18 @@
 <script>
 import VbModalButton from "./BS46ModalButton";
 import VbIcon from "./BS46Icon";
+import VbBadge from "./BS46Badge";
 export default {
   name: "VbNavLink",
-  components: { VbIcon, VbModalButton },
+  components: { VbBadge, VbIcon, VbModalButton },
   props: {
     type: String,
     href: String,
     active: Boolean,
     disabled: Boolean,
     icon: [Object, String],
+    badge: Object,
+    additionalClasses: String,
   },
   computed: {
     navLinkClass() {
@@ -72,8 +89,11 @@ export default {
 
 <style lang="scss" scoped>
 .nav-link {
+  padding-top: 0.4375rem;
+  padding-bottom: 0.4375rem;
+
   .icon + * {
-    margin-left: 0.375em;
+    margin-left: 0.5em;
   }
 }
 </style>

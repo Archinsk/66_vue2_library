@@ -1,3 +1,5 @@
+<!-- Версия 1.01 от 30.10.2023 -->
+
 <template>
   <div
     class="collapse"
@@ -17,3 +19,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.navbar {
+  .navbar-collapse {
+    flex-grow: unset;
+  }
+}
+</style>

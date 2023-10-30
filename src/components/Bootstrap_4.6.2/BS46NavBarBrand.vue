@@ -38,11 +38,15 @@ export default {
 
 <style lang="scss" scoped>
 .navbar-brand {
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 0.875em;
+  white-space: normal;
   display: flex;
   align-items: center;
 
   img {
-    height: 3rem;
+    height: 1.875rem;
   }
 
   div {
