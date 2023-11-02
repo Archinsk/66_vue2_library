@@ -1,8 +1,5 @@
 <template>
   <div class="about">
-    <h2>Кастомизированный компонент Vue2ModalButton</h2>
-    <div>Пока отсутствует</div>
-
     <h2>Кастомизированный Bootstrap компонент BS46ModalButton</h2>
     <div class="section">
       <vb-alert theme-color="success"
@@ -11,16 +8,26 @@
       <h3>Описание</h3>
       <div>Назначение: активация показа модального окна</div>
       <div>
-        Принимает обязательный проп "target-id" для связи с модальным окном и
-        тег ("a" или "button"). Тег "a" используется в ссылках навигации, тег
-        "button" используется по умолчанию, если проп не передан. Кнопка не
-        имеет класса с обозначением цветовой темы, добавлен дополнительный класс
-        "btn-modal"
+        Принимает строчный идентификатор целевого модального окна и строчный тег
+        ("a" или "button"). Тег "a" используется в ссылках навигации, тег
+        "button" используется по умолчанию, если проп не передан. Имеет флаг
+        отсутствия класса "btn" (передается только в BS46ButtonLink для
+        использования в ссылках навигационных списков). Остальные пропы
+        проксирует далее в BS46Button и BS46ButtonLink. Добавлен дополнительный
+        класс "btn-modal"
       </div>
       <pre>
 props: {
   targetId: String,
   tag: String,
+  theme: String,
+  size: String,
+  block: Boolean,
+  square: Boolean,
+  icon: [Object, String],
+  badge: Object,
+  additionalClasses: String,
+  withoutBtnClass: Boolean,
 },</pre
       >
       <h3>Варианты использования</h3>

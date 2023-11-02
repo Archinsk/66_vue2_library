@@ -15,28 +15,33 @@
       </div>
       <div>
         Несамостоятельный компонент, используется только внутри компонента
-        BS46Nav. Принимает тип ссылки (a, router-link, modal-link), адрес
-        ссылки, флаги активности и отключенности, флаг выпадающего списка.
-        Принимается объект или строка с указанием иконки (если передается
-        строчное значение, то иконка примет вид иконки из шрифта material-icon),
-        объект бейджа, объект дополнительных классов, объект с данными окна.
-        Активность добавляет класс active, который нужно стилизовать
-        самостоятельно (стилизация добавляется Bootstrap'ом внутри компонента
-        BS46NavBar). По флагу "dropdown" определяется является ли пункт обычным
-        или выпадающим списком. Если флаг dropdown установлен, то компонент
-        рекурсивно выводит сам себя. Имеет два слота. Содержимое пункта
-        пробрасывается в дефолтный слот. Содержимое выпадающего списка
-        пробрасывается в слот "dropdown-menu". Внутри элемента Offcanvas
-        выпадающие списки принимают статичное позиционирование и немного меняют
-        внешний вид, обнуляя поля, отступы, границы и их закругления. Это
-        выполнено для того чтобы внутри Offcanvas пункты выпадающего меню по
-        высоте были равны основным пунктам. См.<router-link to="/navbar"
+        BS46Nav. Принимает строку идентификатора (требуется для переопределения
+        поведения переключателя выпадающего списка, находящегося внутри другого
+        списка, используется jquery), строки типа ссылки (a, router-link,
+        modal-link), адреса ссылки, флаги активности и отключенности, флаг
+        выпадающего списка. Принимается объект или строка с указанием иконки
+        (если передается строчное значение, то иконка примет вид иконки из
+        шрифта material-icon), объект бейджа, объект дополнительных классов,
+        объект с данными окна. Принимает массив пунктов выпадающего списка, имя
+        и флаг признака вложенности пункта выпадающего списка в другой
+        выпадающий список. Активность добавляет класс active, который нужно
+        стилизовать самостоятельно (стилизация добавляется Bootstrap'ом внутри
+        компонента BS46NavBar). По флагу "dropdown" определяется является ли
+        пункт обычным или выпадающим списком. Если флаг dropdown установлен, то
+        компонент рекурсивно выводит сам себя. Имеет слот, в который
+        пробрасывается содержимое пункта. Внутри элементов Offcanvas и панели
+        navbar-expand выпадающие списки принимают статичное позиционирование и
+        немного меняют внешний вид, обнуляя поля, отступы, границы и их
+        закругления. Это выполнено для того чтобы внутри Offcanvas пункты
+        выпадающего меню по высоте были равны основным пунктам. См.<router-link
+          to="/navbar"
           >NavBar</router-link
         >. Обычный пункт вызывает событие @click, выпадающий список не вызывает
         событий
       </div>
       <pre>
 props: {
+  id: String,
   type: String,
   href: String,
   active: Boolean,
@@ -46,6 +51,9 @@ props: {
   badge: Object,
   additionalClasses: Object,
   windowData: Object,
+  dropdownItemsList: Array,
+  name: String,
+  isNestedDropdown: Boolean,
 }</pre
       >
       <h3>Варианты использования</h3>
@@ -63,19 +71,12 @@ props: {
       </ul>
       <div>Выпадающий список</div>
       <ul class="nav">
-        <vb-nav-item type="a" href="https://ya.ru" dropdown
+        <vb-nav-item
+          type="a"
+          href="https://ya.ru"
+          dropdown
+          :dropdown-items-list="defaultDropdownItemsList"
           >Выбрать
-          <template v-slot:dropdown-menu>
-            <vb-dropdown-item
-              v-for="dropdownItem of defaultDropdownItemsList"
-              :key="dropdownItem.id"
-              :type="dropdownItem.type"
-              :href="dropdownItem.href"
-              :active="dropdownItem.active"
-              :disabled="dropdownItem.disabled"
-              >{{ dropdownItem.name }}</vb-dropdown-item
-            >
-          </template>
         </vb-nav-item>
       </ul>
       <h3>Действия компонента</h3>
@@ -84,20 +85,12 @@ props: {
         <vb-nav-item type="a" href="#" @click="returnedEvent = 'click'"
           >Пустая ссылка</vb-nav-item
         >
-        <vb-nav-item type="a" href="https://ya.ru" dropdown
+        <vb-nav-item
+          type="a"
+          href="https://ya.ru"
+          dropdown
+          :dropdown-items-list="defaultDropdownItemsList"
           >Выбрать
-          <template v-slot:dropdown-menu>
-            <vb-dropdown-item
-              v-for="dropdownItem of defaultDropdownItemsList"
-              :key="dropdownItem.id"
-              type="a"
-              href="#"
-              :active="dropdownItem.active"
-              :disabled="dropdownItem.disabled"
-              @click="returnedEvent = 'click'"
-              >{{ dropdownItem.name }}</vb-dropdown-item
-            >
-          </template>
         </vb-nav-item>
       </ul>
       <div>Сработавшее событие: {{ returnedEvent }}</div>
@@ -108,10 +101,9 @@ props: {
 <script>
 import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
 import VbNavItem from "../components/Bootstrap_4.6.2/BS46NavItem";
-import VbDropdownItem from "../components/Bootstrap_4.6.2/BS46DropdownItem";
 export default {
   name: "NavItemView",
-  components: { VbDropdownItem, VbNavItem, VbAlert },
+  components: { VbNavItem, VbAlert },
   data() {
     return {
       defaultDropdownItemsList: [

@@ -1,22 +1,56 @@
+<!-- Версия 1.01 от 02.11.2023 -->
+
 <template>
   <ul
     v-if="tag === 'ul'"
     :class="navClass"
     :style="scroll ? 'max-height: 6.25rem;' : ''"
   >
-    <slot></slot>
+    <template v-if="itemsList">
+      <vb-nav-item
+        v-for="navLink of itemsList"
+        :key="navLink.id"
+        :id="navLink.id"
+        :type="navLink.type"
+        :href="navLink.href"
+        :active="navLink.active"
+        :disabled="navLink.disabled"
+        :dropdown="navLink.dropdown"
+        :icon="navLink.icon"
+        :badge="navLink.badge"
+        :additionalClasses="navLink.additionalClasses"
+        :windowData="navLink.windowData"
+        :name="navLink.name"
+        >{{ navLink.name }}</vb-nav-item
+      >
+    </template>
+    <slot v-else></slot>
   </ul>
-  <nav v-else-if="type === 'tabs' && type === 'pills'">
-    <div :class="navClass" :id="id" role="tablist">
-      <slot></slot>
-    </div>
+  <nav v-else :class="navClass">
+    <template v-if="itemsList">
+      <vb-nav-link
+        v-for="navLink of itemsList"
+        :key="navLink.id"
+        :type="navLink.type"
+        :href="navLink.href"
+        :active="navLink.active"
+        :disabled="navLink.disabled"
+        :icon="navLink.icon"
+        :badge="navLink.badge"
+        :additional-classes="navLink.additionalClasses"
+        >{{ navLink.name }}</vb-nav-link
+      >
+    </template>
+    <slot v-else></slot>
   </nav>
-  <nav v-else :class="navClass"><slot></slot></nav>
 </template>
 
 <script>
+import VbNavLink from "./BS46NavLink";
+import VbNavItem from "./BS46NavItem";
 export default {
   name: "VbNav",
+  components: { VbNavItem, VbNavLink },
   props: {
     tag: String,
     type: String,
@@ -25,6 +59,7 @@ export default {
     fill: Boolean,
     justified: Boolean,
     scroll: Boolean,
+    itemsList: Array,
   },
   computed: {
     navClass() {

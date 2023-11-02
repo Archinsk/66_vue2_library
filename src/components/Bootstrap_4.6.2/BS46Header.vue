@@ -24,6 +24,7 @@
             <template v-for="navLink of nav.itemsList">
               <vb-nav-item
                 :key="navLink.id"
+                :id="navLink.id"
                 :type="navLink.type"
                 :href="navLink.href"
                 :active="navLink.active"
@@ -44,40 +45,21 @@
         <vb-nav v-else tag="ul" class="navbar-nav">
           <template v-for="navLink of nav.itemsList">
             <vb-nav-item
-              v-if="!navLink.dropdown"
               :key="navLink.id"
+              :id="navLink.id"
               :type="navLink.type"
               :href="navLink.href"
               :active="navLink.active"
               :disabled="navLink.disabled"
               :icon="navLink.icon"
+              :badge="navLink.badge"
+              :additional-classes="navLink.additionalClasses || {}"
+              :window-data="windowData"
+              :dropdown="navLink.dropdown"
+              :dropdown-items-list="navLink.dropdownItemsList"
               @click="$emit('nav-link-click', navLink)"
               >{{ navLink.name }}</vb-nav-item
             >
-            <vb-nav-item
-              v-else
-              :key="navLink.id"
-              :type="navLink.type"
-              :href="navLink.href"
-              :active="navLink.active"
-              :disabled="navLink.disabled"
-              :icon="navLink.icon"
-              :dropdown="navLink.dropdown"
-              >{{ navLink.name }}
-              <template v-slot:dropdown-menu>
-                <vb-dropdown-item
-                  v-for="dropdownItem of navLink.dropdownItemsList"
-                  :key="dropdownItem.id"
-                  :type="dropdownItem.type"
-                  :href="dropdownItem.href"
-                  :active="dropdownItem.active"
-                  :disabled="dropdownItem.disabled"
-                  :icon="dropdownItem.icon"
-                  @click="$emit('nav-link-click', dropdownItem)"
-                  >{{ dropdownItem.name }}</vb-dropdown-item
-                >
-              </template>
-            </vb-nav-item>
           </template>
         </vb-nav>
         <template v-slot:navbar-end>
@@ -100,13 +82,11 @@ import VbNavBar from "./BS46NavBar";
 import VbOffcanvas from "./BS46Offcanvas";
 import VbNav from "./BS46Nav";
 import VbNavItem from "./BS46NavItem";
-import VbDropdownItem from "./BS46DropdownItem";
 import VbOffcanvasButton from "./BS46OffcanvasButton";
 export default {
   name: "VbHeader",
   components: {
     VbOffcanvasButton,
-    VbDropdownItem,
     VbNavItem,
     VbNav,
     VbOffcanvas,

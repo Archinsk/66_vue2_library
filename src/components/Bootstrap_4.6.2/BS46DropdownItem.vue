@@ -1,28 +1,8 @@
-<!-- Версия 1.01 от 30.10.2023 -->
+<!-- Версия 1.01 от 02.11.2023 -->
 
 <template>
-  <vb-nav-item
-    v-if="dropdown"
-    :type="type"
-    :href="href"
-    :active="active"
-    :disabled="disabled"
-    :dropdown="dropdown"
-    :icon="icon"
-    :badge="badge"
-    :additional-classes="additionalClasses"
-    :window-data="windowData"
-    :dropdown-items-list="dropdownItemsList"
-    :name="name"
-    class="dropdown-toggle"
-    role="button"
-    data-toggle="dropdown"
-    aria-expanded="false"
-    @click="$emit('nav-link-click', dropdown)"
-    ><slot></slot
-  ></vb-nav-item>
   <a
-    v-else-if="type === 'a'"
+    v-if="type === 'a'"
     :href="href"
     :class="navLinkClass"
     @click.prevent="$emit('click')"
@@ -57,21 +37,17 @@
 
 <script>
 import VbIcon from "./BS46Icon";
-import VbNavItem from "./BS46NavItem";
 export default {
   name: "VbDropdownItem",
-  components: { VbNavItem, VbIcon },
+  components: {
+    VbIcon,
+  },
   props: {
     type: String,
     href: String,
     active: Boolean,
     disabled: Boolean,
-    dropdown: Boolean,
     icon: [Object, String],
-    badge: Object,
-    additionalClasses: Object,
-    windowData: Object,
-    dropdownItemsList: Array,
   },
   computed: {
     navLinkClass() {
@@ -99,7 +75,7 @@ export default {
     .offcanvas-body {
       .dropdown-menu {
         .dropdown-item {
-          padding: 0.4375rem 0.5rem 0.4375rem 1.5rem;
+          padding: 0.4375rem 0.5rem;
         }
       }
     }
@@ -127,6 +103,38 @@ export default {
     &.offcanvas-xl {
       @include static-dropdown-menu-item;
     }
+  }
+}
+
+@mixin static-dropdown-menu {
+  .navbar-collapse.show,
+  .navbar-collapse.collapsing {
+    .dropdown-menu {
+      .dropdown-item {
+        padding: 0.4375rem 0.5rem;
+      }
+    }
+  }
+}
+
+.navbar-expand-sm {
+  @media (max-width: 575.98px) {
+    @include static-dropdown-menu;
+  }
+}
+.navbar-expand-md {
+  @media (max-width: 767.98px) {
+    @include static-dropdown-menu;
+  }
+}
+.navbar-expand-lg {
+  @media (max-width: 991.98px) {
+    @include static-dropdown-menu;
+  }
+}
+.navbar-expand-xl {
+  @media (max-width: 1199.98px) {
+    @include static-dropdown-menu;
   }
 }
 </style>

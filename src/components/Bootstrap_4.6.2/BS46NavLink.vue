@@ -1,3 +1,5 @@
+<!-- Версия 1.01 от 02.11.2023 -->
+
 <template>
   <a
     v-if="type === 'a'"
@@ -67,10 +69,14 @@ export default {
     icon: [Object, String],
     badge: Object,
     additionalClasses: String,
+    withoutNavLinkClass: Boolean,
   },
   computed: {
     navLinkClass() {
-      let navLinkClass = "nav-link";
+      let navLinkClass = "";
+      if (!this.withoutNavLinkClass) {
+        navLinkClass += " nav-link";
+      }
       if (this.disabled) {
         navLinkClass += " disabled";
       } else if (this.active) {
@@ -94,6 +100,29 @@ export default {
 
   .icon + * {
     margin-left: 0.5em;
+  }
+}
+
+.offcanvas.show {
+  .offcanvas-body {
+    .dropdown {
+      .dropdown-toggle {
+        padding: 0.4375rem 0;
+      }
+    }
+    .nav-link {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.navbar-collapse.show,
+.navbar-collapse.collapsing {
+  .dropdown {
+    .dropdown-toggle {
+      padding: 0.4375rem 0;
+    }
   }
 }
 </style>

@@ -1,3 +1,5 @@
+<!-- Версия 1.01 от 02.11.2023 -->
+
 <template>
   <router-link :to="href || '/'" class="navbar-brand" @click="$emit('click')">
     <img

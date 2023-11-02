@@ -1,6 +1,9 @@
+<!-- Версия 1.01 от 03.11.2023 -->
+
 <template>
   <nav :class="navbarClass">
     <vb-nav-bar-brand
+      v-if="brand"
       :href="brand.href"
       :name="brand.name"
       :image-src="brand.imageSrc"

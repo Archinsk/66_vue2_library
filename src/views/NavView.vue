@@ -1,8 +1,5 @@
 <template>
   <div class="about">
-    <h2>Кастомизированный компонент Vue2Nav</h2>
-    <div>Пока отсутствует</div>
-
     <h2>Кастомизированный Bootstrap компонент BS46Nav</h2>
     <div class="section">
       <vb-alert theme-color="warning"
@@ -15,24 +12,23 @@
         сторонние ресурсы
       </div>
       <div>
-        Принимает тэг (ul или nav, nav не может иметь выпадающих списков), тип
-        (tabs, pills, обычные ссылки без пропа), position (center, end, левое -
-        без указания пропа), флаг вертикального расположения, флаг заполнения
-        пунктами всей ширины, флаг равной ширины кнопок, флаг прокрутки
-        (используется совместно с компонентом NavBar).
+        Принимает строчный тэг (ul или nav - по умолчанию, nav не может иметь
+        выпадающих списков), тип (tabs, pills, обычные ссылки без пропа),
+        position (center, end, левое - без указания пропа), флаг вертикального
+        расположения, флаг заполнения пунктами всей ширины, флаг равной ширины
+        кнопок, флаг прокрутки (используется совместно с компонентом NavBar).
         <del
           >В структуре данных должна быть строка дополнительных классов (для
           адаптивности на эранах разной ширины), которые вешаются на
           навигацию.</del
         >
-        Все пункы пробрасываются в слот. В слот могут пробрасываться компоненты
-        в цикле. Для простого меню без выпадающих списков можно использовать с
-        пропом tag="nav" (или совсем без значения) и пробросом в слот компонента
+        Может принимать массив пунктов навигации, если его нет, то все пункты
+        пробрасываются в слот. В слот могут пробрасываться компоненты в цикле.
+        Для простого меню без выпадающих списков можно использовать с пропом
+        tag="nav" (или совсем без значения) и пробросом в слот компонента
         vb-nav-link. Для меню с выпадающими списками требуется tag="ul", в слот
-        пробрасываются в цикле компоненты vb-nav-item с проверкой. Если пункт
-        является выпадающим списком, то в его слот "dropdown-menu" в цикле
-        пробрасываются компоненты vb-dropdown-item. Добавлены стили,
-        выстраивающие пункты в столбец внутри элемента Offcanvas.
+        пробрасываются в цикле компоненты vb-nav-item с проверкой. Добавлены
+        стили, выстраивающие пункты в столбец внутри элемента Offcanvas.
       </div>
       <pre>
 props: {
@@ -42,11 +38,13 @@ props: {
   vertical: Boolean,
   fill: Boolean,
   justified: Boolean,
+  scroll: Boolean,
+  itemsList: Array,
 },
         </pre
       >
       <h3>Варианты использования</h3>
-      <div>Без пропов</div>
+      <div>Без пропов, пункты проброшены в слот</div>
       <vb-nav>
         <vb-nav-link
           v-for="navLink of defaultNav.itemsList"
@@ -59,79 +57,19 @@ props: {
         >
       </vb-nav>
       <div>Горизонтальное центрирование</div>
-      <vb-nav position="center">
-        <vb-nav-link
-          v-for="navLink of defaultNav.itemsList"
-          :key="navLink.id"
-          :type="navLink.type"
-          :href="navLink.href"
-          :active="navLink.active"
-          :disabled="navLink.disabled"
-          >{{ navLink.name }}</vb-nav-link
-        >
-      </vb-nav>
+      <vb-nav position="center" :itemsList="defaultNav.itemsList" />
       <div>Вертикальное расположение</div>
-      <vb-nav vertical>
-        <vb-nav-link
-          v-for="navLink of defaultNav.itemsList"
-          :key="navLink.id"
-          :type="navLink.type"
-          :href="navLink.href"
-          :active="navLink.active"
-          :disabled="navLink.disabled"
-          >{{ navLink.name }}</vb-nav-link
-        >
-      </vb-nav>
+      <vb-nav vertical :itemsList="defaultNav.itemsList" />
       <div>В виде табов</div>
-      <vb-nav type="tabs">
-        <vb-nav-link
-          v-for="navLink of defaultNav.itemsList"
-          :key="navLink.id"
-          :type="navLink.type"
-          :href="navLink.href"
-          :active="navLink.active"
-          :disabled="navLink.disabled"
-          >{{ navLink.name }}</vb-nav-link
-        >
-      </vb-nav>
+      <vb-nav type="tabs" :itemsList="defaultNav.itemsList" />
       <div>В виде кнопок</div>
-      <vb-nav type="pills">
-        <vb-nav-link
-          v-for="navLink of defaultNav.itemsList"
-          :key="navLink.id"
-          :type="navLink.type"
-          :href="navLink.href"
-          :active="navLink.active"
-          :disabled="navLink.disabled"
-          >{{ navLink.name }}</vb-nav-link
-        >
-      </vb-nav>
+      <vb-nav type="pills" :itemsList="defaultNav.itemsList" />
       <div>В виде кнопок, занимающих все пространство</div>
-      <vb-nav type="pills" fill>
-        <vb-nav-link
-          v-for="navLink of defaultNav.itemsList"
-          :key="navLink.id"
-          :type="navLink.type"
-          :href="navLink.href"
-          :active="navLink.active"
-          :disabled="navLink.disabled"
-          >{{ navLink.name }}</vb-nav-link
-        >
-      </vb-nav>
+      <vb-nav type="pills" fill :itemsList="defaultNav.itemsList" />
       <div>В виде кнопок равной ширины, занимающих все пространство</div>
-      <vb-nav type="pills" justified>
-        <vb-nav-link
-          v-for="navLink of defaultNav.itemsList"
-          :key="navLink.id"
-          :type="navLink.type"
-          :href="navLink.href"
-          :active="navLink.active"
-          :disabled="navLink.disabled"
-          >{{ navLink.name }}</vb-nav-link
-        >
-      </vb-nav>
-      <div>Ненумерованный список</div>
-      <vb-nav tag="ul">
+      <vb-nav type="pills" justified :itemsList="defaultNav.itemsList" />
+      <div>Ненумерованный список с пробросом в слот</div>
+      <vb-nav tag="ul" :itemsList="defaultNav.itemsList">
         <vb-nav-item
           v-for="navLink of defaultNav.itemsList"
           :key="navLink.id"
@@ -142,41 +80,8 @@ props: {
           >{{ navLink.name }}</vb-nav-item
         >
       </vb-nav>
-      <div>Ненумерованный список c выпадающим списком</div>
-      <vb-nav tag="ul">
-        <template v-for="navLink of defaultNav.itemsList">
-          <vb-nav-item
-            v-if="!navLink.dropdown"
-            :key="navLink.id"
-            :type="navLink.type"
-            :href="navLink.href"
-            :active="navLink.active"
-            :disabled="navLink.disabled"
-            >{{ navLink.name }}</vb-nav-item
-          >
-          <vb-nav-item
-            v-else
-            :key="navLink.id"
-            :type="navLink.type"
-            :href="navLink.href"
-            :active="navLink.active"
-            :disabled="navLink.disabled"
-            :dropdown="navLink.dropdown"
-            >{{ navLink.name }}
-            <template v-slot:dropdown-menu>
-              <vb-dropdown-item
-                v-for="dropdownItem of navLink.dropdownItemsList"
-                :key="dropdownItem.id"
-                :type="dropdownItem.type"
-                :href="dropdownItem.href"
-                :active="dropdownItem.active"
-                :disabled="dropdownItem.disabled"
-                >{{ dropdownItem.name }}</vb-dropdown-item
-              >
-            </template>
-          </vb-nav-item>
-        </template>
-      </vb-nav>
+      <div>Ненумерованный список со списком переданным через проп</div>
+      <vb-nav tag="ul" :itemsList="defaultNav.itemsList" />
       <h3>Действия компонента</h3>
       <div>Действия отсутствуют</div>
     </div>
@@ -188,10 +93,9 @@ import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
 import VbNavLink from "../components/Bootstrap_4.6.2/BS46NavLink";
 import VbNav from "../components/Bootstrap_4.6.2/BS46Nav";
 import VbNavItem from "../components/Bootstrap_4.6.2/BS46NavItem";
-import VbDropdownItem from "../components/Bootstrap_4.6.2/BS46DropdownItem";
 export default {
   name: "NavView",
-  components: { VbDropdownItem, VbNavItem, VbNav, VbNavLink, VbAlert },
+  components: { VbNavItem, VbNav, VbNavLink, VbAlert },
   data() {
     return {
       defaultNav: {

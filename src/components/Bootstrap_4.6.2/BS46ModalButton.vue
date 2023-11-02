@@ -1,3 +1,5 @@
+<!-- Версия 1.01 от 02.11.2023 -->
+
 <template>
   <vb-button-link
     v-if="tag === 'a'"
@@ -27,7 +29,6 @@
     :square="square"
     :icon="icon"
     :badge="badge"
-    :without-btn-class="withoutBtnClass"
     :additional-classes="additionalClasses"
     data-toggle="modal"
     :data-target="'#' + targetId"
@@ -52,8 +53,8 @@ export default {
     square: Boolean,
     icon: [Object, String],
     badge: Object,
-    withoutBtnClass: Boolean,
     additionalClasses: String,
+    withoutBtnClass: Boolean,
   },
 };
 </script>

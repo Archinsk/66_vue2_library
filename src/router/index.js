@@ -206,6 +206,11 @@ const routes = [
     component: () => import("../views/ButtonView"),
   },
   {
+    path: "/buttonlink",
+    name: "buttonLinkView",
+    component: () => import("../views/ButtonLinkView"),
+  },
+  {
     path: "/badge",
     name: "badgeView",
     component: () => import("../views/BadgeView"),

@@ -22,10 +22,10 @@
         BS46Modal. При создании вешает на body слушатель изменения размера окна.
         При изменении размера окна и достижения ширины окна точки сброса
         эффектов javaScript'ом добавляются или снимаются свойства с body и
-        offcanvas, убирается/добавляется элемент фона. Компонент имеет стили
-        переопределяющие стили стандартного Bootstrap-компонента modal. Также
-        содержит стили сброса эффектов. Внутри Offcanvas выпадающие списки
-        отображаются нестандартно, см.
+        offcanvas, убирается/добавляется элемент фона. Используется jquery.
+        Компонент имеет стили переопределяющие стили стандартного
+        Bootstrap-компонента modal. Также содержит стили сброса эффектов. Внутри
+        Offcanvas выпадающие списки отображаются нестандартно, см.
         <router-link to="navitem">NavItem</router-link> и
         <router-link to="dropdownitem">DropdownItem</router-link>
         <div class="text-danger">
@@ -180,40 +180,11 @@ props: {
         header
         no-effect-point="sm"
       >
-        <vb-nav tag="ul" class="navbar-nav">
-          <template v-for="navLink of defaultNav.itemsList">
-            <vb-nav-item
-              v-if="!navLink.dropdown"
-              :key="navLink.id"
-              :type="navLink.type"
-              :href="navLink.href"
-              :active="navLink.active"
-              :disabled="navLink.disabled"
-              >{{ navLink.name }}</vb-nav-item
-            >
-            <vb-nav-item
-              v-else
-              :key="navLink.id"
-              :type="navLink.type"
-              :href="navLink.href"
-              :active="navLink.active"
-              :disabled="navLink.disabled"
-              :dropdown="navLink.dropdown"
-              >{{ navLink.name }}
-              <template v-slot:dropdown-menu>
-                <vb-dropdown-item
-                  v-for="dropdownItem of navLink.dropdownItemsList"
-                  :key="dropdownItem.id"
-                  :type="dropdownItem.type"
-                  :href="dropdownItem.href"
-                  :active="dropdownItem.active"
-                  :disabled="dropdownItem.disabled"
-                  >{{ dropdownItem.name }}</vb-dropdown-item
-                >
-              </template>
-            </vb-nav-item>
-          </template>
-        </vb-nav>
+        <vb-nav
+          tag="ul"
+          :items-list="defaultNav.itemsList"
+          class="navbar-nav"
+        />
       </vb-offcanvas>
       <h3>Действия компонента</h3>
       <div>См. <router-link to="/modal">Modal</router-link></div>
@@ -226,13 +197,9 @@ import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
 import VbOffcanvasButton from "../components/Bootstrap_4.6.2/BS46OffcanvasButton";
 import VbOffcanvas from "../components/Bootstrap_4.6.2/BS46Offcanvas";
 import VbNav from "../components/Bootstrap_4.6.2/BS46Nav";
-import VbNavItem from "../components/Bootstrap_4.6.2/BS46NavItem";
-import VbDropdownItem from "../components/Bootstrap_4.6.2/BS46DropdownItem";
 export default {
   name: "TempView",
   components: {
-    VbDropdownItem,
-    VbNavItem,
     VbNav,
     VbOffcanvas,
     VbOffcanvasButton,

@@ -1,8 +1,5 @@
 <template>
   <div class="about">
-    <h2>Кастомизированный компонент Vue2OffcanvasButton</h2>
-    <div>Пока отсутствует</div>
-
     <h2>Кастомизированный Bootstrap компонент BS46OffcanvasButton</h2>
     <div class="section">
       <vb-alert theme-color="success"

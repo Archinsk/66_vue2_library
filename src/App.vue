@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!--    offcanvas-->
     <vb-header
       id="header"
       expand
@@ -45,6 +46,14 @@ export default {
             href: "/",
             active: false,
             disabled: false,
+            icon: "home",
+            badge: {
+              theme: "danger",
+              pill: true,
+              notNullDisplay: true,
+              value: 25,
+              max: 99,
+            },
           },
           {
             id: "nav-link-alert",
@@ -69,6 +78,14 @@ export default {
             href: "#",
             active: false,
             disabled: false,
+            icon: "",
+            badge: {
+              theme: "danger",
+              pill: true,
+              notNullDisplay: true,
+              value: 25,
+              max: 99,
+            },
             dropdown: true,
             dropdownItemsList: [
               {
@@ -96,6 +113,14 @@ export default {
                 href: "/accordion",
                 active: false,
                 disabled: false,
+                icon: "",
+                badge: {
+                  theme: "danger",
+                  pill: true,
+                  notNullDisplay: true,
+                  value: 25,
+                  max: 99,
+                },
               },
             ],
           },
@@ -124,22 +149,6 @@ export default {
             disabled: false,
             dropdown: true,
             dropdownItemsList: [
-              {
-                id: "dropdown-link-input",
-                name: "Input",
-                type: "router-link",
-                href: "/input",
-                active: false,
-                disabled: false,
-              },
-              {
-                id: "dropdown-link-textarea",
-                name: "Textarea",
-                type: "router-link",
-                href: "/textarea",
-                active: false,
-                disabled: false,
-              },
               {
                 id: "dropdown-link-select",
                 name: "Select",
@@ -187,19 +196,27 @@ export default {
                 href: "#",
                 active: false,
                 disabled: false,
+                icon: "folder",
+                badge: {
+                  theme: "danger",
+                  pill: true,
+                  notNullDisplay: true,
+                  value: 25,
+                  max: 99,
+                },
                 dropdown: true,
                 dropdownItemsList: [
                   {
-                    id: "dropdown-link-input3",
-                    name: "Level-3 Link-1",
+                    id: "dropdown-link-input",
+                    name: "Input",
                     type: "router-link",
                     href: "/input",
                     active: false,
                     disabled: false,
                   },
                   {
-                    id: "dropdown-link-textarea3",
-                    name: "Level-3 Link-2",
+                    id: "dropdown-link-textarea",
+                    name: "Textarea",
                     type: "router-link",
                     href: "/textarea",
                     active: false,
@@ -241,6 +258,7 @@ export default {
                 href: "/modalbutton",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
             ],
           },
@@ -251,6 +269,7 @@ export default {
             href: "#",
             active: false,
             disabled: false,
+            icon: "done",
             dropdown: true,
             dropdownItemsList: [
               {
@@ -260,6 +279,7 @@ export default {
                 href: "/nav",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
               {
                 id: "dropdown-link-nav-item",
@@ -268,6 +288,7 @@ export default {
                 href: "/navitem",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
               {
                 id: "dropdown-link-nav-link",
@@ -276,6 +297,7 @@ export default {
                 href: "/navlink",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
               {
                 id: "dropdown-link-nav-dropdown-item",
@@ -416,6 +438,7 @@ export default {
             href: "#",
             active: false,
             disabled: false,
+            icon: "done",
             dropdown: true,
             dropdownItemsList: [
               {
@@ -425,6 +448,7 @@ export default {
                 href: "/navbar",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
               {
                 id: "dropdown-link-nav-bar-brand",
@@ -433,6 +457,7 @@ export default {
                 href: "/navbarbrand",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
             ],
           },
@@ -443,6 +468,7 @@ export default {
             href: "#",
             active: false,
             disabled: false,
+            icon: "done",
             dropdown: true,
             dropdownItemsList: [
               {
@@ -452,6 +478,7 @@ export default {
                 href: "/offcanvas",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
               {
                 id: "dropdown-link-offcanvas-button",
@@ -485,10 +512,31 @@ export default {
             id: "nav-link-button",
             name: "Button",
             type: "router-link",
-            href: "/button",
-            icon: "done",
+            href: "#",
             active: false,
             disabled: false,
+            icon: "done",
+            dropdown: true,
+            dropdownItemsList: [
+              {
+                id: "dropdown-link-button",
+                name: "Button",
+                type: "router-link",
+                href: "/button",
+                active: false,
+                disabled: false,
+                icon: "done",
+              },
+              {
+                id: "dropdown-link-button-link",
+                name: "ButtonLink",
+                type: "router-link",
+                href: "/buttonlink",
+                active: false,
+                disabled: false,
+                icon: "done",
+              },
+            ],
           },
           {
             id: "nav-link-badge",
@@ -550,10 +598,16 @@ export default {
     findActiveNavItemByRouterPath(navItemsList, routePath) {
       for (let i = 0; i < navItemsList.length; i++) {
         if (navItemsList[i].dropdown) {
-          for (let j = 0; j < navItemsList[i].dropdownItemsList.length; j++) {
-            if (navItemsList[i].dropdownItemsList[j].href === routePath) {
-              return navItemsList[i].dropdownItemsList[j];
-            }
+          if (
+            this.findActiveNavItemByRouterPath(
+              navItemsList[i].dropdownItemsList,
+              routePath
+            )
+          ) {
+            return this.findActiveNavItemByRouterPath(
+              navItemsList[i].dropdownItemsList,
+              routePath
+            );
           }
         } else {
           if (navItemsList[i].href === routePath) {
@@ -562,32 +616,37 @@ export default {
         }
       }
     },
-    activateNavItem(navItemsList, selectedItem) {
-      navItemsList.forEach((navItem) => {
-        if (navItem.dropdown) {
-          let foundDropdownItem = false;
-          navItem.dropdownItemsList.forEach((dropdownItem) => {
-            if (dropdownItem === selectedItem) {
-              dropdownItem.active = true;
-              foundDropdownItem = true;
-            } else {
-              dropdownItem.active = false;
-              navItem.active = false;
-            }
+    activateNavItem(navItem, selectedItem, parentDropdownToggle) {
+      if ("id" in navItem) {
+        // Обработка элемента некорневого уровня
+        if (
+          navItem.dropdown &&
+          "dropdownItemsList" in navItem &&
+          navItem.dropdownItemsList.length
+        ) {
+          navItem.active = false;
+          navItem.dropdownItemsList.forEach((dropdown) => {
+            this.activateNavItem(dropdown, selectedItem, navItem);
           });
-          if (foundDropdownItem) {
-            navItem.active = true;
-          } else {
-            navItem.active = false;
+          if (navItem.active && parentDropdownToggle) {
+            parentDropdownToggle.active = true;
           }
         } else {
           if (navItem === selectedItem) {
             navItem.active = true;
+            if (parentDropdownToggle) {
+              parentDropdownToggle.active = true;
+            }
           } else {
             navItem.active = false;
           }
         }
-      });
+      } else {
+        // Обработка элемента корневого уровня
+        navItem.itemsList.forEach((navItem) => {
+          this.activateNavItem(navItem, selectedItem);
+        });
+      }
     },
 
     getWindowProperties() {
@@ -612,14 +671,14 @@ export default {
   watch: {
     "$route.params.path": {
       handler: function () {
+        console.log("Сработал слушатель роутера");
         let activeNavItem = this.findActiveNavItemByRouterPath(
           this.systemNav.itemsList,
           this.$route.path
         );
-        this.activateNavItem(this.systemNav.itemsList, activeNavItem);
+        this.activateNavItem(this.systemNav, activeNavItem);
       },
       deep: true,
-      immediate: true,
     },
   },
 };

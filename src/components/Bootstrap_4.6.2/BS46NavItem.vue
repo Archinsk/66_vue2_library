@@ -1,3 +1,5 @@
+<!-- Версия 1.01 от 02.11.2023 -->
+
 <template>
   <li :class="navItemClass">
     <template v-if="!dropdown">
@@ -25,13 +27,15 @@
     </template>
     <template v-else>
       <vb-nav-link
+        :id="id"
         :type="type"
         :href="href"
         :active="active"
         :disabled="disabled"
         :icon="icon"
         :badge="badge"
-        class="dropdown-toggle"
+        :class="dropdownLinkClass"
+        :without-nav-link-class="isNestedDropdown"
         role="button"
         data-toggle="dropdown"
         aria-expanded="false"
@@ -39,28 +43,45 @@
         ><slot></slot
       ></vb-nav-link>
       <div class="dropdown-menu">
-        <vb-dropdown-item
-          v-for="dropdownItem of dropdownItemsList"
-          :key="dropdownItem.id"
-          :type="dropdownItem.type"
-          :href="dropdownItem.href"
-          :active="dropdownItem.active"
-          :disabled="dropdownItem.disabled"
-          :dropdown="dropdownItem.dropdown"
-          :icon="dropdownItem.icon"
-          :badge="dropdownItem.badge"
-          :additional-classes="additionalClasses"
-          :window-data="windowData"
-          :dropdown-items-list="dropdownItem.dropdownItemsList"
-          @click="$emit('nav-link-click', dropdownItem)"
-          >{{ dropdownItem.name }}</vb-dropdown-item
-        >
+        <template v-for="dropdownItem of dropdownItemsList">
+          <vb-dropdown-item
+            v-if="!dropdownItem.dropdown"
+            :key="dropdownItem.id"
+            :type="dropdownItem.type"
+            :href="dropdownItem.href"
+            :active="dropdownItem.active"
+            :disabled="dropdownItem.disabled"
+            :icon="dropdownItem.icon"
+            @click="$emit('nav-link-click', dropdownItem)"
+            >{{ dropdownItem.name }}</vb-dropdown-item
+          >
+          <vb-nav-item
+            v-else
+            :key="dropdownItem.id"
+            :id="dropdownItem.id"
+            :type="dropdownItem.type"
+            :href="dropdownItem.href"
+            :active="dropdownItem.active"
+            :disabled="dropdownItem.disabled"
+            :dropdown="dropdownItem.dropdown"
+            :icon="dropdownItem.icon"
+            :badge="dropdownItem.badge"
+            :additional-classes="additionalClasses"
+            :window-data="windowData"
+            :dropdown-items-list="dropdownItem.dropdownItemsList"
+            is-nested-dropdown
+            @click="$emit('click', dropdownItem)"
+          >
+            {{ dropdownItem.name }}
+          </vb-nav-item>
+        </template>
       </div>
     </template>
   </li>
 </template>
 
 <script>
+import $ from "jquery";
 import VbNavLink from "./BS46NavLink";
 import VbModalButton from "./BS46ModalButton";
 import VbDropdownItem from "./BS46DropdownItem";
@@ -68,6 +89,7 @@ export default {
   name: "VbNavItem",
   components: { VbDropdownItem, VbModalButton, VbNavLink },
   props: {
+    id: String,
     type: String,
     href: String,
     active: Boolean,
@@ -78,14 +100,26 @@ export default {
     additionalClasses: Object,
     windowData: Object,
     dropdownItemsList: Array,
+    name: String,
+    isNestedDropdown: Boolean,
   },
   computed: {
     navItemClass() {
-      let navItemClass = "nav-item";
+      let navItemClass = "";
+      if (!this.isNestedDropdown) {
+        navItemClass += "nav-item";
+      }
       if (this.dropdown) {
         navItemClass += " dropdown";
       }
       return navItemClass;
+    },
+    dropdownLinkClass() {
+      let dropdownLinkClass = "dropdown-toggle";
+      if (this.isNestedDropdown) {
+        dropdownLinkClass += " dropdown-item";
+      }
+      return dropdownLinkClass;
     },
     linkIsSquareButton() {
       let additionalClassesArray;
@@ -107,6 +141,22 @@ export default {
       );
     },
   },
+  mounted() {
+    if (this.dropdown && this.isNestedDropdown) {
+      $("#" + this.id).on("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if ($(this).parent().hasClass("show")) {
+          $(this).parent().removeClass("show");
+          $(this).next().removeClass("show");
+        } else {
+          $(this).parent().addClass("show");
+          $(this).next().addClass("show");
+        }
+      });
+    }
+  },
 };
 </script>
 
@@ -114,6 +164,29 @@ export default {
 .nav-item {
   padding-top: 0.0625rem;
   padding-bottom: 0.0625rem;
+}
+
+.navbar-dark {
+  .offcanvas.show {
+    .offcanvas-body {
+      .dropdown-menu {
+        background-color: hsla(0, 0%, 100%, 0.2);
+      }
+    }
+    .nav-item {
+      padding: 0;
+    }
+  }
+
+  .navbar-collapse.show,
+  .navbar-collapse.collapsing {
+    .dropdown-menu {
+      background-color: hsla(0, 0%, 100%, 0.2);
+    }
+    .nav-item {
+      padding: 0;
+    }
+  }
 }
 
 .offcanvas.show {
@@ -124,7 +197,7 @@ export default {
         transform: translate3d(0px, 0px, 0px) !important;
         border: none;
         border-radius: unset;
-        padding: 0;
+        padding: 0 0 0 1rem;
         margin-top: 0;
       }
     }
@@ -152,6 +225,41 @@ export default {
     &.offcanvas-xl {
       @include static-dropdown-menu;
     }
+  }
+}
+
+@mixin static-dropdown-menu {
+  .navbar-collapse.show,
+  .navbar-collapse.collapsing {
+    .dropdown-menu {
+      position: unset !important;
+      transform: translate3d(0px, 0px, 0px) !important;
+      border: none;
+      border-radius: unset;
+      padding: 0 0 0 1rem;
+      margin-top: 0;
+    }
+  }
+}
+
+.navbar-expand-sm {
+  @media (max-width: 575.98px) {
+    @include static-dropdown-menu;
+  }
+}
+.navbar-expand-md {
+  @media (max-width: 767.98px) {
+    @include static-dropdown-menu;
+  }
+}
+.navbar-expand-lg {
+  @media (max-width: 991.98px) {
+    @include static-dropdown-menu;
+  }
+}
+.navbar-expand-xl {
+  @media (max-width: 1199.98px) {
+    @include static-dropdown-menu;
   }
 }
 </style>

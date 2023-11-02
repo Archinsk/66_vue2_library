@@ -1,3 +1,5 @@
+<!-- Версия 1.01 от 02.11.2023 -->
+
 <template>
   <div
     :class="offcanvasClass"
@@ -13,7 +15,7 @@
         <div v-if="header" class="modal-header offcanvas-header">
           <slot v-if="noTitle" name="offcanvas-header"></slot>
           <h5 v-else class="modal-title" :id="id + 'Label'">
-            <slot name="modal-header"></slot>
+            <slot name="offcanvas-header"></slot>
           </h5>
           <button
             v-if="!noCloseButton"
@@ -28,8 +30,8 @@
         <div class="modal-body offcanvas-body">
           <slot></slot>
         </div>
-        <div v-if="footer" class="offcanvas-footer">
-          <slot name="modal-footer"></slot>
+        <div v-if="footer" class="modal-footer offcanvas-footer">
+          <slot name="offcanvas-footer"></slot>
         </div>
       </div>
     </div>

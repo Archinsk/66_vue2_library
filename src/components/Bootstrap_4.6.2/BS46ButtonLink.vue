@@ -1,3 +1,5 @@
+<!-- Версия 1.01 от 02.11.2023 -->
+
 <template>
   <a :href="href" :class="btnClass" @click="$emit('click')">
     <vb-icon
@@ -24,8 +26,8 @@ export default {
     block: Boolean,
     square: Boolean,
     icon: [Object, String],
-    withoutBtnClass: Boolean,
     additionalClasses: String,
+    withoutBtnClass: Boolean,
   },
   computed: {
     btnClass() {
@@ -120,32 +122,4 @@ export default {
     @include btn-square-on-point;
   }
 }
-
-/*.nav-link {
-  border: 1px solid transparent;
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-
-  &.btn-square {
-    .icon + * {
-      display: none;
-    }
-  }
-
-  @mixin btn-square-text-no-effect {
-    &.btn-square {
-      .icon + * {
-        display: inline;
-      }
-    }
-  }
-
-  @media (max-width: 1199.98px) {
-    &.btn-not-square-xl {
-      @include btn-square-text-no-effect;
-    }
-  }
-}*/
 </style>
