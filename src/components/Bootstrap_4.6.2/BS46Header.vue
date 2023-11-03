@@ -1,14 +1,17 @@
+<!-- Версия 1.01 от 02.11.2023 -->
+
 <template>
-  <header :class="container && theme ? 'bg-' + theme : ''">
+  <header v-if="nav || brand" :class="container && theme ? 'bg-' + theme : ''">
     <div :class="container ? 'container' : ''">
       <vb-nav-bar
+        :id="id ? id + '-navbar' : ''"
         :expand="offcanvas || expand"
         :expand-size="expandSize && !offcanvas ? expandSize : ''"
         :theme="theme"
         :dark="dark"
         :monochrome-brand-image="monochrome"
         :brand="brand"
-        :without-toggler="offcanvas"
+        :without-toggler="!isCollapseButton"
         :justify-content="justifyContent"
         :class="container ? 'px-0' : ''"
       >
@@ -18,53 +21,25 @@
           :id="id + 'offcanvas'"
           :no-effect-point="expand && expandSize ? expandSize : ''"
           :theme="theme"
-          scrollable
+          :scrollable="scroll"
         >
-          <vb-nav tag="ul" class="navbar-nav">
-            <template v-for="navLink of nav.itemsList">
-              <vb-nav-item
-                :key="navLink.id"
-                :id="navLink.id"
-                :type="navLink.type"
-                :href="navLink.href"
-                :active="navLink.active"
-                :disabled="navLink.disabled"
-                :icon="navLink.icon"
-                :badge="navLink.badge"
-                :additional-classes="navLink.additionalClasses || {}"
-                :window-data="windowData"
-                :dropdown="navLink.dropdown"
-                :dropdown-items-list="navLink.dropdownItemsList"
-                @click="$emit('nav-link-click', navLink)"
-                >{{ navLink.name }}</vb-nav-item
-              >
-            </template>
-          </vb-nav>
+          <vb-nav
+            v-if="nav && nav.itemsList"
+            tag="ul"
+            class="navbar-nav"
+            :items-list="nav.itemsList"
+          />
         </vb-offcanvas>
         <!-- Вариант без выезжающей панели (стандартный Bootstrap)-->
-        <vb-nav v-else tag="ul" class="navbar-nav">
-          <template v-for="navLink of nav.itemsList">
-            <vb-nav-item
-              :key="navLink.id"
-              :id="navLink.id"
-              :type="navLink.type"
-              :href="navLink.href"
-              :active="navLink.active"
-              :disabled="navLink.disabled"
-              :icon="navLink.icon"
-              :badge="navLink.badge"
-              :additional-classes="navLink.additionalClasses || {}"
-              :window-data="windowData"
-              :dropdown="navLink.dropdown"
-              :dropdown-items-list="navLink.dropdownItemsList"
-              @click="$emit('nav-link-click', navLink)"
-              >{{ navLink.name }}</vb-nav-item
-            >
-          </template>
-        </vb-nav>
-        <template v-slot:navbar-end>
+        <vb-nav
+          v-else-if="nav && nav.itemsList"
+          :scroll="scroll"
+          tag="ul"
+          class="navbar-nav"
+          :items-list="nav.itemsList"
+        />
+        <template v-if="isOffcanvasButton" v-slot:navbar-end>
           <vb-offcanvas-button
-            v-if="offcanvas"
             :target-id="id + 'offcanvas'"
             :class="'d-' + expandSize + '-none'"
             theme="outline-light"
@@ -81,13 +56,11 @@
 import VbNavBar from "./BS46NavBar";
 import VbOffcanvas from "./BS46Offcanvas";
 import VbNav from "./BS46Nav";
-import VbNavItem from "./BS46NavItem";
 import VbOffcanvasButton from "./BS46OffcanvasButton";
 export default {
   name: "VbHeader",
   components: {
     VbOffcanvasButton,
-    VbNavItem,
     VbNav,
     VbOffcanvas,
     VbNavBar,
@@ -104,8 +77,28 @@ export default {
     nav: Object,
     container: Boolean,
     justifyContent: String,
+    scroll: Boolean,
     windowData: Object,
   },
-  computed: {},
+  computed: {
+    isCollapseButton() {
+      return !!(
+        !this.offcanvas &&
+        this.nav &&
+        this.nav.itemsList &&
+        this.nav.itemsList.length &&
+        !(this.expand && !this.expandSize)
+      );
+    },
+    isOffcanvasButton() {
+      return !!(
+        this.offcanvas &&
+        this.nav &&
+        this.nav.itemsList &&
+        this.nav.itemsList.length &&
+        !(this.expand && !this.expandSize)
+      );
+    },
+  },
 };
 </script>

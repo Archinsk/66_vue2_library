@@ -4,7 +4,7 @@
   <ul
     v-if="tag === 'ul'"
     :class="navClass"
-    :style="scroll ? 'max-height: 6.25rem;' : ''"
+    :style="scroll ? 'max-height: 7.5rem;' : ''"
   >
     <template v-if="itemsList">
       <vb-nav-item

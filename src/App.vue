@@ -671,7 +671,6 @@ export default {
   watch: {
     "$route.params.path": {
       handler: function () {
-        console.log("Сработал слушатель роутера");
         let activeNavItem = this.findActiveNavItemByRouterPath(
           this.systemNav.itemsList,
           this.$route.path

@@ -1,7 +1,7 @@
 <!-- Версия 1.01 от 03.11.2023 -->
 
 <template>
-  <nav :class="navbarClass">
+  <nav :class="navbarClass" :id="id">
     <vb-nav-bar-brand
       v-if="brand"
       :href="brand.href"
@@ -13,13 +13,16 @@
     <vb-collapse-button
       v-if="!withoutToggler"
       aria-label="Toggle navigation"
-      target-id="navbarCollapseContent"
+      :target-id="id ? id + '-collapse' : 'navbarCollapseContent'"
       theme="outline-light"
       square
       icon="menu"
       :class="'d-' + expandSize + '-none'"
     />
-    <vb-collapse class="navbar-collapse" id="navbarCollapseContent">
+    <vb-collapse
+      class="navbar-collapse"
+      :id="id ? id + '-collapse' : 'navbarCollapseContent'"
+    >
       <slot></slot>
     </vb-collapse>
     <slot name="navbar-end"></slot>
@@ -38,6 +41,7 @@ export default {
     VbNavBarBrand,
   },
   props: {
+    id: String,
     dark: Boolean,
     theme: String,
     scroll: Boolean,
