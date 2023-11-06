@@ -1,4 +1,4 @@
-<!-- Версия 1.01 от 02.11.2023 -->
+<!-- Версия 1.01 от 04.11.2023 -->
 
 <template>
   <header v-if="nav || brand" :class="container && theme ? 'bg-' + theme : ''">
@@ -28,6 +28,7 @@
             tag="ul"
             class="navbar-nav"
             :items-list="nav.itemsList"
+            :window-data="windowData"
           />
         </vb-offcanvas>
         <!-- Вариант без выезжающей панели (стандартный Bootstrap)-->
@@ -37,6 +38,7 @@
           tag="ul"
           class="navbar-nav"
           :items-list="nav.itemsList"
+          :window-data="windowData"
         />
         <template v-if="isOffcanvasButton" v-slot:navbar-end>
           <vb-offcanvas-button

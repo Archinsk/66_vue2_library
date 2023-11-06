@@ -1,8 +1,5 @@
 <template>
   <div class="about">
-    <h2>Кастомизированный компонент Vue2NavTabs</h2>
-    <div>Пока отсутствует</div>
-
     <h2>Кастомизированный Bootstrap компонент BS46NavTabs</h2>
     <div class="section">
       <vb-alert theme-color="warning"
@@ -12,16 +9,20 @@
       <h3>Описание</h3>
       <div>Назначение: навигация в виде вкладок</div>
       <div>
-        Принимает идентификатор, флаг отображения в виде кнопок, позицию
-        (center, end, левое - без указания пропа), флаг вертикального
+        Принимает строчный идентификатор, флаг отображения в виде кнопок, строку
+        позиции (center, end, левое - без указания пропа), флаг вертикального
         расположения, флаг заполнения пунктами всей ширины, флаг равной ширины
-        кнопок. В структуре данных должна быть строка дополнительных классов
-        (для адаптивности на эранах разной ширины), которые вешаются на обертку
-        пунктов навигации. Все пункы пробрасываются в слот. В слот должны
-        пробрасываться компоненты в цикле. Компонент выполнен на базе компонента
-        BS46Nav. По флагу pills определяется тип пунктов и передается в vb-nav,
-        идентификатор присваивается vb-nav. Остальные пропы пробрасываются
-        дальше.
+        кнопок, массив пкнктов навигации. Если массим пунктов не передан, то все
+        пункы пробрасываются в дефолтный слот. Если передан массив пунктов, то
+        компонент генерирует в цикле компоненты BS46NavTabLink. Компонент
+        выполнен на базе компонента BS46Nav. По флагу pills определяется тип
+        пунктов (tabs или pills) и передается в vb-nav, идентификатор
+        присваивается vb-nav. Остальные пропы пробрасываются дальше.
+      </div>
+      <div class="text-danger">
+        В структуре данных должна быть строка дополнительных классов (для
+        адаптивности на эранах разной ширины), которые вешаются на обертку
+        пунктов навигации.
       </div>
       <pre>
 props: {
@@ -31,10 +32,11 @@ props: {
   vertical: Boolean,
   fill: Boolean,
   justified: Boolean,
+  itemsList: Array,
 }</pre
       >
       <h3>Варианты использования</h3>
-      <div>В виде табов</div>
+      <div>В виде табов с пробросом пунктов в дефолтный слот</div>
       <vb-nav-tabs id="nav-tab">
         <vb-nav-tab-link id="nav-link-01" href="nav-home" active
           >Первая</vb-nav-tab-link
@@ -51,7 +53,7 @@ props: {
         <vb-tab-pane id="nav-profile">Контент 2</vb-tab-pane>
         <vb-tab-pane id="nav-contact">Контент 3</vb-tab-pane>
       </vb-tab-content>
-      <div>В виде кнопок</div>
+      <div>В виде кнопок с пробросом пунктов в дефолтный слот</div>
       <vb-nav-tabs id="nav-tab-02" pills>
         <vb-nav-tab-link id="nav-link-04" href="nav-home-02" active
           >Первая</vb-nav-tab-link
@@ -67,6 +69,67 @@ props: {
         <vb-tab-pane id="nav-home-02" :active="true">Контент 4</vb-tab-pane>
         <vb-tab-pane id="nav-profile-02">Контент 5</vb-tab-pane>
         <vb-tab-pane id="nav-contact-02">Контент 6</vb-tab-pane>
+      </vb-tab-content>
+
+      <div>В виде кнопок c передачей массива</div>
+      <vb-nav-tabs id="tabs-01" :items-list="defaultNavTabs.itemsList" pills />
+      <vb-tab-content id="tabs-01" :items-list="defaultNavTabs.itemsList">
+        <template v-slot:tab-pane-01>Контент первой вкладки</template>
+        <template v-slot:tab-pane-02>Контент второй вкладки</template>
+        <template v-slot:tab-pane-03>Контент третьей вкладки</template>
+      </vb-tab-content>
+
+      <div>С выравниванием по правому краю</div>
+      <vb-nav-tabs
+        id="tabs-02"
+        :items-list="defaultNavTabs.itemsList"
+        pills
+        position="end"
+      />
+      <vb-tab-content id="tabs-02" :items-list="defaultNavTabs.itemsList">
+        <template v-slot:tab-pane-01>Контент первой вкладки</template>
+        <template v-slot:tab-pane-02>Контент второй вкладки</template>
+        <template v-slot:tab-pane-03>Контент третьей вкладки</template>
+      </vb-tab-content>
+
+      <div>Вертикальное расположение</div>
+      <vb-nav-tabs
+        id="tabs-03"
+        :items-list="defaultNavTabs.itemsList"
+        pills
+        vertical
+      />
+      <vb-tab-content id="tabs-03" :items-list="defaultNavTabs.itemsList">
+        <template v-slot:tab-pane-01>Контент первой вкладки</template>
+        <template v-slot:tab-pane-02>Контент второй вкладки</template>
+        <template v-slot:tab-pane-03>Контент третьей вкладки</template>
+      </vb-tab-content>
+
+      <div>На всю ширину</div>
+      <vb-nav-tabs
+        id="tabs-04"
+        :items-list="defaultNavTabs.itemsList"
+        pills
+        fill
+      />
+      <vb-tab-content id="tabs-04" :items-list="defaultNavTabs.itemsList">
+        <template v-slot:tab-pane-01>Контент первой вкладки</template>
+        <template v-slot:tab-pane-02>Контент второй вкладки</template>
+        <template v-slot:tab-pane-03>Контент третьей вкладки</template>
+      </vb-tab-content>
+
+      <div>На всю ширину с кнопками равной ширины</div>
+      <vb-nav-tabs
+        id="tabs-05"
+        :items-list="defaultNavTabs.itemsList"
+        pills
+        fill
+        justified
+      />
+      <vb-tab-content id="tabs-05" :items-list="defaultNavTabs.itemsList">
+        <template v-slot:tab-pane-01>Контент первой вкладки</template>
+        <template v-slot:tab-pane-02>Контент второй вкладки</template>
+        <template v-slot:tab-pane-03>Контент третьей вкладки</template>
       </vb-tab-content>
       <h3>Действия компонента</h3>
       <div>
@@ -94,82 +157,14 @@ export default {
   },
   data() {
     return {
-      defaultNav: {
+      defaultNavTabs: {
         itemsList: [
+          { id: "tab-pane-01", active: true, name: "Первая" },
+          { id: "tab-pane-02", active: false, name: "Вторая" },
           {
-            id: "link-alert",
-            name: "Alert",
-            type: "router-link",
-            href: "/alert",
+            id: "tab-pane-03",
             active: false,
-            disabled: false,
-          },
-          {
-            id: "link-form",
-            name: "Form",
-            type: "router-link",
-            href: "/form",
-            active: false,
-            disabled: false,
-          },
-          {
-            id: "link-modal",
-            name: "Modal",
-            type: "router-link",
-            href: "/modal",
-            active: true,
-            disabled: false,
-          },
-          {
-            id: "link-preloader",
-            name: "Preloader",
-            type: "router-link",
-            href: "/preloader",
-            active: false,
-            disabled: true,
-          },
-          {
-            id: "link-pagination",
-            name: "Pagination",
-            type: "router-link",
-            href: "",
-            active: false,
-            disabled: false,
-            dropdown: true,
-            dropdownItemsList: [
-              {
-                id: "link-pagination",
-                name: "Pagination",
-                type: "router-link",
-                href: "/pagination",
-                active: true,
-                disabled: false,
-              },
-              {
-                id: "link-pagination-items-per-page",
-                name: "PaginationItemsPerPage",
-                type: "router-link",
-                href: "/paginationitemsperpage",
-                active: false,
-                disabled: false,
-              },
-              {
-                id: "link-pagination-page-selector",
-                name: "PaginationPageSelector",
-                type: "router-link",
-                href: "/paginationpageselector",
-                active: false,
-                disabled: false,
-              },
-              {
-                id: "link-pagination-button",
-                name: "PaginationButton",
-                type: "router-link",
-                href: "/paginationbutton",
-                active: false,
-                disabled: true,
-              },
-            ],
+            name: "Третья (удлинненная кнопка)",
           },
         ],
       },

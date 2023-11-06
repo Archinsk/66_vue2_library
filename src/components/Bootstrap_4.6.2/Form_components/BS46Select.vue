@@ -1,7 +1,9 @@
 <template>
   <vb-form-group
     :additional-classes="
-      additionalClasses?.group ? additionalClasses.group : ''
+      additionalClasses && additionalClasses.group
+        ? additionalClasses.group
+        : ''
     "
     :horizontal="horizontal"
   >
@@ -24,7 +26,7 @@
         <option disabled value="">
           {{ defaultValueLabel ? defaultValueLabel : "Выберите..." }}
         </option>
-        <template v-if="itemsList?.length">
+        <template v-if="itemsList && itemsList.length">
           <option
             v-for="option of itemsList"
             :value="option.value"
@@ -47,7 +49,7 @@
           <option disabled value="">
             {{ defaultValueLabel ? defaultValueLabel : "Выберите..." }}
           </option>
-          <template v-if="itemsList?.length">
+          <template v-if="itemsList && itemsList.length">
             <option
               v-for="option of itemsList"
               :value="option.value"
@@ -76,7 +78,7 @@
         <option disabled value="">
           {{ defaultValueLabel ? defaultValueLabel : "Выберите..." }}
         </option>
-        <template v-if="itemsList?.length">
+        <template v-if="itemsList && itemsList.length">
           <option
             v-for="option of itemsList"
             :value="option.value"
@@ -100,7 +102,7 @@
           <option disabled value="">
             {{ defaultValueLabel ? defaultValueLabel : "Выберите..." }}
           </option>
-          <template v-if="itemsList?.length">
+          <template v-if="itemsList && itemsList.length">
             <option
               v-for="option of itemsList"
               :value="option.value"
@@ -248,17 +250,19 @@ export default {
       if (!this.horizontal) {
         labelClass += "form-label";
       } else {
-        labelClass += this.additionalClasses?.label
-          ? this.additionalClasses.label
-          : "col";
+        labelClass +=
+          this.additionalClasses && this.additionalClasses.label
+            ? this.additionalClasses.label
+            : "col";
       }
       return labelClass;
     },
     fieldClass: function () {
       let fieldClass = "";
-      fieldClass += this.additionalClasses?.field
-        ? this.additionalClasses.field
-        : "col";
+      fieldClass +=
+        this.additionalClasses && this.additionalClasses.field
+          ? this.additionalClasses.field
+          : "col";
       return fieldClass;
     },
     changedValues: function () {
@@ -286,9 +290,9 @@ export default {
 
   created() {
     if (!this.multiple) {
-      if (this.values?.length === 1) {
+      if (this.values && this.values.length === 1) {
         this.selectedValue = this.values[0];
-      } else if (this.values?.length === 0) {
+      } else if (this.values && this.values.length === 0) {
         this.selectedValue = "";
       }
     }
@@ -300,9 +304,9 @@ export default {
   watch: {
     values: function () {
       if (!this.multiple) {
-        if (this.values?.length === 1) {
+        if (this.values && this.values.length === 1) {
           this.selectedValue = this.values[0];
-        } else if (this.values?.length === 0) {
+        } else if (this.values && this.values.length === 0) {
           this.selectedValue = "";
         }
       }

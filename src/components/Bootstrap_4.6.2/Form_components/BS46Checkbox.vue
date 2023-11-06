@@ -2,7 +2,9 @@
   <vb-form-group
     v-if="!grouped"
     :additional-classes="
-      additionalClasses?.group ? additionalClasses.group : ''
+      additionalClasses && additionalClasses.group
+        ? additionalClasses.group
+        : ''
     "
   >
     <div :class="wrapperClass">

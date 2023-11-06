@@ -1,7 +1,9 @@
 <template>
   <vb-form-group
     :additional-classes="
-      additionalClasses?.group ? additionalClasses.group : ''
+      additionalClasses && additionalClasses.group
+        ? additionalClasses.group
+        : ''
     "
     :horizontal="horizontal"
   >

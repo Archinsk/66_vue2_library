@@ -1,8 +1,5 @@
 <template>
   <div class="about">
-    <h2>Кастомизированный компонент Vue2TabPane</h2>
-    <div>Пока отсутствует</div>
-
     <h2>Кастомизированный Bootstrap компонент BS46TabPane</h2>
     <div class="section">
       <vb-alert theme-color="success"
@@ -11,8 +8,9 @@
       <h3>Описание</h3>
       <div>Назначение: отображение контента на таб-вкладке</div>
       <div>
-        Принимает идентификатор (требуется для активации панели) и флаг
-        активности
+        Несамостоятельный компонент используется только внутри компонента
+        BS46TabContent. Принимает строчный идентификатор (требуется для
+        активации панели) и флаг активности
       </div>
       <pre>
 props: {
@@ -21,21 +19,32 @@ props: {
 },</pre
       >
       <h3>Варианты использования</h3>
-      <div>См. <router-link to="/navtabs">NavTabs</router-link></div>
+      <vb-nav-tabs pills>
+        <vb-nav-tab-link href="content-01">Кнопка 1</vb-nav-tab-link>
+        <vb-nav-tab-link href="content-02">Кнопка 2</vb-nav-tab-link>
+      </vb-nav-tabs>
+      <vb-tab-content>
+        <vb-tab-pane id="content-01"
+          >Неактивная по умолчанию вкладка</vb-tab-pane
+        >
+        <vb-tab-pane id="content-02" active
+          >Активная по умолчанию вкладка</vb-tab-pane
+        >
+      </vb-tab-content>
       <h3>Действия компонента</h3>
-      <div>Требуется доработка</div>
+      <div>Действия отсутствуют</div>
     </div>
   </div>
 </template>
 
 <script>
 import VbAlert from "../components/Bootstrap_4.6.2/BS46Alert";
+import VbTabContent from "../components/Bootstrap_4.6.2/BS46TabContent";
+import VbTabPane from "../components/Bootstrap_4.6.2/BS46TabPane";
+import VbNavTabs from "../components/Bootstrap_4.6.2/BS46NavTabs";
+import VbNavTabLink from "../components/Bootstrap_4.6.2/BS46NavTabLink";
 export default {
   name: "TabPaneView",
-  components: { VbAlert },
-  data() {
-    return {};
-  },
-  methods: {},
+  components: { VbNavTabLink, VbNavTabs, VbTabPane, VbTabContent, VbAlert },
 };
 </script>

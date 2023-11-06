@@ -1,7 +1,9 @@
+<!-- Версия 1.01 от 06.11.2023 -->
+
 <template>
   <vb-nav-link
     type="a"
-    :id="id"
+    :id="id + '-tab'"
     :href="`#${href}`"
     :active="active"
     :disabled="disabled"
@@ -15,7 +17,6 @@
 </template>
 
 <script>
-import $ from "jquery";
 import VbNavLink from "./BS46NavLink";
 export default {
   name: "VbNavTabLink",
@@ -25,21 +26,6 @@ export default {
     href: String,
     active: Boolean,
     disabled: Boolean,
-  },
-  mounted() {
-    $("#" + this.id)
-      .on("show.bs.tab", () => {
-        this.$emit("show-tab", this.id);
-      })
-      .on("shown.bs.tab", () => {
-        this.$emit("shown-tab", this.id);
-      })
-      .on("hide.bs.tab", () => {
-        this.$emit("hide-tab", this.id);
-      })
-      .on("hidden.bs.tab", () => {
-        this.$emit("hidden-tab", this.id);
-      });
   },
 };
 </script>

@@ -363,13 +363,23 @@ export default {
           },
           {
             id: "nav-link-tabs",
-            name: "Tab",
+            name: "Tabs",
             type: "router-link",
             href: "#",
             active: false,
             disabled: false,
+            icon: "done",
             dropdown: true,
             dropdownItemsList: [
+              {
+                id: "dropdown-link-tabs",
+                name: "Tabs",
+                type: "router-link",
+                href: "/tabs",
+                active: false,
+                disabled: false,
+                icon: "done",
+              },
               {
                 id: "dropdown-link-nav-tabs",
                 name: "NavTabs",
@@ -377,6 +387,7 @@ export default {
                 href: "/navtabs",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
               {
                 id: "dropdown-link-nav-tab-link",
@@ -385,6 +396,7 @@ export default {
                 href: "/navtablink",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
               {
                 id: "dropdown-link-tab-content",
@@ -393,6 +405,7 @@ export default {
                 href: "/tabcontent",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
               {
                 id: "dropdown-link-tab-pane",
@@ -401,6 +414,7 @@ export default {
                 href: "/tabpane",
                 active: false,
                 disabled: false,
+                icon: "done",
               },
             ],
           },

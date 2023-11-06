@@ -141,6 +141,11 @@ const routes = [
     component: () => import("../views/DropdownItemView.vue"),
   },
   {
+    path: "/tabs",
+    name: "tabsView",
+    component: () => import("../views/TabsView.vue"),
+  },
+  {
     path: "/navtabs",
     name: "navTabsView",
     component: () => import("../views/NavTabsView.vue"),

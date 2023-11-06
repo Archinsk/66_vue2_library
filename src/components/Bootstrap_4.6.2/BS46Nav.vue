@@ -16,10 +16,11 @@
         :active="navLink.active"
         :disabled="navLink.disabled"
         :dropdown="navLink.dropdown"
+        :dropdown-items-list="navLink.dropdownItemsList"
         :icon="navLink.icon"
         :badge="navLink.badge"
         :additionalClasses="navLink.additionalClasses"
-        :windowData="navLink.windowData"
+        :windowData="windowData"
         :name="navLink.name"
         >{{ navLink.name }}</vb-nav-item
       >
@@ -38,6 +39,7 @@
         :icon="navLink.icon"
         :badge="navLink.badge"
         :additional-classes="navLink.additionalClasses"
+        :windowData="windowData"
         >{{ navLink.name }}</vb-nav-link
       >
     </template>
@@ -60,6 +62,7 @@ export default {
     justified: Boolean,
     scroll: Boolean,
     itemsList: Array,
+    windowData: Object,
   },
   computed: {
     navClass() {

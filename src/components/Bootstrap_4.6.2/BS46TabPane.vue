@@ -1,3 +1,5 @@
+<!-- Версия 1.01 от 06.11.2023 -->
+
 <template>
   <div
     :class="tabPaneClass"
