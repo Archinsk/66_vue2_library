@@ -150,7 +150,7 @@ props: {
       <h3>Структура данных для компонента</h3>
       <pre>{{ defaultNavBar }}</pre>
       <h3>Действия компонента</h3>
-      <div>Действия отсутствуют</div>
+      <div>Возвращает @nav-bar-brand-click(action)</div>
     </div>
   </div>
 </template>

@@ -13,6 +13,7 @@
       :nav="systemNav"
       justify-content="between"
       :window-data="windowData"
+      @nav-bar-brand-click="headerAction($event)"
     />
     <vb-modal id="modal-test">Тестовое модальное окно</vb-modal>
     <div class="container">
@@ -33,9 +34,11 @@ export default {
         widthSize: "",
       },
       brand: {
+        type: "action-link",
         href: "/",
         name: "Viewer Studio",
         imageSrc: "images/viewer-logo.svg",
+        action: { methodName: "tempLog", argument: "Some text" },
       },
       systemNav: {
         itemsList: [
@@ -676,6 +679,13 @@ export default {
       } else {
         this.windowData.widthSize = "xs";
       }
+    },
+
+    headerAction(action) {
+      this[action.methodName](action.argument);
+    },
+    tempLog(text) {
+      console.log(text);
     },
   },
   created() {

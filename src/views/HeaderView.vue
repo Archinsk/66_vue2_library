@@ -304,7 +304,9 @@ props: {
       />
 
       <h3>Действия компонента</h3>
-      <div>Возвращает событие @nav-link-click</div>
+      <div>
+        Возвращает событие @nav-link-click и @nav-bar-brand-click(action)
+      </div>
     </div>
   </div>
 </template>
