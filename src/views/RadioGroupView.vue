@@ -49,6 +49,16 @@ props: {
         disabled
         :additional-classes="defaultRadioGroup.additionalClasses"
       />
+      <vb-radio-group
+        id="radios3"
+        :title="defaultRadioGroup.title"
+        :items-list="defaultRadioGroup.itemsList"
+        :value="defaultRadioGroup.value"
+        :required="defaultRadioGroup.required"
+        :disabled="defaultRadioGroup.disabled"
+        :additional-classes="defaultRadioGroup.additionalClasses"
+        button-mode
+      />
       <h3>Структура данных для компонента</h3>
       <pre>{{ defaultRadioGroup }}</pre>
       <h3>Действия компонента</h3>
